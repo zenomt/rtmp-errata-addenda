@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>RTMP Errata and Addenda</title>
+<meta content="Michael C. Thornburgh" name="author">
+<meta content="
+       
+
+ The specification for Adobe's Real-Time Messaging Protocol
+ (RTMP), last updated in December 2012, contains errors,
+ omissions, and ambiguities that impede interoperation. This
+ memo corrects, clarifies, and amends portions of the RTMP
+ specification.
+
+       
+    " name="description">
+<meta content="xml2rfc 3.17.3" name="generator">
+<meta name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.17.3
+    Python 3.10.6
+    appdirs 1.4.4
+    ConfigArgParse 1.5.3
+    google-i18n-address 3.1.0
+    intervaltree 3.1.0
+    Jinja2 3.1.2
+    lxml 4.9.1
+    pycountry 22.3.5
+    PyYAML 6.0
+    requests 2.28.1
+    setuptools 63.2.0
+    six 1.16.0
+    wcwidth 0.2.6
+-->
+<link href="rtmp-errata-addenda.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+:root {
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
+}
+
+@viewport {
+  zoom: 1.0;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef,
+.iref + a[href].internal {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: var(--font-sans);
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  .breakable pre {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
+}
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body class="xml2rfc">
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left"></td>
+<td class="center">RTMP Errata and Addenda</td>
+<td class="right">June 2023</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Thornburgh</td>
+<td class="center">Informational</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2023-06-19" class="published">19 June 2023</time>
+    </dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">M. Thornburgh</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">RTMP Errata and Addenda</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">
+
+ The specification for Adobe's Real-Time Messaging Protocol
+ (RTMP), last updated in December 2012, contains errors,
+ omissions, and ambiguities that impede interoperation. This
+ memo corrects, clarifies, and amends portions of the RTMP
+ specification.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.1">
+      <h2 id="name-copyright-notice-2">
+<a href="#name-copyright-notice-2" class="section-name selfRef">Copyright Notice</a>
+      </h2>
+<p id="section-note.1-1">Copyright © 2023 Michael Thornburgh. All rights reserved.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the "Software"), to deal in the Software without
+ restriction, including without limitation the rights to use,
+ copy, modify, merge, publish, distribute, sublicense, and/or
+ sell copies of the Software, and to permit persons to whom
+ the Software is furnished to do so, subject to the following
+ conditions:<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">The above copyright notice and this permission notice shall
+ be included in all copies or substantial portions of the
+ Software.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+ AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ OR OTHER DEALINGS IN THE SOFTWARE.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+</section>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents-2">
+<a href="#name-table-of-contents-2" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction-2" class="internal xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-terminology-2" class="internal xref">Terminology</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-common-syntax-elements-2" class="internal xref">Common Syntax Elements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-additional-elementary-types-2" class="internal xref">Additional Elementary Types</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-byte-order-2" class="internal xref">Byte Order</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-chunk-basic-header-2" class="internal xref">Chunk Basic Header</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-chunk-message-header-2" class="internal xref">Chunk Message Header</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-timestamps-2" class="internal xref">Timestamps</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-chunk-message-header-extende" class="internal xref">Chunk Message Header Extended Timestamp</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-timestamp-order-of-messages-2" class="internal xref">Timestamp Order of Messages</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-rtmp-message-format-2" class="internal xref">RTMP Message Format</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations-2" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations-2" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references-2" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references-2" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address-2" class="internal xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<section id="section-1">
+      <h2 id="name-introduction-2">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction-2" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">At the time of writing, Adobe's Real-Time Messaging Protocol (RTMP) continues
+to be used by the media streaming industry and in media streaming products
+for transmitting live video and audio over IP networks, including between and
+through various stages of live video production, ingest, and distribution.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The <span><a href="#RTMP" class="internal xref">RTMP specification</a> [<a href="#RTMP" class="cite xref">RTMP</a>]</span> was last updated by Adobe
+in December 2012. That version contains numerous errors, omissions, and
+ambiguities that impede the independent development of correct and interoperable
+live streaming products.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">At the time of writing, the RTMP specification is considered to be an
+immutable historical artifact. This memo is intended to be referenced alongside
+<span>[<a href="#RTMP" class="cite xref">RTMP</a>]</span> to correct, clarify, and amend portions of the historical
+specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This memo addresses RTMP Version 3 as publicly described in
+<span>[<a href="#RTMP" class="cite xref">RTMP</a>]</span>. It does not address private or undocumented extensions
+for which interoperation is not desired by the extending parties.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<section id="section-1.1">
+        <h3 id="name-terminology-2">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-terminology-2" class="section-name selfRef">Terminology</a>
+        </h3>
+<p id="section-1.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>",
+"<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>",
+"<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>",
+"<span class="bcp14">NOT RECOMMENDED</span>", "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>"
+in this document are to be interpreted as described in BCP 14
+<span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</section>
+<section id="section-2">
+      <h2 id="name-common-syntax-elements-2">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-common-syntax-elements-2" class="section-name selfRef">Common Syntax Elements</a>
+      </h2>
+<p id="section-2-1">Definitions of types and structures in this specification use traditional
+text diagrams paired with procedural descriptions using a C-like syntax.  The
+C-like procedural descriptions <span class="bcp14">SHALL</span> be construed as definitive.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Structures are packed to take only as many bytes as explicitly indicated.
+There is no 32-bit alignment constraint, and fields are not padded for alignment
+unless explicitly indicated or described.  Text diagrams may include a bit
+ruler across the top; this is a convenience for counting bits in individual
+fields and does not necessarily imply field alignment on a multiple of the
+ruler width.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">Unless specified otherwise, reserved fields <span class="bcp14">SHOULD</span> be set
+to 0 by a sender and MUST be ignored by a receiver.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">The procedural syntax of this specification defines correct and error-free
+encoded inputs to a parser.  The procedural syntax does not describe a fully
+featured parser, including error detection and handling.  Implementations
+<span class="bcp14">MUST</span> include means to identify error circumstances, including
+truncations causing elementary or composed types not to fit inside containing
+structures, fields, or elements.  Unless specified otherwise, an error
+circumstance <span class="bcp14">SHALL</span> abort the parsing and processing of an
+element and its enclosing elements.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">This memo uses the elementary types and constructs described in
+<span><a href="https://rfc-editor.org/rfc/rfc7016#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#RFC7016" class="cite xref">RFC7016</a>]</span>.
+The definitions of that section are incorporated by reference as though fully
+set forth here.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<section id="section-2.1">
+        <h3 id="name-additional-elementary-types-2">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-additional-elementary-types-2" class="section-name selfRef">Additional Elementary Types</a>
+        </h3>
+<p id="section-2.1-1">This section lists additional elementary types used in the following
+sections.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlNewline" id="section-2.1-2">
+          <dt id="section-2.1-2.1"><code>uint24_t var;</code></dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.2">An unsigned integer 24 bits (3 bytes) in length, in network
+ byte order and byte aligned.<a href="#section-2.1-2.2" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-2.1-2.3"><code>uint16le_t var;</code></dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.4">An unsigned integer 16 bits (2 bytes) in length, in little-endian
+ byte order and byte aligned.<a href="#section-2.1-2.4" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-2.1-2.5"><code>uint32le_t var;</code></dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.6">An unsigned integer 32 bits (4 bytes) in length, in little-endian
+ byte order and byte aligned.<a href="#section-2.1-2.6" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</section>
+<section id="section-3">
+      <h2 id="name-byte-order-2">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-byte-order-2" class="section-name selfRef">Byte Order</a>
+      </h2>
+<p id="section-3-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#4-byte-order-alignment-and-time-format" class="relref">Section 4</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+states that "all integer fields are carried in network byte order". However,
+there are two exceptions in the specification where multi-byte integers are
+coded in little-endian byte order. To draw attention to these exceptions and
+to eliminate the dissonance between the exceptions and the statement, the
+first two sentences of that section are amended to read<a href="#section-3-1" class="pilcrow">¶</a></p>
+<blockquote id="section-3-2">
+Unless otherwise specified, multi-byte integer fields are carried in network
+byte order, byte zero is the first byte shown, and bit zero is the most
+significant bit in a word or field. This byte order is commonly known as
+"big-endian".<a href="#section-3-2" class="pilcrow">¶</a>
+</blockquote>
+<section id="section-3.1">
+        <h3 id="name-chunk-basic-header-2">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-chunk-basic-header-2" class="section-name selfRef">Chunk Basic Header</a>
+        </h3>
+<p id="section-3.1-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#5311-chunk-basic-header" class="relref">Section 5.3.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+describes the one, two, and three byte encodings of the Chunk Basic Header.
+The descriptive text gives a formula to decode the three-byte encoding as
+though the "<code>cs id - 64</code>" field is little-endian; however, this is not
+explicitly stated and is easy to miss given the diagrams and the description
+of the field as just "8 or 16 bits". This section clarifies the Chunk Basic
+Header encodings.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-ascii-art art-text artwork" id="section-3.1-2">
+<pre>
+ 0 1 2 3 4 5 6 7|
++-+-+-+-+-+-+-+-+
+|fmt|  2 .. 63  |
++-+-+-+-+-+-+-+-+
+
+ 0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|fmt|     0     |   cs id - 64  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ 0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|fmt|     1     |       cs id - 64 (LE)         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+struct chunkBasicHeader_t {
+    uintn_t fmt                      :2; // format
+    uintn_t provisionalChunkStreamID :6;
+    if (provisionalChunkStreamID &gt;= 2)
+        chunkStreamID = provisionalChunkStreamID; // one-byte form
+    else
+    {
+        if (0 == provisionalChunkStreamID)
+            uint8_t chunkStreamIDMinus64; // two-byte form
+        else // 1 == provisionalChunkStreamID
+            uint16le_t chunkStreamIDMinus64; // three-byte form
+        chunkStreamID = chunkStreamIDMinus64 + 64;
+    }
+} :variable*8;
+</pre><a href="#section-3.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-3.1-3">The <code>chunkStreamIDMinus64</code> field of the 3-byte form encodes the
+chunk stream ID less 64 in little-endian byte order.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+</section>
+<section id="section-3.2">
+        <h3 id="name-chunk-message-header-2">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-chunk-message-header-2" class="section-name selfRef">Chunk Message Header</a>
+        </h3>
+<p id="section-3.2-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#5312-chunk-message-header" class="relref">Section 5.3.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+describes the four Chunk Message Header formats. The format being used is
+indicated by the <code>fmt</code> field of the Chunk Basic Header.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">The <code>Type 0</code> Chunk Message Header format includes the RTMP Message
+Stream ID. The description of the <code>Message Stream ID (4 bytes)</code> field
+in
+<span><a href="https://rtmp.veriskope.com/docs/spec/#53125-common-header-fields" class="relref">Section 5.3.1.2.5</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+specifies that the field "is stored in little-endian format". However, the
+diagram doesn't show this and it is easily missed. This section clarifies the
+<code>Type 0</code> Chunk Message Header format.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-ascii-art art-text artwork" id="section-3.2-3">
+<pre>
+ 0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               provisional timestamp           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                  message length               |message type id|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                     message stream id (LE)                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+|    if(0xFFFFFF == provisionalTimestamp)  extendedTimestamp    |
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+
+struct chunkMessageHeaderType0_t {
+    uint24_t provisionalTimestamp;
+    uint24_t messageLength;
+    uint8_t messageTypeID;
+    uint32le_t messageStreamID;
+
+    if (0xFFFFFF == provisionalTimestamp)
+    {
+        uint32_t extendedTimestamp;
+        timestamp = extendedTimestamp;
+    }
+    else
+        timestamp = provisionalTimestamp;
+} :variable*8;
+</pre><a href="#section-3.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3.2-4">The <code>messageStreamID</code> field encodes the message stream ID
+as four bytes in little-endian byte order. Note however that
+per <a href="#rtmp-message-format" class="auto internal xref">Section 5</a>
+the message stream ID <span class="bcp14">SHOULD NOT</span> exceed 16777215.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+</section>
+</section>
+<section id="section-4">
+      <h2 id="name-timestamps-2">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-timestamps-2" class="section-name selfRef">Timestamps</a>
+      </h2>
+<section id="section-4.1">
+        <h3 id="name-chunk-message-header-extende">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-chunk-message-header-extende" class="section-name selfRef">Chunk Message Header Extended Timestamp</a>
+        </h3>
+<p id="section-4.1-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#5312-chunk-message-header" class="relref">Section 5.3.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+implies that the <code>Extended Timestamp</code> field is separate from the Chunk
+Message Header. This implication is misleading because, when it is present,
+it is in fact part of the chunk header and does not count toward the chunk's
+payload or the <code>Message Length</code>. Because of this, all four types of
+Chunk Message Header should be recognized as being variable-length.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">While 
+<span><a href="https://rtmp.veriskope.com/docs/spec/#5313-extended-timestamp" class="relref">Section 5.3.1.3</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+states that the <code>Extended Timestamp</code> is present in <code>Type 3</code>
+chunks when the most recent <code>Type 0</code>, <code>Type 1</code>, or <code>Type
+2</code> chunk for the same Chunk Stream ID indicated the presence of an extended
+timestamp, this has caused confusion for some implementors for the <code>Type
+3</code> chunks that are the subsequent portions of the same message, or that
+are the first chunk of subsequent messages. To clarify: when the <code>Extended
+Timestamp</code> field is indicated, it <span class="bcp14">MUST</span> be present in
+<em>every</em> <code>Type 3</code> Chunk Message Header for a message, including
+the first as well as subsequent chunks of that message <em>and subsequent
+messages starting with <code>Type 3</code></em>, even though this is wasteful.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+</section>
+<section id="section-4.2">
+        <h3 id="name-timestamp-order-of-messages-2">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-timestamp-order-of-messages-2" class="section-name selfRef">Timestamp Order of Messages</a>
+      </h3>
+</section>
+</section>
+<div id="rtmp-message-format">
+<section id="section-5">
+      <h2 id="name-rtmp-message-format-2">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-rtmp-message-format-2" class="section-name selfRef">RTMP Message Format</a>
+      </h2>
+<p id="section-5-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#61-rtmp-message-format" class="relref">Section 6.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+defines the RTMP Message Format, with an explicit encoding of the RTMP message
+header including field widths and byte ordering. However, this definition is
+misleading because RTMP messages are not serialized according to this format
+over either of the common transports. For example, when RTMP messages are
+transported by the RTMP Chunk Stream, RTMP message headers are encoded into
+Chunk Message Headers; and when RTMP messages are transported in RTMFP according
+to <span><a href="https://rfc-editor.org/rfc/rfc7425#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC7425" class="cite xref">RFC7425</a>]</span>, RTMP message
+headers are encoded into flow metadata and the leading bytes of flow user
+messages.  Therefore, the Message Header of the RTMP Message Format
+<span class="bcp14">SHOULD</span> be construed as a <em>virtual</em> or <em>semantic</em>
+header that is mapped to the facilities of a lower-layer transport protocol
+such as RTMP Chunk Stream or RTMFP.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The semantics of the RTMP Message Virtual Header and the encodings used in
+the common transport protocols constrain the possible values of RTMP Message
+Header fields. In particular:<a href="#section-5-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5-3.1">Message Type is constrained to values from 0 to 255 inclusive;<a href="#section-5-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-3.2">Message payloads can be at most 16777215 bytes long;<a href="#section-5-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-3.3">Timestamps range from 0 to 4294967295 and wrap around;<a href="#section-5-3.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-3.4">Stream ID is constrained to values from 0 to 16777215 inclusive.<a href="#section-5-3.4" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-5-4">Note that in some cases these constraints are more restrictive than the
+facilities provided by lower-layer transports. For example, RTMP Chunk Stream
+could encode a Stream ID up to 4294967295; RTMFP could encode a Stream ID of
+any finite non-negative integer (though typical implementations are limited
+to 2<sup>64</sup> - 1) and transport messages of unlimited length. However,
+exceeding the limits enumerated above will impede interoperability and protocol
+translation, so they <span class="bcp14">SHOULD NOT</span> be exceeded.<a href="#section-5-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-6">
+      <h2 id="name-iana-considerations-2">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations-2" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-6-1">This memo has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-7">
+      <h2 id="name-security-considerations-2">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-7-1">RTMP and RTMFP URIs use the <span><a href="#RFC3986" class="internal xref">generic syntax for
+URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.  URIs can encode sensitive or private information such as user
+names, passwords, stream names, and so on. Implementations <span class="bcp14">SHOULD</span>
+remove any <code>userinfo</code> and <code>fragment</code> components of a URI before
+sending it as the <code>tcUrl</code> member of the <code>connect</code> command's
+Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminator
+(<span><a href="https://rfc-editor.org/rfc/rfc7425#section-4.4.2.2" class="relref">Section 4.4.2.2</a> of [<a href="#RFC7425" class="cite xref">RFC7425</a>]</span>).<a href="#section-7-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-8">
+      <h2 id="name-references-2">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references-2" class="section-name selfRef">References</a>
+      </h2>
+<section id="section-8.1">
+        <h3 id="name-normative-references-2">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="AMF0">[AMF0]</dt>
+        <dd>
+<span class="refAuthor">Adobe Inc.</span>, <span class="refTitle">"Action Message Format -- AMF 0"</span>, <time datetime="2007-12" class="refDate">December 2007</time>, <span>&lt;<a href="https://rtmp.veriskope.com/pdf/amf0-file-format-specification.pdf">https://rtmp.veriskope.com/pdf/amf0-file-format-specification.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="AMF3">[AMF3]</dt>
+        <dd>
+<span class="refAuthor">Adobe Inc.</span>, <span class="refTitle">"Action Message Format -- AMF 3"</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://rtmp.veriskope.com/pdf/amf3-file-format-spec.pdf">https://rtmp.veriskope.com/pdf/amf3-file-format-spec.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd><dt id="RFC3986">[RFC3986]</dt>
+        <dd>
+<span class="refAuthor">Berners-Lee, T.</span>, <span class="refAuthor">Fielding, R.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>&gt;</span>. </dd>
+<dd class="break"></dd><dt id="RFC7016">[RFC7016]</dt>
+        <dd>
+<span class="refAuthor">Thornburgh, M.</span>, <span class="refTitle">"Adobe's Secure Real-Time Media Flow Protocol"</span>, <span class="seriesInfo">RFC 7016</span>, <span class="seriesInfo">DOI 10.17487/RFC7016</span>, <time datetime="2013-11" class="refDate">November 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7016">https://www.rfc-editor.org/info/rfc7016</a>&gt;</span>. </dd>
+<dd class="break"></dd><dt id="RFC7425">[RFC7425]</dt>
+        <dd>
+<span class="refAuthor">Thornburgh, M.</span>, <span class="refTitle">"Adobe's RTMFP Profile for Flash Communication"</span>, <span class="seriesInfo">RFC 7425</span>, <span class="seriesInfo">DOI 10.17487/RFC7425</span>, <time datetime="2014-12" class="refDate">December 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7425">https://www.rfc-editor.org/info/rfc7425</a>&gt;</span>. </dd>
+<dd class="break"></dd><dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd><dt id="RTMP">[RTMP]</dt>
+      <dd>
+<span class="refAuthor">Parmar, H., Ed.</span> and <span class="refAuthor">M. Thornburgh, Ed.</span>, <span class="refTitle">"Adobe’s Real Time Messaging Protocol"</span>, <time datetime="2012-12" class="refDate">December 2012</time>, <span>&lt;<a href="https://rtmp.veriskope.com/docs/spec/">https://rtmp.veriskope.com/docs/spec/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-8.2">
+        <h3 id="name-informative-references-2">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="E-RTMP">[E-RTMP]</dt>
+      <dd>
+<span class="refAuthor">Lozben, S.</span>, <span class="refTitle">"Enhancing RTMP, FLV With Additional Video Codecs and HDR Support"</span>, <time datetime="2023-03" class="refDate">March 2023</time>, <span>&lt;<a href="https://github.com/veovera/enhanced-rtmp/blob/main/enhanced-rtmp-v1.pdf">https://github.com/veovera/enhanced-rtmp/blob/main/enhanced-rtmp-v1.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</section>
+<div id="authors-addresses">
+<section id="appendix-A">
+      <h2 id="name-authors-address-2">
+<a href="#name-authors-address-2" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Michael C. Thornburgh</span></div>
+<div dir="auto" class="left">
+<span class="locality">Santa Cruz</span>, <span class="region">CA</span> <span class="postal-code">95060-1950</span>
+</div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:zenomt@zenomt.com" class="email">zenomt@zenomt.com</a>
+</div>
+<div class="url">
+<span>URI:</span>
+<a href="https://zenomt.zenomt.com/card.ttl#me" class="url">https://zenomt.zenomt.com/card.ttl#me</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>

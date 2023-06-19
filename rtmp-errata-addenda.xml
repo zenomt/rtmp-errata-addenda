@@ -1,0 +1,425 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE rfc [
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc7991.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="none" submissionType="independent" category="info" version="3">
+
+<front>
+	<title abbrev="RTMP Errata and Addenda">RTMP Errata and Addenda</title>
+
+	<author initials="M." surname="Thornburgh" fullname="Michael C. Thornburgh">
+		<address>
+			<postal>
+				<city>Santa Cruz</city>
+				<region>CA</region>
+				<code>95060-1950</code>
+				<country>US</country>
+			</postal>
+			<email>zenomt@zenomt.com</email>
+			<uri>https://zenomt.zenomt.com/card.ttl#me</uri>
+		</address>
+	</author>
+
+	<abstract><t>
+
+		The specification for Adobe's Real-Time Messaging Protocol
+		(RTMP), last updated in December 2012, contains errors,
+		omissions, and ambiguities that impede interoperation. This
+		memo corrects, clarifies, and amends portions of the RTMP
+		specification.
+
+	</t></abstract>
+
+	<note>
+		<name>Copyright Notice</name>
+
+		<t>Copyright © 2023 Michael Thornburgh. All rights reserved.</t>
+
+		<t>Permission is hereby granted, free of charge, to any person
+		obtaining a copy of this software and associated documentation
+		files (the "Software"), to deal in the Software without
+		restriction, including without limitation the rights to use,
+		copy, modify, merge, publish, distribute, sublicense, and/or
+		sell copies of the Software, and to permit persons to whom
+		the Software is furnished to do so, subject to the following
+		conditions:</t>
+
+		<t>The above copyright notice and this permission notice shall
+		be included in all copies or substantial portions of the
+		Software.</t>
+
+		<t>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+		KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+		WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+		AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+		HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+		WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+		FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+		OR OTHER DEALINGS IN THE SOFTWARE.</t>
+
+	</note>
+
+</front>
+
+<middle>
+
+<section title="Introduction">
+
+<t>At the time of writing, Adobe's Real-Time Messaging Protocol (RTMP) continues
+to be used by the media streaming industry and in media streaming products
+for transmitting live video and audio over IP networks, including between and
+through various stages of live video production, ingest, and distribution.</t>
+
+<t>The <xref target="RTMP">RTMP specification</xref> was last updated by Adobe
+in December 2012. That version contains numerous errors, omissions, and
+ambiguities that impede the independent development of correct and interoperable
+live streaming products.</t>
+
+<t>At the time of writing, the RTMP specification is considered to be an
+immutable historical artifact. This memo is intended to be referenced alongside
+<xref target="RTMP"/> to correct, clarify, and amend portions of the historical
+specification.</t>
+
+<t>This memo addresses RTMP Version 3 as publicly described in
+<xref target="RTMP"/>. It does not address private or undocumented extensions
+for which interoperation is not desired by the extending parties.</t>
+
+<section title="Terminology">
+
+<t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>",
+"<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>",
+"<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14>RECOMMENDED</bcp14>",
+"<bcp14>NOT RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>"
+in this document are to be interpreted as described in BCP 14
+<xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they
+appear in all capitals, as shown here.</t>
+
+</section> <!-- Terminology -->
+</section> <!-- Introduction -->
+
+<section title="Common Syntax Elements">
+
+<t>Definitions of types and structures in this specification use traditional
+text diagrams paired with procedural descriptions using a C-like syntax.  The
+C-like procedural descriptions <bcp14>SHALL</bcp14> be construed as definitive.</t>
+
+<t>Structures are packed to take only as many bytes as explicitly indicated.
+There is no 32-bit alignment constraint, and fields are not padded for alignment
+unless explicitly indicated or described.  Text diagrams may include a bit
+ruler across the top; this is a convenience for counting bits in individual
+fields and does not necessarily imply field alignment on a multiple of the
+ruler width.</t>
+
+<t>Unless specified otherwise, reserved fields <bcp14>SHOULD</bcp14> be set
+to 0 by a sender and MUST be ignored by a receiver.</t>
+
+<t>The procedural syntax of this specification defines correct and error-free
+encoded inputs to a parser.  The procedural syntax does not describe a fully
+featured parser, including error detection and handling.  Implementations
+<bcp14>MUST</bcp14> include means to identify error circumstances, including
+truncations causing elementary or composed types not to fit inside containing
+structures, fields, or elements.  Unless specified otherwise, an error
+circumstance <bcp14>SHALL</bcp14> abort the parsing and processing of an
+element and its enclosing elements.</t>
+
+<t>This memo uses the elementary types and constructs described in
+<xref target="RFC7016" section="2.1.1" sectionFormat="of"/>.
+The definitions of that section are incorporated by reference as though fully
+set forth here.</t>
+
+<section title="Additional Elementary Types">
+
+<t>This section lists additional elementary types used in the following
+sections.</t>
+
+<dl newline="true">
+	<dt><tt>uint24_t var;</tt></dt>
+	<dd>An unsigned integer 24 bits (3 bytes) in length, in network
+	byte order and byte aligned.</dd>
+
+	<dt><tt>uint16le_t var;</tt></dt>
+	<dd>An unsigned integer 16 bits (2 bytes) in length, in little-endian
+	byte order and byte aligned.</dd>
+
+	<dt><tt>uint32le_t var;</tt></dt>
+	<dd>An unsigned integer 32 bits (4 bytes) in length, in little-endian
+	byte order and byte aligned.</dd>
+
+</dl>
+
+</section> <!-- Additional Elementary Types -->
+</section> <!-- Common Syntax Elements -->
+
+<section title="Byte Order">
+
+<t><xref target="RTMP" section="4" relative="#4-byte-order-alignment-and-time-format" sectionFormat="of"/>
+states that "all integer fields are carried in network byte order". However,
+there are two exceptions in the specification where multi-byte integers are
+coded in little-endian byte order. To draw attention to these exceptions and
+to eliminate the dissonance between the exceptions and the statement, the
+first two sentences of that section are amended to read</t>
+
+<blockquote>
+Unless otherwise specified, multi-byte integer fields are carried in network
+byte order, byte zero is the first byte shown, and bit zero is the most
+significant bit in a word or field. This byte order is commonly known as
+"big-endian".
+
+</blockquote>
+
+<section title="Chunk Basic Header">
+
+<t><xref target="RTMP" section="5.3.1.1" relative="#5311-chunk-basic-header" sectionFormat="of"/>
+describes the one, two, and three byte encodings of the Chunk Basic Header.
+The descriptive text gives a formula to decode the three-byte encoding as
+though the "<tt>cs id - 64</tt>" field is little-endian; however, this is not
+explicitly stated and is easy to miss given the diagrams and the description
+of the field as just "8 or 16 bits". This section clarifies the Chunk Basic
+Header encodings.</t>
+
+<artwork align="left" type="ascii-art"><![CDATA[
+ 0 1 2 3 4 5 6 7|
++-+-+-+-+-+-+-+-+
+|fmt|  2 .. 63  |
++-+-+-+-+-+-+-+-+
+
+ 0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|fmt|     0     |   cs id - 64  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ 0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|fmt|     1     |       cs id - 64 (LE)         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+struct chunkBasicHeader_t {
+    uintn_t fmt                      :2; // format
+    uintn_t provisionalChunkStreamID :6;
+    if (provisionalChunkStreamID >= 2)
+        chunkStreamID = provisionalChunkStreamID; // one-byte form
+    else
+    {
+        if (0 == provisionalChunkStreamID)
+            uint8_t chunkStreamIDMinus64; // two-byte form
+        else // 1 == provisionalChunkStreamID
+            uint16le_t chunkStreamIDMinus64; // three-byte form
+        chunkStreamID = chunkStreamIDMinus64 + 64;
+    }
+} :variable*8;
+]]></artwork>
+
+<t>The <tt>chunkStreamIDMinus64</tt> field of the 3-byte form encodes the
+chunk stream ID less 64 in little-endian byte order.</t>
+
+</section> <!-- Chunk Basic Header -->
+
+<section title="Chunk Message Header">
+
+<t><xref target="RTMP" section="5.3.1.2" relative="#5312-chunk-message-header" sectionFormat="of"/>
+describes the four Chunk Message Header formats. The format being used is
+indicated by the <tt>fmt</tt> field of the Chunk Basic Header.</t>
+
+<t>The <tt>Type 0</tt> Chunk Message Header format includes the RTMP Message
+Stream ID. The description of the <tt>Message Stream ID (4 bytes)</tt> field
+in
+<xref target="RTMP" section="5.3.1.2.5" relative="#53125-common-header-fields" sectionFormat="of"/>
+specifies that the field "is stored in little-endian format". However, the
+diagram doesn't show this and it is easily missed. This section clarifies the
+<tt>Type 0</tt> Chunk Message Header format.</t>
+
+<artwork align="left" type="ascii-art"><![CDATA[
+ 0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               provisional timestamp           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                  message length               |message type id|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                     message stream id (LE)                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+|    if(0xFFFFFF == provisionalTimestamp)  extendedTimestamp    |
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+
+struct chunkMessageHeaderType0_t {
+    uint24_t provisionalTimestamp;
+    uint24_t messageLength;
+    uint8_t messageTypeID;
+    uint32le_t messageStreamID;
+
+    if (0xFFFFFF == provisionalTimestamp)
+    {
+        uint32_t extendedTimestamp;
+        timestamp = extendedTimestamp;
+    }
+    else
+        timestamp = provisionalTimestamp;
+} :variable*8;
+]]></artwork>
+
+<t>The <tt>messageStreamID</tt> field encodes the message stream ID
+as four bytes in little-endian byte order. Note however that
+per <xref target="rtmp-message-format"/>
+the message stream ID <bcp14>SHOULD NOT</bcp14> exceed 16777215.</t>
+
+</section> <!-- Chunk Message Header -->
+</section> <!-- Byte Order -->
+
+<section title="Timestamps">
+
+<section title="Chunk Message Header Extended Timestamp">
+
+<t><xref target="RTMP" section="5.3.1.2" relative="#5312-chunk-message-header" sectionFormat="of"/>
+implies that the <tt>Extended Timestamp</tt> field is separate from the Chunk
+Message Header. This implication is misleading because, when it is present,
+it is in fact part of the chunk header and does not count toward the chunk's
+payload or the <tt>Message Length</tt>. Because of this, all four types of
+Chunk Message Header should be recognized as being variable-length.</t>
+
+<t>While 
+<xref target="RTMP" section="5.3.1.3" relative="#5313-extended-timestamp" sectionFormat="of"/>
+states that the <tt>Extended Timestamp</tt> is present in <tt>Type 3</tt>
+chunks when the most recent <tt>Type 0</tt>, <tt>Type 1</tt>, or <tt>Type
+2</tt> chunk for the same Chunk Stream ID indicated the presence of an extended
+timestamp, this has caused confusion for some implementors for the <tt>Type
+3</tt> chunks that are the subsequent portions of the same message, or that
+are the first chunk of subsequent messages. To clarify: when the <tt>Extended
+Timestamp</tt> field is indicated, it <bcp14>MUST</bcp14> be present in
+<em>every</em> <tt>Type 3</tt> Chunk Message Header for a message, including
+the first as well as subsequent chunks of that message <em>and subsequent
+messages starting with <tt>Type 3</tt></em>, even though this is wasteful.</t>
+
+</section> <!-- Chunk Message Header Extended Timestamp -->
+
+<section title="Timestamp Order of Messages">
+
+</section> <!-- Timestamp Ordering of Messages -->
+
+</section> <!-- Timestamps -->
+
+<section title="RTMP Message Format" anchor="rtmp-message-format">
+
+<t><xref target="RTMP" section="6.1" relative="#61-rtmp-message-format" sectionFormat="of"/>
+defines the RTMP Message Format, with an explicit encoding of the RTMP message
+header including field widths and byte ordering. However, this definition is
+misleading because RTMP messages are not serialized according to this format
+over either of the common transports. For example, when RTMP messages are
+transported by the RTMP Chunk Stream, RTMP message headers are encoded into
+Chunk Message Headers; and when RTMP messages are transported in RTMFP according
+to <xref target="RFC7425" section="5.1" sectionFormat="of"/>, RTMP message
+headers are encoded into flow metadata and the leading bytes of flow user
+messages.  Therefore, the Message Header of the RTMP Message Format
+<bcp14>SHOULD</bcp14> be construed as a <em>virtual</em> or <em>semantic</em>
+header that is mapped to the facilities of a lower-layer transport protocol
+such as RTMP Chunk Stream or RTMFP.</t>
+
+<t>The semantics of the RTMP Message Virtual Header and the encodings used in
+the common transport protocols constrain the possible values of RTMP Message
+Header fields. In particular:</t>
+
+<ul>
+	<li>Message Type is constrained to values from 0 to 255 inclusive;</li>
+
+	<li>Message payloads can be at most 16777215 bytes long;</li>
+
+	<li>Timestamps range from 0 to 4294967295 and wrap around;</li>
+
+	<li>Stream ID is constrained to values from 0 to 16777215 inclusive.</li>
+
+</ul>
+
+<t>Note that in some cases these constraints are more restrictive than the
+facilities provided by lower-layer transports. For example, RTMP Chunk Stream
+could encode a Stream ID up to 4294967295; RTMFP could encode a Stream ID of
+any finite non-negative integer (though typical implementations are limited
+to 2<sup>64</sup> - 1) and transport messages of unlimited length. However,
+exceeding the limits enumerated above will impede interoperability and protocol
+translation, so they <bcp14>SHOULD NOT</bcp14> be exceeded.</t>
+
+</section> <!-- RTMP Message Format -->
+
+<section title="IANA Considerations">
+<t>This memo has no IANA actions.</t>
+</section> <!-- IANA -->
+
+<section title="Security Considerations">
+
+<t>RTMP and RTMFP URIs use the <xref target="RFC3986">generic syntax for
+URIs</xref>.  URIs can encode sensitive or private information such as user
+names, passwords, stream names, and so on. Implementations <bcp14>SHOULD</bcp14>
+remove any <tt>userinfo</tt> and <tt>fragment</tt> components of a URI before
+sending it as the <tt>tcUrl</tt> member of the <tt>connect</tt> command's
+Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminator
+(<xref target="RFC7425" section="4.4.2.2" sectionFormat="of"/>).</t>
+
+</section> <!-- Security Considerations -->
+
+</middle>
+
+<back>
+	<references>
+	<name>References</name>
+
+	<references title="Normative References">
+
+		<reference anchor="AMF0" target="https://rtmp.veriskope.com/pdf/amf0-file-format-specification.pdf">
+			<front>
+				<title>Action Message Format -- AMF 0</title>
+				<author><organization>Adobe Inc.</organization></author>
+				<date month="December" year="2007"/>
+			</front>
+		</reference>
+
+		<reference anchor="AMF3" target="https://rtmp.veriskope.com/pdf/amf3-file-format-spec.pdf">
+			<front>
+				<title>Action Message Format -- AMF 3</title>
+				<author><organization>Adobe Inc.</organization></author>
+				<date month="January" year="2013"/>
+			</front>
+		</reference>
+
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"/> <!-- BCP14 -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml"/> <!-- URI syntax -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.7016.xml"/> <!-- RTMFP -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.7425.xml"/> <!-- RTMP in RTMFP -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml"/> <!-- BCP14 -->
+
+		<reference anchor="RTMP" target="https://rtmp.veriskope.com/docs/spec/">
+			<front>
+				<title>Adobe’s Real Time Messaging Protocol</title>
+				<author initials="H." surname="Parmar" role="editor"/>
+				<author initials="M." surname="Thornburgh" role="editor"/>
+				<date month="December" year="2012"/>
+			</front>
+		</reference>
+
+	</references>
+
+	<references title="Informative References">
+
+		<reference anchor="E-RTMP" target="https://github.com/veovera/enhanced-rtmp/blob/main/enhanced-rtmp-v1.pdf">
+			<front>
+				<title>Enhancing RTMP, FLV With Additional Video Codecs and HDR Support</title>
+				<author initials="S." surname="Lozben"/>
+				<date month="March" year="2023"/>
+			</front>
+		</reference>
+
+	</references>
+
+	</references>
+</back>
+
+</rfc>
