@@ -11,4 +11,6 @@ This memo is available in the following formats:
 * [Plain Text](rtmp-errata-addenda.txt)
 * [xml2rfc](rtmp-errata-addenda.xml)
 
+This memo is a work-in-progress. Please check back for updates.
+
   [RTMP]: https://rtmp.veriskope.com/docs/spec/
