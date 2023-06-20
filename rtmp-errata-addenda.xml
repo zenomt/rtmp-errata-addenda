@@ -89,12 +89,15 @@ live streaming products.</t>
 
 <t>At the time of writing, the RTMP specification is considered to be an
 immutable historical artifact. This memo is intended to be referenced alongside
-<xref target="RTMP"/> to correct, clarify, and amend portions of the historical
+<xref target="RTMP"/> to correct, clarify, and amend portions of that historical
 specification.</t>
 
 <t>This memo addresses RTMP Version 3 as publicly described in
 <xref target="RTMP"/>. It does not address private or undocumented extensions
 for which interoperation is not desired by the extending parties.</t>
+
+<t>For coordinated interoperable extensions and enhancements to RTMP, see
+<xref target="E-RTMP">Enhancing RTMP, FLV With Additional Video Codecs and HDR Support</xref>.</t>
 
 <section title="Terminology">
 
@@ -292,22 +295,89 @@ Chunk Message Header should be recognized as being variable-length.</t>
 <xref target="RTMP" section="5.3.1.3" relative="#5313-extended-timestamp" sectionFormat="of"/>
 states that the <tt>Extended Timestamp</tt> is present in <tt>Type 3</tt>
 chunks when the most recent <tt>Type 0</tt>, <tt>Type 1</tt>, or <tt>Type
-2</tt> chunk for the same Chunk Stream ID indicated the presence of an extended
+2</tt> chunk on the same Chunk Stream ID indicated the presence of an extended
 timestamp, this has caused confusion for some implementors for the <tt>Type
 3</tt> chunks that are the subsequent portions of the same message, or that
-are the first chunk of subsequent messages. To clarify: when the <tt>Extended
-Timestamp</tt> field is indicated, it <bcp14>MUST</bcp14> be present in
-<em>every</em> <tt>Type 3</tt> Chunk Message Header for a message, including
-the first as well as subsequent chunks of that message <em>and subsequent
-messages starting with <tt>Type 3</tt></em>, even though this is wasteful.</t>
+are the first chunk of subsequent messages on the same Chunk Stream ID. To
+clarify: while the <tt>Extended Timestamp</tt> field is indicated, it
+<bcp14>MUST</bcp14> be present in <em>every</em> <tt>Type 3</tt> Chunk Message
+Header for a message, including the first as well as subsequent chunks of
+that message <em>and subsequent messages starting with <tt>Type 3</tt></em>,
+even though this is wasteful.</t>
 
 </section> <!-- Chunk Message Header Extended Timestamp -->
 
 <section title="Timestamp Order of Messages">
 
+<t><xref target="RTMP" section="5" relative="#5-rtmp-chunk-stream" sectionFormat="of"/>
+states</t>
+
+<blockquote>
+When used with a reliable transport protocol such as TCP <xref target="RFC0793"/>,
+RTMP Chunk Stream provides guaranteed timestamp-ordered end-to-end delivery
+of all messages, across multiple streams.
+</blockquote>
+
+<t>However, this wording is misleading. For example,
+<xref target="RTMP" section="5.3.1.2.1" relative="#53121type-0" sectionFormat="of"/>
+alludes to a case where "the stream timestamp goes backward (e.g. because of
+a backward seek)". Note that RTMP can be used for Video on Demand (VOD) and
+Digital Video Recorder (DVR) playback as well as for live streaming.</t>
+
+<t>Senders <bcp14>MAY</bcp14> apply real-time treatments to RTMP messages,
+including prioritization policies and transmission deadlines. Prioritization
+can include (but is not limited to) preferential allocation of transmission
+resources to audio over video, or to one stream over another.  Prioritization
+can cause, for example, later audio messages to be delivered before earlier
+video messages.</t>
+
+<t>Senders have full control over scheduling, interleaving, and transmitting
+RTMP messages, or portions thereof, over lower-layer transports. When using
+RTMP Chunk Stream over a reliable, in-order transport protocol such as TCP
+<xref target="RFC0793"/>, a sender can ensure delivery of messages in any
+desired order, including in timestamp order.</t>
+
+<t>For optimum interoperability with straightforward implementations and with
+many existing implementations, timestamps <bcp14>SHOULD NOT</bcp14> go backwards
+in the same Message Stream ID for the same RTMP Message Type ID without an
+explicit signal from the receiver (such as initiating a backward seek)
+indicating such a jump is expected.</t>
+
 </section> <!-- Timestamp Ordering of Messages -->
 
 </section> <!-- Timestamps -->
+
+<section title="Abandoning a Message">
+
+<t><xref target="RTMP" section="5.4.2" relative="#542abort-message-2" sectionFormat="of"/>
+describes the <tt>Abort Message</tt> Protocol Control Message. The description
+of this message states</t>
+
+<blockquote>
+An application may send this message when closing in order to indicate that
+further processing of the messages is not required.
+</blockquote>
+
+<t>This description is misleading, and suggests that receipt of this message
+signals that no further processing of any messages is required, which is
+incorrect.</t>
+
+<t>This protocol control message aborts a single partially-transmitted message
+on the indicated Chunk Stream ID. Afterward, new messages can commence on the
+same Chunk Stream ID.</t>
+
+<t>Senders can apply real-time treatments to messages, including transmission
+deadlines. A message's transmission deadline might be exceeded after transmission
+has started but before transmission is complete. Therefore, receivers
+<bcp14>SHOULD</bcp14> be operable to process the <tt>Abort Message</tt>
+Protocol Control Message by discarding the partially-received message and
+being prepared to receive a new message on the indicated Chunk Stream ID.</t>
+
+<t>If at least one chunk for a new message is transmitted, then a timestamp
+is established for the message against which a timestamp delta in a subsequent
+message can be applied, even if the first message is aborted.</t>
+
+</section> <!-- Abandoning a Message -->
 
 <section title="RTMP Message Format" anchor="rtmp-message-format">
 
@@ -348,7 +418,79 @@ to 2<sup>64</sup> - 1) and transport messages of unlimited length. However,
 exceeding the limits enumerated above will impede interoperability and protocol
 translation, so they <bcp14>SHOULD NOT</bcp14> be exceeded.</t>
 
+<section title="Alternative Transports and Processing Possible">
+
+<t>RTMP Chunk Stream is not the ony possible transport service for RTMP
+Messages. This flexibility is stated in several places. For example:</t>
+
+<blockquote>
+The [sic] section specifies the format of RTMP messages that are transferred between
+entities on a network using a lower level transport layer, such as RTMP Chunk
+Stream. While RTMP was designed to work with the RTMP Chunk Stream, it can
+send the messages using any other transport protocol.
+(<xref target="RTMP" section="6" relative="#6-rtmp-message-formats" sectionFormat="of"/>)
+</blockquote>
+
+<blockquote>
+Real-time streaming network communication for the Flash platform of video,
+audio, and data typically uses Adobe's Real-Time Messaging Protocol (RTMP)
+messages.  RTMP messages were originally designed to be transported over RTMP
+Chunk Stream in TCP; however, other transports (such as the one described in
+this memo) are possible. (<xref target="RFC7425" section="1"/>)
+</blockquote>
+
+<blockquote>
+The Flash platform uses RTMP messages for media streaming and communication.
+This section describes how to transport RTMP messages over RTMFP flows and
+additional messages and semantics unique to this transport.
+(<xref target="RFC7425" section="5"/>)
+</blockquote>
+
+<t>This flexibility is memorialized here.</t>
+
+<t>Note well that during ordinary processing, RTMP Messages can be translated
+between different protocols and can pass through heterogenous processing
+elements, which can mask, confound, or destroy message meta-information beyond
+the virtual Message Header (such as the Chunk Stream ID or RTMFP flow on which
+a message originally arrived).  Different processing elements can apply
+different treatments, policies, priorities, and deadlines to RTMP message
+streams, potentially affecting message arrival, arrival order, and interarrival
+timing.</t>
+
+</section> <!-- Alternative Transports Possible -->
+
+<section title="Object Encoding 3">
+
+</section> <!-- Object Encoding 3 -->
+
 </section> <!-- RTMP Message Format -->
+
+<section title="Remote Procedure Call">
+
+<section title="call">
+
+<t><xref target="RTMP" section="7.2.1.2" relative="#7212call" sectionFormat="of"/>,
+in context, conflates the <tt>call</tt> method on a <tt>NetConnection</tt>
+ActionScript object (specific to Flash Player and Adobe Integrated Runtime)
+with the encoding of a Remote Procedure Call into an RTMP Command message.
+This is misleading.  However, the command structure illustrated in that section
+is correct. The name of the remote procedure to invoke on the peer is given
+as the first field, and the string "<tt>call</tt>" does not appear in the
+command message sent to the peer.</t>
+
+</section> <!-- call -->
+
+<section title="deleteStream">
+
+<t><xref target="RTMP" section="7.2.2.3" relative="#7223deletestream" sectionFormat="of"/>
+erroneously states that the <tt>deleteStream</tt> command is a <em>stream</em>
+command. The <tt>deleteStream</tt> command is actually a <em>connection</em>
+command and is to be sent on Message Stream ID 0. The Message Stream ID being
+deleted is sent as the fourth field of the command message, as indicated.</t>
+
+</section> <!-- deleteStream -->
+
+</section> <!-- Remote Procedure Call -->
 
 <section title="IANA Considerations">
 <t>This memo has no IANA actions.</t>
@@ -416,6 +558,8 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 				<date month="March" year="2023"/>
 			</front>
 		</reference>
+
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.0793.xml"/> <!-- TCP -->
 
 	</references>
 

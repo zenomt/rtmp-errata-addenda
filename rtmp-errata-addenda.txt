@@ -43,12 +43,12 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Common Syntax Elements  . . . . . . . . . . . . . . . . . . .   2
+   2.  Common Syntax Elements  . . . . . . . . . . . . . . . . . . .   3
      2.1.  Additional Elementary Types . . . . . . . . . . . . . . .   3
-   3.  Byte Order  . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Byte Order  . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.1.  Chunk Basic Header  . . . . . . . . . . . . . . . . . . .   4
      3.2.  Chunk Message Header  . . . . . . . . . . . . . . . . . .   5
-   4.  Timestamps  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   4.  Timestamps  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      4.1.  Chunk Message Header Extended Timestamp . . . . . . . . .   6
 
 
@@ -58,14 +58,20 @@ Thornburgh                    Informational                     [Page 1]
                          RTMP Errata and Addenda               June 2023
 
 
-     4.2.  Timestamp Order of Messages . . . . . . . . . . . . . . .   6
-   5.  RTMP Message Format . . . . . . . . . . . . . . . . . . . . .   6
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.2.  Timestamp Order of Messages . . . . . . . . . . . . . . .   7
+   5.  Abandoning a Message  . . . . . . . . . . . . . . . . . . . .   7
+   6.  RTMP Message Format . . . . . . . . . . . . . . . . . . . . .   8
+     6.1.  Alternative Transports and Processing Possible  . . . . .   9
+     6.2.  Object Encoding 3 . . . . . . . . . . . . . . . . . . . .   9
+   7.  Remote Procedure Call . . . . . . . . . . . . . . . . . . . .  10
+     7.1.  call  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     7.2.  deleteStream  . . . . . . . . . . . . . . . . . . . . . .  10
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  10
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  11
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -83,11 +89,15 @@ Thornburgh                    Informational                     [Page 1]
    At the time of writing, the RTMP specification is considered to be an
    immutable historical artifact.  This memo is intended to be
    referenced alongside [RTMP] to correct, clarify, and amend portions
-   of the historical specification.
+   of that historical specification.
 
    This memo addresses RTMP Version 3 as publicly described in [RTMP].
    It does not address private or undocumented extensions for which
    interoperation is not desired by the extending parties.
+
+   For coordinated interoperable extensions and enhancements to RTMP,
+   see Enhancing RTMP, FLV With Additional Video Codecs and HDR Support
+   [E-RTMP].
 
 1.1.  Terminology
 
@@ -97,22 +107,19 @@ Thornburgh                    Informational                     [Page 1]
    14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-2.  Common Syntax Elements
-
-   Definitions of types and structures in this specification use
-   traditional text diagrams paired with procedural descriptions using a
-   C-like syntax.  The C-like procedural descriptions SHALL be construed
-   as definitive.
-
-
-
-
 
 
 Thornburgh                    Informational                     [Page 2]
 
                          RTMP Errata and Addenda               June 2023
 
+
+2.  Common Syntax Elements
+
+   Definitions of types and structures in this specification use
+   traditional text diagrams paired with procedural descriptions using a
+   C-like syntax.  The C-like procedural descriptions SHALL be construed
+   as definitive.
 
    Structures are packed to take only as many bytes as explicitly
    indicated.  There is no 32-bit alignment constraint, and fields are
@@ -154,6 +161,15 @@ Thornburgh                    Informational                     [Page 2]
       An unsigned integer 32 bits (4 bytes) in length, in little-endian
       byte order and byte aligned.
 
+
+
+
+
+Thornburgh                    Informational                     [Page 3]
+
+                         RTMP Errata and Addenda               June 2023
+
+
 3.  Byte Order
 
    Section 4 of [RTMP] states that "all integer fields are carried in
@@ -162,13 +178,6 @@ Thornburgh                    Informational                     [Page 2]
    byte order.  To draw attention to these exceptions and to eliminate
    the dissonance between the exceptions and the statement, the first
    two sentences of that section are amended to read
-
-
-
-Thornburgh                    Informational                     [Page 3]
-
-                         RTMP Errata and Addenda               June 2023
-
 
    |  Unless otherwise specified, multi-byte integer fields are carried
    |  in network byte order, byte zero is the first byte shown, and bit
@@ -184,6 +193,38 @@ Thornburgh                    Informational                     [Page 3]
    easy to miss given the diagrams and the description of the field as
    just "8 or 16 bits".  This section clarifies the Chunk Basic Header
    encodings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thornburgh                    Informational                     [Page 4]
+
+                         RTMP Errata and Addenda               June 2023
+
 
     0 1 2 3 4 5 6 7|
    +-+-+-+-+-+-+-+-+
@@ -218,14 +259,6 @@ Thornburgh                    Informational                     [Page 3]
    The chunkStreamIDMinus64 field of the 3-byte form encodes the chunk
    stream ID less 64 in little-endian byte order.
 
-
-
-
-Thornburgh                    Informational                     [Page 4]
-
-                         RTMP Errata and Addenda               June 2023
-
-
 3.2.  Chunk Message Header
 
    Section 5.3.1.2 of [RTMP] describes the four Chunk Message Header
@@ -238,6 +271,16 @@ Thornburgh                    Informational                     [Page 4]
    little-endian format".  However, the diagram doesn't show this and it
    is easily missed.  This section clarifies the Type 0 Chunk Message
    Header format.
+
+
+
+
+
+
+Thornburgh                    Informational                     [Page 5]
+
+                         RTMP Errata and Addenda               June 2023
+
 
     0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -267,20 +310,10 @@ Thornburgh                    Informational                     [Page 4]
    } :variable*8;
 
    The messageStreamID field encodes the message stream ID as four bytes
-   in little-endian byte order.  Note however that per Section 5 the
+   in little-endian byte order.  Note however that per Section 6 the
    message stream ID SHOULD NOT exceed 16777215.
 
 4.  Timestamps
-
-
-
-
-
-
-Thornburgh                    Informational                     [Page 5]
-
-                         RTMP Errata and Addenda               June 2023
-
 
 4.1.  Chunk Message Header Extended Timestamp
 
@@ -293,19 +326,96 @@ Thornburgh                    Informational                     [Page 5]
 
    While Section 5.3.1.3 of [RTMP] states that the Extended Timestamp is
    present in Type 3 chunks when the most recent Type 0, Type 1, or Type
-   2 chunk for the same Chunk Stream ID indicated the presence of an
+   2 chunk on the same Chunk Stream ID indicated the presence of an
    extended timestamp, this has caused confusion for some implementors
    for the Type 3 chunks that are the subsequent portions of the same
-   message, or that are the first chunk of subsequent messages.  To
-   clarify: when the Extended Timestamp field is indicated, it MUST be
-   present in _every_ Type 3 Chunk Message Header for a message,
-   including the first as well as subsequent chunks of that message _and
-   subsequent messages starting with Type 3_, even though this is
-   wasteful.
+   message, or that are the first chunk of subsequent messages on the
+
+
+
+Thornburgh                    Informational                     [Page 6]
+
+                         RTMP Errata and Addenda               June 2023
+
+
+   same Chunk Stream ID.  To clarify: while the Extended Timestamp field
+   is indicated, it MUST be present in _every_ Type 3 Chunk Message
+   Header for a message, including the first as well as subsequent
+   chunks of that message _and subsequent messages starting with Type
+   3_, even though this is wasteful.
 
 4.2.  Timestamp Order of Messages
 
-5.  RTMP Message Format
+   Section 5 of [RTMP] states
+
+   |  When used with a reliable transport protocol such as TCP
+   |  [RFC0793], RTMP Chunk Stream provides guaranteed timestamp-ordered
+   |  end-to-end delivery of all messages, across multiple streams.
+
+   However, this wording is misleading.  For example, Section 5.3.1.2.1
+   of [RTMP] alludes to a case where "the stream timestamp goes backward
+   (e.g. because of a backward seek)".  Note that RTMP can be used for
+   Video on Demand (VOD) and Digital Video Recorder (DVR) playback as
+   well as for live streaming.
+
+   Senders MAY apply real-time treatments to RTMP messages, including
+   prioritization policies and transmission deadlines.  Prioritization
+   can include (but is not limited to) preferential allocation of
+   transmission resources to audio over video, or to one stream over
+   another.  Prioritization can cause, for example, later audio messages
+   to be delivered before earlier video messages.
+
+   Senders have full control over scheduling, interleaving, and
+   transmitting RTMP messages, or portions thereof, over lower-layer
+   transports.  When using RTMP Chunk Stream over a reliable, in-order
+   transport protocol such as TCP [RFC0793], a sender can ensure
+   delivery of messages in any desired order, including in timestamp
+   order.
+
+   For optimum interoperability with straightforward implementations and
+   with many existing implementations, timestamps SHOULD NOT go
+   backwards in the same Message Stream ID for the same RTMP Message
+   Type ID without an explicit signal from the receiver (such as
+   initiating a backward seek) indicating such a jump is expected.
+
+5.  Abandoning a Message
+
+   Section 5.4.2 of [RTMP] describes the Abort Message Protocol Control
+   Message.  The description of this message states
+
+   |  An application may send this message when closing in order to
+   |  indicate that further processing of the messages is not required.
+
+
+
+
+Thornburgh                    Informational                     [Page 7]
+
+                         RTMP Errata and Addenda               June 2023
+
+
+   This description is misleading, and suggests that receipt of this
+   message signals that no further processing of any messages is
+   required, which is incorrect.
+
+   This protocol control message aborts a single partially-transmitted
+   message on the indicated Chunk Stream ID.  Afterward, new messages
+   can commence on the same Chunk Stream ID.
+
+   Senders can apply real-time treatments to messages, including
+   transmission deadlines.  A message's transmission deadline might be
+   exceeded after transmission has started but before transmission is
+   complete.  Therefore, receivers SHOULD be operable to process the
+   Abort Message Protocol Control Message by discarding the partially-
+   received message and being prepared to receive a new message on the
+   indicated Chunk Stream ID.
+
+   If at least one chunk for a new message is transmitted, then a
+   timestamp is established for the message against which a timestamp
+   delta in a subsequent message can be applied, even if the first
+   message is aborted.
+
+6.  RTMP Message Format
 
    Section 6.1 of [RTMP] defines the RTMP Message Format, with an
    explicit encoding of the RTMP message header including field widths
@@ -331,14 +441,14 @@ Thornburgh                    Informational                     [Page 5]
 
    *  Timestamps range from 0 to 4294967295 and wrap around;
 
+   *  Stream ID is constrained to values from 0 to 16777215 inclusive.
 
 
-Thornburgh                    Informational                     [Page 6]
+
+Thornburgh                    Informational                     [Page 8]
 
                          RTMP Errata and Addenda               June 2023
 
-
-   *  Stream ID is constrained to values from 0 to 16777215 inclusive.
 
    Note that in some cases these constraints are more restrictive than
    the facilities provided by lower-layer transports.  For example, RTMP
@@ -349,11 +459,79 @@ Thornburgh                    Informational                     [Page 6]
    will impede interoperability and protocol translation, so they SHOULD
    NOT be exceeded.
 
-6.  IANA Considerations
+6.1.  Alternative Transports and Processing Possible
+
+   RTMP Chunk Stream is not the ony possible transport service for RTMP
+   Messages.  This flexibility is stated in several places.  For
+   example:
+
+   |  The [sic] section specifies the format of RTMP messages that are
+   |  transferred between entities on a network using a lower level
+   |  transport layer, such as RTMP Chunk Stream.  While RTMP was
+   |  designed to work with the RTMP Chunk Stream, it can send the
+   |  messages using any other transport protocol.  (Section 6 of
+   |  [RTMP])
+
+   |  Real-time streaming network communication for the Flash platform
+   |  of video, audio, and data typically uses Adobe's Real-Time
+   |  Messaging Protocol (RTMP) messages.  RTMP messages were originally
+   |  designed to be transported over RTMP Chunk Stream in TCP; however,
+   |  other transports (such as the one described in this memo) are
+   |  possible.  (Section 1 of [RFC7425])
+
+   |  The Flash platform uses RTMP messages for media streaming and
+   |  communication.  This section describes how to transport RTMP
+   |  messages over RTMFP flows and additional messages and semantics
+   |  unique to this transport.  (Section 5 of [RFC7425])
+
+   This flexibility is memorialized here.
+
+   Note well that during ordinary processing, RTMP Messages can be
+   translated between different protocols and can pass through
+   heterogenous processing elements, which can mask, confound, or
+   destroy message meta-information beyond the virtual Message Header
+   (such as the Chunk Stream ID or RTMFP flow on which a message
+   originally arrived).  Different processing elements can apply
+   different treatments, policies, priorities, and deadlines to RTMP
+   message streams, potentially affecting message arrival, arrival
+   order, and interarrival timing.
+
+6.2.  Object Encoding 3
+
+
+
+
+Thornburgh                    Informational                     [Page 9]
+
+                         RTMP Errata and Addenda               June 2023
+
+
+7.  Remote Procedure Call
+
+7.1.  call
+
+   Section 7.2.1.2 of [RTMP], in context, conflates the call method on a
+   NetConnection ActionScript object (specific to Flash Player and Adobe
+   Integrated Runtime) with the encoding of a Remote Procedure Call into
+   an RTMP Command message.  This is misleading.  However, the command
+   structure illustrated in that section is correct.  The name of the
+   remote procedure to invoke on the peer is given as the first field,
+   and the string "call" does not appear in the command message sent to
+   the peer.
+
+7.2.  deleteStream
+
+   Section 7.2.2.3 of [RTMP] erroneously states that the deleteStream
+   command is a _stream_ command.  The deleteStream command is actually
+   a _connection_ command and is to be sent on Message Stream ID 0.  The
+   Message Stream ID being deleted is sent as the fourth field of the
+   command message, as indicated.
+
+8.  IANA Considerations
 
    This memo has no IANA actions.
 
-7.  Security Considerations
+9.  Security Considerations
 
    RTMP and RTMFP URIs use the generic syntax for URIs [RFC3986].  URIs
    can encode sensitive or private information such as user names,
@@ -363,9 +541,9 @@ Thornburgh                    Informational                     [Page 6]
    Ancillary Data option of an RTMFP Endpoint Discriminator
    (Section 4.4.2.2 of [RFC7425]).
 
-8.  References
+10.  References
 
-8.1.  Normative References
+10.1.  Normative References
 
    [AMF0]     Adobe Inc., "Action Message Format -- AMF 0", December
               2007, <https://rtmp.veriskope.com/pdf/amf0-file-format-
@@ -374,6 +552,15 @@ Thornburgh                    Informational                     [Page 6]
    [AMF3]     Adobe Inc., "Action Message Format -- AMF 3", January
               2013, <https://rtmp.veriskope.com/pdf/amf3-file-format-
               spec.pdf>.
+
+
+
+
+
+Thornburgh                    Informational                    [Page 10]
+
+                         RTMP Errata and Addenda               June 2023
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -384,15 +571,6 @@ Thornburgh                    Informational                     [Page 6]
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
-
-
-
-
-
-Thornburgh                    Informational                     [Page 7]
-
-                         RTMP Errata and Addenda               June 2023
-
 
    [RFC7016]  Thornburgh, M., "Adobe's Secure Real-Time Media Flow
               Protocol", RFC 7016, DOI 10.17487/RFC7016, November 2013,
@@ -410,12 +588,16 @@ Thornburgh                    Informational                     [Page 7]
               Messaging Protocol", December 2012,
               <https://rtmp.veriskope.com/docs/spec/>.
 
-8.2.  Informative References
+10.2.  Informative References
 
    [E-RTMP]   Lozben, S., "Enhancing RTMP, FLV With Additional Video
               Codecs and HDR Support", March 2023,
               <https://github.com/veovera/enhanced-rtmp/blob/main/
               enhanced-rtmp-v1.pdf>.
+
+   [RFC0793]  Postel, J., "Transmission Control Protocol", RFC 793,
+              DOI 10.17487/RFC0793, September 1981,
+              <https://www.rfc-editor.org/info/rfc793>.
 
 Author's Address
 
@@ -431,18 +613,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thornburgh                    Informational                     [Page 8]
+Thornburgh                    Informational                    [Page 11]
