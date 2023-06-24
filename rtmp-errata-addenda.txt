@@ -603,9 +603,9 @@ Thornburgh                    Informational                    [Page 10]
    and server can use either the normal (Type 20 and Type 18) or
    extended (Type 17 and Type 15) message types at any time.
 
-
-
-
+   Interoperability Note: The connect command SHOULD be sent in a Type
+   20 Command message unless the client has prior knowledge that the
+   server to which it is connecting supports Object Encoding 3.
 
 
 

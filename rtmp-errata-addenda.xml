@@ -553,6 +553,11 @@ Command Extended or Data Extended messages to each other. If Object Encoding
 and <tt>Type 18</tt>) or extended (<tt>Type 17</tt> and <tt>Type 15</tt>)
 message types at any time.</t>
 
+<t>Interoperability Note: The <tt>connect</tt> command <bcp14>SHOULD</bcp14>
+be sent in a <tt>Type 20</tt> Command message unless the client has prior
+knowledge that the server to which it is connecting supports Object Encoding
+3.</t>
+
 </section> <!-- objectEncoding Negotiation -->
 
 <section title="tcUrl">
