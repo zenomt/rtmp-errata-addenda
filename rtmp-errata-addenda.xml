@@ -503,7 +503,7 @@ struct extendedActionMessagePayload_t {
         }
     }
     // else unknown format
-};
+} :rtmpMessagePayloadLength*8;
 ]]></artwork>
 
 <t>A <tt>Type 17</tt> Command Extended or <tt>Type 15</tt> Data Extended
@@ -527,12 +527,12 @@ comprise a sequence of AMF 0 coded values, as originally implied.</t>
 
 <t><xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>
 lists parameters for the <tt>connect</tt> command and their potential values
-or ranges. However, this section contains incomplete and misleading information
+or ranges. However, that section contains incomplete and misleading information
 particularly in capability negotiation.</t>
 
 <section title="objectEncoding Negotiation" anchor="object-encoding-negotiation">
 
-<t>The <tt>objectEncoding</tt> member of the <tt>connect</tt> Command Object
+<t>The <tt>objectEncoding</tt> member of the <tt>connect</tt> command's Command Object
 is <bcp14>OPTIONAL</bcp14> with a default value of 0. If given, the possible
 values are 0 and 3 (Numbers). This value indicates the Object Encoding methods
 supported by the client. A value of 0 indicates support only for AMF 0 and
@@ -562,7 +562,7 @@ knowledge that the server to which it is connecting supports Object Encoding
 
 <section title="tcUrl">
 
-<t>The <tt>tcUrl</tt> member of the <tt>connect</tt> Command Object
+<t>The <tt>tcUrl</tt> member of the <tt>connect</tt> command's Command Object
 is <bcp14>REQUIRED</bcp14>. Its value is a string representing the URI
 to which the client is connecting. Contrary to
 <xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>,
@@ -586,7 +586,7 @@ and behaviors such as the name of a stream to play or publish.</t>
 
 <section title="app">
 
-<t>The <tt>app</tt> member of the <tt>connect</tt> Command Object
+<t>The <tt>app</tt> member of the <tt>connect</tt> command's Command Object
 is <bcp14>REQUIRED</bcp14>. Its value is a string indicating the
 <em>application instance</em> to which the client is connecting. Its value
 is usually the path component of the URI to which the client is connecting,
@@ -600,7 +600,7 @@ is reserved for the server.</t>
 <section title="Codec Negotiation">
 
 <t>The <tt>videoCodecs</tt> and <tt>audioCodecs</tt> members of the
-<tt>connect</tt> Command Object are bit fields representing the video and
+<tt>connect</tt> command's Command Object are bit fields representing the video and
 audio codecs, respectively, that the client is capable and willing to receive.
 These members are <bcp14>OPTIONAL</bcp14> and each defaults to 0 (that is,
 no bits set, so no codecs indicated). The values for these fields are

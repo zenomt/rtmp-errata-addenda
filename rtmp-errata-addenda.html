@@ -1786,7 +1786,7 @@ struct extendedActionMessagePayload_t {
         }
     }
     // else unknown format
-};
+} :rtmpMessagePayloadLength*8;
 </pre><a href="#section-6.2-3" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-4">A <code>Type 17</code> Command Extended or <code>Type 15</code> Data Extended
@@ -1813,14 +1813,14 @@ comprise a sequence of AMF 0 coded values, as originally implied.<a href="#secti
         </h3>
 <p id="section-7.1-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
 lists parameters for the <code>connect</code> command and their potential values
-or ranges. However, this section contains incomplete and misleading information
+or ranges. However, that section contains incomplete and misleading information
 particularly in capability negotiation.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <div id="object-encoding-negotiation">
 <section id="section-7.1.1">
           <h4 id="name-objectencoding-negotiation-2">
 <a href="#section-7.1.1" class="section-number selfRef">7.1.1. </a><a href="#name-objectencoding-negotiation-2" class="section-name selfRef">objectEncoding Negotiation</a>
           </h4>
-<p id="section-7.1.1-1">The <code>objectEncoding</code> member of the <code>connect</code> Command Object
+<p id="section-7.1.1-1">The <code>objectEncoding</code> member of the <code>connect</code> command's Command Object
 is <span class="bcp14">OPTIONAL</span> with a default value of 0. If given, the possible
 values are 0 and 3 (Numbers). This value indicates the Object Encoding methods
 supported by the client. A value of 0 indicates support only for AMF 0 and
@@ -1849,7 +1849,7 @@ knowledge that the server to which it is connecting supports Object Encoding
           <h4 id="name-tcurl-2">
 <a href="#section-7.1.2" class="section-number selfRef">7.1.2. </a><a href="#name-tcurl-2" class="section-name selfRef">tcUrl</a>
           </h4>
-<p id="section-7.1.2-1">The <code>tcUrl</code> member of the <code>connect</code> Command Object
+<p id="section-7.1.2-1">The <code>tcUrl</code> member of the <code>connect</code> command's Command Object
 is <span class="bcp14">REQUIRED</span>. Its value is a string representing the URI
 to which the client is connecting. Contrary to
 <span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
@@ -1872,7 +1872,7 @@ and behaviors such as the name of a stream to play or publish.<a href="#section-
           <h4 id="name-app-2">
 <a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-app-2" class="section-name selfRef">app</a>
           </h4>
-<p id="section-7.1.3-1">The <code>app</code> member of the <code>connect</code> Command Object
+<p id="section-7.1.3-1">The <code>app</code> member of the <code>connect</code> command's Command Object
 is <span class="bcp14">REQUIRED</span>. Its value is a string indicating the
 <em>application instance</em> to which the client is connecting. Its value
 is usually the path component of the URI to which the client is connecting,
@@ -1886,7 +1886,7 @@ is reserved for the server.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
 <a href="#section-7.1.4" class="section-number selfRef">7.1.4. </a><a href="#name-codec-negotiation-2" class="section-name selfRef">Codec Negotiation</a>
           </h4>
 <p id="section-7.1.4-1">The <code>videoCodecs</code> and <code>audioCodecs</code> members of the
-<code>connect</code> Command Object are bit fields representing the video and
+<code>connect</code> command's Command Object are bit fields representing the video and
 audio codecs, respectively, that the client is capable and willing to receive.
 These members are <span class="bcp14">OPTIONAL</span> and each defaults to 0 (that is,
 no bits set, so no codecs indicated). The values for these fields are
