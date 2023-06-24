@@ -1222,7 +1222,7 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-19" class="published">19 June 2023</time>
+<time datetime="2023-06-24" class="published">24 June 2023</time>
     </dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
@@ -1330,10 +1330,27 @@ li > p:last-of-type:only-child {
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-remote-procedure-call-2" class="internal xref">Remote Procedure Call</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-call-2" class="internal xref">call</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-connect-2" class="internal xref">connect</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.1">
+                    <p id="section-toc.1-1.7.2.1.2.1.1"><a href="#section-7.1.1" class="auto internal xref">7.1.1</a>.  <a href="#name-objectencoding-negotiation-2" class="internal xref">objectEncoding Negotiation</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.2">
+                    <p id="section-toc.1-1.7.2.1.2.2.1"><a href="#section-7.1.2" class="auto internal xref">7.1.2</a>.  <a href="#name-tcurl-2" class="internal xref">tcUrl</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.3">
+                    <p id="section-toc.1-1.7.2.1.2.3.1"><a href="#section-7.1.3" class="auto internal xref">7.1.3</a>.  <a href="#name-app-2" class="internal xref">app</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.4">
+                    <p id="section-toc.1-1.7.2.1.2.4.1"><a href="#section-7.1.4" class="auto internal xref">7.1.4</a>.  <a href="#name-codec-negotiation-2" class="internal xref">Codec Negotiation</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-deletestream-2" class="internal xref">deleteStream</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-call-2" class="internal xref">call</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-deletestream-2" class="internal xref">deleteStream</a></p>
 </li>
             </ul>
 </li>
@@ -1367,12 +1384,12 @@ li > p:last-of-type:only-child {
       </h2>
 <p id="section-1-1">At the time of writing, Adobe's Real-Time Messaging Protocol (RTMP) continues
 to be used by the media streaming industry and in media streaming products
-for transmitting live video and audio over IP networks, including between and
+for transmitting video and audio over IP networks, including between and
 through various stages of live video production, ingest, and distribution.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The <span><a href="#RTMP" class="internal xref">RTMP specification</a> [<a href="#RTMP" class="cite xref">RTMP</a>]</span> was last updated by Adobe
 in December 2012. That version contains numerous errors, omissions, and
 ambiguities that impede the independent development of correct and interoperable
-live streaming products.<a href="#section-1-2" class="pilcrow">¶</a></p>
+streaming products.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the time of writing, the RTMP specification is considered to be an
 immutable historical artifact. This memo is intended to be referenced alongside
 <span>[<a href="#RTMP" class="cite xref">RTMP</a>]</span> to correct, clarify, and amend portions of that historical
@@ -1539,9 +1556,9 @@ diagram doesn't show this and it is easily missed. This section clarifies the
 +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
 
 struct chunkMessageHeaderType0_t {
-    uint24_t provisionalTimestamp;
-    uint24_t messageLength;
-    uint8_t messageTypeID;
+    uint24_t   provisionalTimestamp;
+    uint24_t   messageLength;
+    uint8_t    messageTypeID;
     uint32le_t messageStreamID;
 
     if (0xFFFFFF == provisionalTimestamp)
@@ -1608,7 +1625,7 @@ Digital Video Recorder (DVR) playback as well as for live streaming.<a href="#se
 including prioritization policies and transmission deadlines. Prioritization
 can include (but is not limited to) preferential allocation of transmission
 resources to audio over video, or to one stream over another.  Prioritization
-can cause, for example, later audio messages to be delivered before earlier
+can cause, for example, later audio messages to be transmitted before earlier
 video messages.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2-5">Senders have full control over scheduling, interleaving, and transmitting
 RTMP messages, or portions thereof, over lower-layer transports. When using
@@ -1646,7 +1663,7 @@ has started but before transmission is complete. Therefore, receivers
 Protocol Control Message by discarding the partially-received message and
 being prepared to receive a new message on the indicated Chunk Stream ID.<a href="#section-5-5" class="pilcrow">¶</a></p>
 <p id="section-5-6">If at least one chunk for a new message is transmitted, then a timestamp
-is established for the message against which a timestamp delta in a subsequent
+is established for that message against which a timestamp delta in a subsequent
 message can be applied, even if the first message is aborted.<a href="#section-5-6" class="pilcrow">¶</a></p>
 </section>
 <div id="rtmp-message-format">
@@ -1715,47 +1732,196 @@ additional messages and semantics unique to this transport.
 </blockquote>
 <p id="section-6.1-5">This flexibility is memorialized here.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 <p id="section-6.1-6">Note well that during ordinary processing, RTMP Messages can be translated
-between different protocols and can pass through heterogenous processing
+between different protocols and can pass through heterogeneous processing
 elements, which can mask, confound, or destroy message meta-information beyond
-the virtual Message Header (such as the Chunk Stream ID or RTMFP flow on which
+the Message Virtual Header (such as the Chunk Stream ID or RTMFP flow on which
 a message originally arrived).  Different processing elements can apply
 different treatments, policies, priorities, and deadlines to RTMP message
 streams, potentially affecting message arrival, arrival order, and interarrival
 timing.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
 </section>
+<div id="object-encoding-3">
 <section id="section-6.2">
         <h3 id="name-object-encoding-3-2">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-object-encoding-3-2" class="section-name selfRef">Object Encoding 3</a>
-      </h3>
+        </h3>
+<p id="section-6.2-1">When <code>objectEncoding</code> 3 is negotiated during <code>connect</code>
+(<a href="#object-encoding-negotiation" class="auto internal xref">Section 7.1.1</a>), <code>Type 17</code> Command
+Extended and <code>Type 15</code> Data Extended messages can be used to carry
+<span><a href="#AMF3" class="internal xref">AMF 3</a> [<a href="#AMF3" class="cite xref">AMF3</a>]</span> coded values.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2"><span><a href="https://rtmp.veriskope.com/docs/spec/#711command-message-20-17" class="relref">Section 7.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+implies that a <code>Type 17</code> Command Extended message is a sequence of
+AMF 3 coded values. Likewise,
+<span><a href="https://rtmp.veriskope.com/docs/spec/#712data-message-18-15" class="relref">Section 7.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+implies that a <code>Type 15</code> Data Extended message is a sequence of AMF 3
+coded values. These implications are incorrect.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-ascii-art art-text artwork" id="section-6.2-3">
+<pre>
+ 0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+
+|format selector|
++-+-+-+-+-+-+-+-+
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+|                          coded value                          |
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+                                :
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+|                          coded value                          |
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+
+// Message Type 17 "Command Extended" and Type 15 "Data Extended"
+struct extendedActionMessagePayload_t {
+    uint8_t formatSelector;
+
+    if (0 == formatSelector)
+    {
+        while (remainder() &gt; 0)
+        {
+            provisionalValue = decode_amf0();
+            if (avmplus_object_marker == provisionalValue)
+                // saw marker byte 0x11
+                codedValue = decode_amf3();
+            else
+                codedValue = provisionalValue;
+        }
+    }
+    // else unknown format
+};
+</pre><a href="#section-6.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-6.2-4">A <code>Type 17</code> Command Extended or <code>Type 15</code> Data Extended
+message payload begins with a format selector byte, followed by a sequence
+of values in a format-specific encoding.  Currently only format 0 is defined;
+therefore, the format selector byte <span class="bcp14">MUST</span> be 0.  Format 0 is a
+sequence of AMF values, each encoded in AMF 0 by default; AMF 3 encoding for
+a value is selected by prefixing it with an <code>avmplus-object-marker</code>
+(byte <code>0x11</code>) as defined in <span>[<a href="#AMF0" class="cite xref">AMF0</a>]</span>.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<p id="section-6.2-5"><code>Type 20</code> Command messages and <code>Type 18</code> Data messages
+comprise a sequence of AMF 0 coded values, as originally implied.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 </section>
+</div>
 </section>
 </div>
 <section id="section-7">
       <h2 id="name-remote-procedure-call-2">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-remote-procedure-call-2" class="section-name selfRef">Remote Procedure Call</a>
       </h2>
+<div id="connect-message">
 <section id="section-7.1">
-        <h3 id="name-call-2">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-call-2" class="section-name selfRef">call</a>
+        <h3 id="name-connect-2">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-connect-2" class="section-name selfRef">connect</a>
         </h3>
-<p id="section-7.1-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7212call" class="relref">Section 7.2.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
+<p id="section-7.1-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+lists parameters for the <code>connect</code> command and their potential values
+or ranges. However, this section contains incomplete and misleading information
+particularly in capability negotiation.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<div id="object-encoding-negotiation">
+<section id="section-7.1.1">
+          <h4 id="name-objectencoding-negotiation-2">
+<a href="#section-7.1.1" class="section-number selfRef">7.1.1. </a><a href="#name-objectencoding-negotiation-2" class="section-name selfRef">objectEncoding Negotiation</a>
+          </h4>
+<p id="section-7.1.1-1">The <code>objectEncoding</code> member of the <code>connect</code> Command Object
+is <span class="bcp14">OPTIONAL</span> with a default value of 0. If given, the possible
+values are 0 and 3 (Numbers). This value indicates the Object Encoding methods
+supported by the client. A value of 0 indicates support only for AMF 0 and
+the <code>Type 20</code> Command and <code>Type 18</code> Data message types.  A
+value of 3 indicates support for both AMF 0 and AMF 3, and for <code>Type 17</code>
+Command Extended and <code>Type 15</code> Data Extended messages in addition to
+<code>Type 20</code> and <code>Type 18</code> messages. See
+<a href="#object-encoding-3" class="auto internal xref">Section 6.2</a> for the corrected encoding of these
+message types.<a href="#section-7.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.1-2">The server responds with the highest legal value that both it and the
+client support (that is, the server <span class="bcp14">MUST NOT</span> send <code>3</code>
+if the client didn't send <code>3</code>). Some clients require this member in
+the <code>_result</code>, so the server <span class="bcp14">SHOULD</span> send it. If Object
+Encoding 0 is negotiated, client and server <span class="bcp14">MUST NOT</span> send
+Command Extended or Data Extended messages to each other. If Object Encoding
+3 is negotiated, client and server can use either the normal (<code>Type 20</code>
+and <code>Type 18</code>) or extended (<code>Type 17</code> and <code>Type 15</code>)
+message types at any time.<a href="#section-7.1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-7.1.2">
+          <h4 id="name-tcurl-2">
+<a href="#section-7.1.2" class="section-number selfRef">7.1.2. </a><a href="#name-tcurl-2" class="section-name selfRef">tcUrl</a>
+          </h4>
+<p id="section-7.1.2-1">The <code>tcUrl</code> member of the <code>connect</code> Command Object
+is <span class="bcp14">REQUIRED</span>. Its value is a string representing the URI
+to which the client is connecting. Contrary to
+<span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
+RTMP family URIs follow the
+<span><a href="#RFC3986" class="internal xref">generic syntax for URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>. The interpretation
+of any path or query components of the URI is reserved for the server.
+Note that per <span><a href="#security-considerations" class="internal xref">Security Considerations</a> (<a href="#security-considerations" class="auto internal xref">Section 9</a>)</span>,
+the client <span class="bcp14">SHOULD</span> strip any <code>userinfo</code> and <code>fragment</code>
+components from the URI before sending it.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.2-2">Interoperability Note: Some clients interpret and rewrite the <code>path</code>
+component of the URI, using one or more <code>segment</code>s of the path for a
+non-connection purpose such as the name of a stream to play or publish. This
+behavior is not interoperable and is <span class="bcp14">NOT RECOMMENDED</span>. A
+recommendation of an alternative is beyond the purview of this memo; however,
+the community might consider more semantically appropriate alternatives, for
+example using the <code>fragment</code> component to indicate client-side parameters
+and behaviors such as the name of a stream to play or publish.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
+</section>
+<section id="section-7.1.3">
+          <h4 id="name-app-2">
+<a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-app-2" class="section-name selfRef">app</a>
+          </h4>
+<p id="section-7.1.3-1">The <code>app</code> member of the <code>connect</code> Command Object
+is <span class="bcp14">REQUIRED</span>. Its value is a string indicating the
+<em>application instance</em> to which the client is connecting. Its value
+is usually the path component of the URI to which the client is connecting,
+not including the leading slash (if any). However, this is not required;
+clients <span class="bcp14">MAY</span> set <code>app</code> to a different value if appropriate.
+The interpretation of <code>app</code> and the meaning of "application instance"
+is reserved for the server.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-7.1.4">
+          <h4 id="name-codec-negotiation-2">
+<a href="#section-7.1.4" class="section-number selfRef">7.1.4. </a><a href="#name-codec-negotiation-2" class="section-name selfRef">Codec Negotiation</a>
+          </h4>
+<p id="section-7.1.4-1">The <code>videoCodecs</code> and <code>audioCodecs</code> members of the
+<code>connect</code> Command Object are bit fields representing the video and
+audio codecs, respectively, that the client is capable and willing to receive.
+These members are <span class="bcp14">OPTIONAL</span> and each defaults to 0 (that is,
+no bits set, so no codecs indicated). The values for these fields are
+enumerated in
+<span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>;
+multiple codecs are combined with bitwise-or.<a href="#section-7.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.4-2">Interoperability Note: Some server implementations, including Adobe Media
+Server, use this information to selectively filter out <code>Video</code> and
+<code>Audio</code> messages having codecs not indicated in the respective bit
+fields. In other words, some servers might not send the video and/or audio
+messages of certain streams unless these members are sent with appropriate
+values. Therefore, clients <span class="bcp14">SHOULD</span> send <code>videoCodecs</code>
+and <code>audioCodecs</code> in the <code>connect</code> command indicating at least
+their supported playback codecs.<a href="#section-7.1.4-2" class="pilcrow">¶</a></p>
+</section>
+</section>
+</div>
+<section id="section-7.2">
+        <h3 id="name-call-2">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-call-2" class="section-name selfRef">call</a>
+        </h3>
+<p id="section-7.2-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7212call" class="relref">Section 7.2.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
 in context, conflates the <code>call</code> method on a <code>NetConnection</code>
 ActionScript object (specific to Flash Player and Adobe Integrated Runtime)
 with the encoding of a Remote Procedure Call into an RTMP Command message.
 This is misleading.  However, the command structure illustrated in that section
 is correct. The name of the remote procedure to invoke on the peer is given
 as the first field, and the string "<code>call</code>" does not appear in the
-command message sent to the peer.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+command message sent to the peer.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 </section>
-<section id="section-7.2">
+<section id="section-7.3">
         <h3 id="name-deletestream-2">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-deletestream-2" class="section-name selfRef">deleteStream</a>
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-deletestream-2" class="section-name selfRef">deleteStream</a>
         </h3>
-<p id="section-7.2-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7223deletestream" class="relref">Section 7.2.2.3</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+<p id="section-7.3-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7223deletestream" class="relref">Section 7.2.2.3</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
 erroneously states that the <code>deleteStream</code> command is a <em>stream</em>
 command. The <code>deleteStream</code> command is actually a <em>connection</em>
 command and is to be sent on Message Stream ID 0. The Message Stream ID being
-deleted is sent as the fourth field of the command message, as indicated.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+deleted is sent as the fourth field of the command message, as indicated.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 </section>
 </section>
 <section id="section-8">
@@ -1764,6 +1930,7 @@ deleted is sent as the fourth field of the command message, as indicated.<a href
       </h2>
 <p id="section-8-1">This memo has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
+<div id="security-considerations">
 <section id="section-9">
       <h2 id="name-security-considerations-2">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security Considerations</a>
@@ -1776,6 +1943,7 @@ sending it as the <code>tcUrl</code> member of the <code>connect</code> command'
 Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminator
 (<span><a href="https://rfc-editor.org/rfc/rfc7425#section-4.4.2.2" class="relref">Section 4.4.2.2</a> of [<a href="#RFC7425" class="cite xref">RFC7425</a>]</span>).<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
+</div>
 <section id="section-10">
       <h2 id="name-references-2">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references-2" class="section-name selfRef">References</a>

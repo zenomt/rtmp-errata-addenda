@@ -79,13 +79,13 @@
 
 <t>At the time of writing, Adobe's Real-Time Messaging Protocol (RTMP) continues
 to be used by the media streaming industry and in media streaming products
-for transmitting live video and audio over IP networks, including between and
+for transmitting video and audio over IP networks, including between and
 through various stages of live video production, ingest, and distribution.</t>
 
 <t>The <xref target="RTMP">RTMP specification</xref> was last updated by Adobe
 in December 2012. That version contains numerous errors, omissions, and
 ambiguities that impede the independent development of correct and interoperable
-live streaming products.</t>
+streaming products.</t>
 
 <t>At the time of writing, the RTMP specification is considered to be an
 immutable historical artifact. This memo is intended to be referenced alongside
@@ -257,9 +257,9 @@ diagram doesn't show this and it is easily missed. This section clarifies the
 +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
 
 struct chunkMessageHeaderType0_t {
-    uint24_t provisionalTimestamp;
-    uint24_t messageLength;
-    uint8_t messageTypeID;
+    uint24_t   provisionalTimestamp;
+    uint24_t   messageLength;
+    uint8_t    messageTypeID;
     uint32le_t messageStreamID;
 
     if (0xFFFFFF == provisionalTimestamp)
@@ -328,7 +328,7 @@ Digital Video Recorder (DVR) playback as well as for live streaming.</t>
 including prioritization policies and transmission deadlines. Prioritization
 can include (but is not limited to) preferential allocation of transmission
 resources to audio over video, or to one stream over another.  Prioritization
-can cause, for example, later audio messages to be delivered before earlier
+can cause, for example, later audio messages to be transmitted before earlier
 video messages.</t>
 
 <t>Senders have full control over scheduling, interleaving, and transmitting
@@ -374,7 +374,7 @@ Protocol Control Message by discarding the partially-received message and
 being prepared to receive a new message on the indicated Chunk Stream ID.</t>
 
 <t>If at least one chunk for a new message is transmitted, then a timestamp
-is established for the message against which a timestamp delta in a subsequent
+is established for that message against which a timestamp delta in a subsequent
 message can be applied, even if the first message is aborted.</t>
 
 </section> <!-- Abandoning a Message -->
@@ -449,9 +449,9 @@ additional messages and semantics unique to this transport.
 <t>This flexibility is memorialized here.</t>
 
 <t>Note well that during ordinary processing, RTMP Messages can be translated
-between different protocols and can pass through heterogenous processing
+between different protocols and can pass through heterogeneous processing
 elements, which can mask, confound, or destroy message meta-information beyond
-the virtual Message Header (such as the Chunk Stream ID or RTMFP flow on which
+the Message Virtual Header (such as the Chunk Stream ID or RTMFP flow on which
 a message originally arrived).  Different processing elements can apply
 different treatments, policies, priorities, and deadlines to RTMP message
 streams, potentially affecting message arrival, arrival order, and interarrival
@@ -459,13 +459,162 @@ timing.</t>
 
 </section> <!-- Alternative Transports Possible -->
 
-<section title="Object Encoding 3">
+<section title="Object Encoding 3" anchor="object-encoding-3">
+
+<t>When <tt>objectEncoding</tt> 3 is negotiated during <tt>connect</tt>
+(<xref target="object-encoding-negotiation"/>), <tt>Type 17</tt> Command
+Extended and <tt>Type 15</tt> Data Extended messages can be used to carry
+<xref target="AMF3">AMF 3</xref> coded values.</t>
+
+<t><xref target="RTMP" section="7.1.1" relative="#711command-message-20-17" sectionFormat="of"/>
+implies that a <tt>Type 17</tt> Command Extended message is a sequence of
+AMF 3 coded values. Likewise,
+<xref target="RTMP" section="7.1.2" relative="#712data-message-18-15" sectionFormat="of"/>
+implies that a <tt>Type 15</tt> Data Extended message is a sequence of AMF 3
+coded values. These implications are incorrect.</t>
+
+<artwork align="left" type="ascii-art"><![CDATA[
+ 0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+
+|format selector|
++-+-+-+-+-+-+-+-+
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+|                          coded value                          |
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+                                :
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+|                          coded value                          |
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+
+// Message Type 17 "Command Extended" and Type 15 "Data Extended"
+struct extendedActionMessagePayload_t {
+    uint8_t formatSelector;
+
+    if (0 == formatSelector)
+    {
+        while (remainder() > 0)
+        {
+            provisionalValue = decode_amf0();
+            if (avmplus_object_marker == provisionalValue)
+                // saw marker byte 0x11
+                codedValue = decode_amf3();
+            else
+                codedValue = provisionalValue;
+        }
+    }
+    // else unknown format
+};
+]]></artwork>
+
+<t>A <tt>Type 17</tt> Command Extended or <tt>Type 15</tt> Data Extended
+message payload begins with a format selector byte, followed by a sequence
+of values in a format-specific encoding.  Currently only format 0 is defined;
+therefore, the format selector byte <bcp14>MUST</bcp14> be 0.  Format 0 is a
+sequence of AMF values, each encoded in AMF 0 by default; AMF 3 encoding for
+a value is selected by prefixing it with an <tt>avmplus-object-marker</tt>
+(byte <tt>0x11</tt>) as defined in <xref target="AMF0"/>.</t>
+
+<t><tt>Type 20</tt> Command messages and <tt>Type 18</tt> Data messages
+comprise a sequence of AMF 0 coded values, as originally implied.</t>
 
 </section> <!-- Object Encoding 3 -->
 
 </section> <!-- RTMP Message Format -->
 
 <section title="Remote Procedure Call">
+
+<section title="connect" anchor="connect-message">
+
+<t><xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>
+lists parameters for the <tt>connect</tt> command and their potential values
+or ranges. However, this section contains incomplete and misleading information
+particularly in capability negotiation.</t>
+
+<section title="objectEncoding Negotiation" anchor="object-encoding-negotiation">
+
+<t>The <tt>objectEncoding</tt> member of the <tt>connect</tt> Command Object
+is <bcp14>OPTIONAL</bcp14> with a default value of 0. If given, the possible
+values are 0 and 3 (Numbers). This value indicates the Object Encoding methods
+supported by the client. A value of 0 indicates support only for AMF 0 and
+the <tt>Type 20</tt> Command and <tt>Type 18</tt> Data message types.  A
+value of 3 indicates support for both AMF 0 and AMF 3, and for <tt>Type 17</tt>
+Command Extended and <tt>Type 15</tt> Data Extended messages in addition to
+<tt>Type 20</tt> and <tt>Type 18</tt> messages. See
+<xref target="object-encoding-3"/> for the corrected encoding of these
+message types.</t>
+
+<t>The server responds with the highest legal value that both it and the
+client support (that is, the server <bcp14>MUST NOT</bcp14> send <tt>3</tt>
+if the client didn't send <tt>3</tt>). Some clients require this member in
+the <tt>_result</tt>, so the server <bcp14>SHOULD</bcp14> send it. If Object
+Encoding 0 is negotiated, client and server <bcp14>MUST NOT</bcp14> send
+Command Extended or Data Extended messages to each other. If Object Encoding
+3 is negotiated, client and server can use either the normal (<tt>Type 20</tt>
+and <tt>Type 18</tt>) or extended (<tt>Type 17</tt> and <tt>Type 15</tt>)
+message types at any time.</t>
+
+</section> <!-- objectEncoding Negotiation -->
+
+<section title="tcUrl">
+
+<t>The <tt>tcUrl</tt> member of the <tt>connect</tt> Command Object
+is <bcp14>REQUIRED</bcp14>. Its value is a string representing the URI
+to which the client is connecting. Contrary to
+<xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>,
+RTMP family URIs follow the
+<xref target="RFC3986">generic syntax for URIs</xref>. The interpretation
+of any path or query components of the URI is reserved for the server.
+Note that per <xref target="security-considerations">Security Considerations</xref>,
+the client <bcp14>SHOULD</bcp14> strip any <tt>userinfo</tt> and <tt>fragment</tt>
+components from the URI before sending it.</t>
+
+<t>Interoperability Note: Some clients interpret and rewrite the <tt>path</tt>
+component of the URI, using one or more <tt>segment</tt>s of the path for a
+non-connection purpose such as the name of a stream to play or publish. This
+behavior is not interoperable and is <bcp14>NOT RECOMMENDED</bcp14>. A
+recommendation of an alternative is beyond the purview of this memo; however,
+the community might consider more semantically appropriate alternatives, for
+example using the <tt>fragment</tt> component to indicate client-side parameters
+and behaviors such as the name of a stream to play or publish.</t>
+
+</section> <!-- tcUrl -->
+
+<section title="app">
+
+<t>The <tt>app</tt> member of the <tt>connect</tt> Command Object
+is <bcp14>REQUIRED</bcp14>. Its value is a string indicating the
+<em>application instance</em> to which the client is connecting. Its value
+is usually the path component of the URI to which the client is connecting,
+not including the leading slash (if any). However, this is not required;
+clients <bcp14>MAY</bcp14> set <tt>app</tt> to a different value if appropriate.
+The interpretation of <tt>app</tt> and the meaning of "application instance"
+is reserved for the server.</t>
+
+</section> <!-- app -->
+
+<section title="Codec Negotiation">
+
+<t>The <tt>videoCodecs</tt> and <tt>audioCodecs</tt> members of the
+<tt>connect</tt> Command Object are bit fields representing the video and
+audio codecs, respectively, that the client is capable and willing to receive.
+These members are <bcp14>OPTIONAL</bcp14> and each defaults to 0 (that is,
+no bits set, so no codecs indicated). The values for these fields are
+enumerated in
+<xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>;
+multiple codecs are combined with bitwise-or.</t>
+
+<t>Interoperability Note: Some server implementations, including Adobe Media
+Server, use this information to selectively filter out <tt>Video</tt> and
+<tt>Audio</tt> messages having codecs not indicated in the respective bit
+fields. In other words, some servers might not send the video and/or audio
+messages of certain streams unless these members are sent with appropriate
+values. Therefore, clients <bcp14>SHOULD</bcp14> send <tt>videoCodecs</tt>
+and <tt>audioCodecs</tt> in the <tt>connect</tt> command indicating at least
+their supported playback codecs.</t>
+
+</section> <!-- Codec Negotiation -->
+
+</section> <!-- connect -->
 
 <section title="call">
 
@@ -496,7 +645,7 @@ deleted is sent as the fourth field of the command message, as indicated.</t>
 <t>This memo has no IANA actions.</t>
 </section> <!-- IANA -->
 
-<section title="Security Considerations">
+<section title="Security Considerations" anchor="security-considerations">
 
 <t>RTMP and RTMFP URIs use the <xref target="RFC3986">generic syntax for
 URIs</xref>.  URIs can encode sensitive or private information such as user
