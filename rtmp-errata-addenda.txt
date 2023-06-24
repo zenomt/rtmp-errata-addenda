@@ -461,7 +461,7 @@ Thornburgh                    Informational                     [Page 8]
 
 6.1.  Alternative Transports and Processing Possible
 
-   RTMP Chunk Stream is not the ony possible transport service for RTMP
+   RTMP Chunk Stream is not the only possible transport service for RTMP
    Messages.  This flexibility is stated in several places.  For
    example:
 

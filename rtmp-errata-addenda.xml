@@ -420,7 +420,7 @@ translation, so they <bcp14>SHOULD NOT</bcp14> be exceeded.</t>
 
 <section title="Alternative Transports and Processing Possible">
 
-<t>RTMP Chunk Stream is not the ony possible transport service for RTMP
+<t>RTMP Chunk Stream is not the only possible transport service for RTMP
 Messages. This flexibility is stated in several places. For example:</t>
 
 <blockquote>
