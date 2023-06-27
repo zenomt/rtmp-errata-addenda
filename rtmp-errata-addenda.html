@@ -1222,7 +1222,7 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-24" class="published">24 June 2023</time>
+<time datetime="2023-06-26" class="published">26 June 2023</time>
     </dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
@@ -1681,9 +1681,9 @@ Chunk Message Headers; and when RTMP messages are transported in RTMFP according
 to <span><a href="https://rfc-editor.org/rfc/rfc7425#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC7425" class="cite xref">RFC7425</a>]</span>, RTMP message
 headers are encoded into flow metadata and the leading bytes of flow user
 messages.  Therefore, the Message Header of the RTMP Message Format
-<span class="bcp14">SHOULD</span> be construed as a <em>virtual</em> or <em>semantic</em>
-header that is mapped to the facilities of a lower-layer transport protocol
-such as RTMP Chunk Stream or RTMFP.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<span class="bcp14">SHOULD</span> be construed as a <em>virtual</em> header that is mapped
+to the facilities of a lower-layer transport protocol such as RTMP Chunk
+Stream or RTMFP.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">The semantics of the RTMP Message Virtual Header and the encodings used in
 the common transport protocols constrain the possible values of RTMP Message
 Header fields. In particular:<a href="#section-6-2" class="pilcrow">¶</a></p>
@@ -1820,7 +1820,7 @@ particularly in capability negotiation.<a href="#section-7.1-1" class="pilcrow">
           <h4 id="name-objectencoding-negotiation-2">
 <a href="#section-7.1.1" class="section-number selfRef">7.1.1. </a><a href="#name-objectencoding-negotiation-2" class="section-name selfRef">objectEncoding Negotiation</a>
           </h4>
-<p id="section-7.1.1-1">The <code>objectEncoding</code> member of the <code>connect</code> command's Command Object
+<p id="section-7.1.1-1">The <code>objectEncoding</code> property of the <code>connect</code> command's Command Object
 is <span class="bcp14">OPTIONAL</span> with a default value of 0. If given, the possible
 values are 0 and 3 (Numbers). This value indicates the Object Encoding methods
 supported by the client. A value of 0 indicates support only for AMF 0 and
@@ -1832,7 +1832,7 @@ Command Extended and <code>Type 15</code> Data Extended messages in addition to
 message types.<a href="#section-7.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.1-2">The server responds with the highest legal value that both it and the
 client support (that is, the server <span class="bcp14">MUST NOT</span> send <code>3</code>
-if the client didn't send <code>3</code>). Some clients require this member in
+if the client didn't send <code>3</code>). Some clients require this property in
 the <code>_result</code>, so the server <span class="bcp14">SHOULD</span> send it. If Object
 Encoding 0 is negotiated, client and server <span class="bcp14">MUST NOT</span> send
 Command Extended or Data Extended messages to each other. If Object Encoding
@@ -1849,46 +1849,51 @@ knowledge that the server to which it is connecting supports Object Encoding
           <h4 id="name-tcurl-2">
 <a href="#section-7.1.2" class="section-number selfRef">7.1.2. </a><a href="#name-tcurl-2" class="section-name selfRef">tcUrl</a>
           </h4>
-<p id="section-7.1.2-1">The <code>tcUrl</code> member of the <code>connect</code> command's Command Object
+<p id="section-7.1.2-1">The <code>tcUrl</code> property of the <code>connect</code> command's Command Object
 is <span class="bcp14">REQUIRED</span>. Its value is a string representing the URI
 to which the client is connecting. Contrary to
 <span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
 RTMP family URIs follow the
-<span><a href="#RFC3986" class="internal xref">generic syntax for URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>. The interpretation
-of any path or query components of the URI is reserved for the server.
-Note that per <span><a href="#security-considerations" class="internal xref">Security Considerations</a> (<a href="#security-considerations" class="auto internal xref">Section 9</a>)</span>,
-the client <span class="bcp14">SHOULD</span> strip any <code>userinfo</code> and <code>fragment</code>
-components from the URI before sending it.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.2-2">Interoperability Note: Some clients interpret and rewrite the <code>path</code>
-component of the URI, using one or more <code>segment</code>s of the path for a
-non-connection purpose such as the name of a stream to play or publish. This
-behavior is not interoperable and is <span class="bcp14">NOT RECOMMENDED</span>. A
-recommendation of an alternative is beyond the purview of this memo; however,
-the community might consider more semantically appropriate alternatives, for
-example using the <code>fragment</code> component to indicate client-side parameters
-and behaviors such as the name of a stream to play or publish.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
+<span><a href="#RFC3986" class="internal xref">generic syntax for URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>. The hierarchical path
+component and optional query component identify the <em>target resource</em>
+within the server's namespace.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.2-2">The meaning of "target resource" is implementation specific and is reserved
+for the server.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.1.2-3">Per <span><a href="#security-considerations" class="internal xref">Security Considerations</a> (<a href="#security-considerations" class="auto internal xref">Section 9</a>)</span>, the
+client <span class="bcp14">SHOULD</span> strip any <code>userinfo</code> and <code>fragment</code>
+components from the URI before sending it.<a href="#section-7.1.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.1.2-4">Interoperability Note: Some clients improperly presume the server's
+interpretation of the <code>path</code> component of the URI, rewriting it and
+using one or more <code>segment</code>s of the original path for a non-connection
+purpose such as the name of a stream to play or publish. This behavior is not
+interoperable and is <span class="bcp14">NOT RECOMMENDED</span>. A recommendation of an
+alternative is beyond the purview of this memo; however, the community might
+consider more semantically appropriate alternatives, for example using the
+<code>fragment</code> component to indicate client-side parameters and behaviors
+such as the name of a stream to play or publish.<a href="#section-7.1.2-4" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7.1.3">
           <h4 id="name-app-2">
 <a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-app-2" class="section-name selfRef">app</a>
           </h4>
-<p id="section-7.1.3-1">The <code>app</code> member of the <code>connect</code> command's Command Object
+<p id="section-7.1.3-1">The <code>app</code> property of the <code>connect</code> command's Command Object
 is <span class="bcp14">REQUIRED</span>. Its value is a string indicating the
-<em>application instance</em> to which the client is connecting. Its value
-is usually the path component of the URI to which the client is connecting,
-not including the leading slash (if any). However, this is not required;
-clients <span class="bcp14">MAY</span> set <code>app</code> to a different value if appropriate.
-The interpretation of <code>app</code> and the meaning of "application instance"
-is reserved for the server.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
+<em>target application resource</em> to which the client is connecting. Unless
+the client has prior knowledge to the contrary of the server's specific
+implementation, <code>app</code> <span class="bcp14">SHOULD</span> be set to the <code>path</code>
+component of the URI to which the client is connecting, not including the
+leading slash (if any).<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.3-2">The  meaning of "target application resource" is implementation specific
+and is reserved for the server.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7.1.4">
           <h4 id="name-codec-negotiation-2">
 <a href="#section-7.1.4" class="section-number selfRef">7.1.4. </a><a href="#name-codec-negotiation-2" class="section-name selfRef">Codec Negotiation</a>
           </h4>
-<p id="section-7.1.4-1">The <code>videoCodecs</code> and <code>audioCodecs</code> members of the
+<p id="section-7.1.4-1">The <code>videoCodecs</code> and <code>audioCodecs</code> properties of the
 <code>connect</code> command's Command Object are bit fields representing the video and
 audio codecs, respectively, that the client is capable and willing to receive.
-These members are <span class="bcp14">OPTIONAL</span> and each defaults to 0 (that is,
+These properties are <span class="bcp14">OPTIONAL</span> and each defaults to 0 (that is,
 no bits set, so no codecs indicated). The values for these fields are
 enumerated in
 <span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>;
@@ -1897,7 +1902,7 @@ multiple codecs are combined with bitwise-or.<a href="#section-7.1.4-1" class="p
 Server, use this information to selectively filter out <code>Video</code> and
 <code>Audio</code> messages having codecs not indicated in the respective bit
 fields. In other words, some servers might not send the video and/or audio
-messages of certain streams unless these members are sent with appropriate
+messages of certain streams unless these properties are sent with appropriate
 values. Therefore, clients <span class="bcp14">SHOULD</span> send <code>videoCodecs</code>
 and <code>audioCodecs</code> in the <code>connect</code> command indicating at least
 their supported playback codecs.<a href="#section-7.1.4-2" class="pilcrow">¶</a></p>
@@ -1911,20 +1916,22 @@ their supported playback codecs.<a href="#section-7.1.4-2" class="pilcrow">¶</a
 <p id="section-7.2-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7212call" class="relref">Section 7.2.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
 in context, conflates the <code>call</code> method on a <code>NetConnection</code>
 ActionScript object (specific to Flash Player and Adobe Integrated Runtime)
-with the encoding of a Remote Procedure Call into an RTMP Command message.
-This is misleading.  However, the command structure illustrated in that section
-is correct. The name of the remote procedure to invoke on the peer is given
-as the first field, and the string "<code>call</code>" does not appear in the
-command message sent to the peer.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+with the encoding of a general Remote Procedure Call into an RTMP Command
+message.  This conflation has caused confusion for some implementers.  The
+command structure illustrated in that section is correct. In particular, the
+name of the remote procedure to invoke on the peer is given as the first field
+(as illustrated), and the string "<code>call</code>" does not appear in the command
+message sent to the peer.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7.3">
         <h3 id="name-deletestream-2">
 <a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-deletestream-2" class="section-name selfRef">deleteStream</a>
         </h3>
 <p id="section-7.3-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7223deletestream" class="relref">Section 7.2.2.3</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
-erroneously states that the <code>deleteStream</code> command is a <em>stream</em>
-command. The <code>deleteStream</code> command is actually a <em>connection</em>
-command and is to be sent on Message Stream ID 0. The Message Stream ID being
+erroneously states that the <code>deleteStream</code> command is a <em>"NetStream"</em>
+command. The <code>deleteStream</code> command is actually a <em>"NetConnection"</em>
+command (like <code>connect</code> and <code>createStream</code>) and is to be sent
+on Message Stream ID 0 (the "control stream"). The Message Stream ID being
 deleted is sent as the fourth field of the command message, as indicated.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 </section>
 </section>
@@ -1943,7 +1950,7 @@ deleted is sent as the fourth field of the command message, as indicated.<a href
 URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.  URIs can encode sensitive or private information such as user
 names, passwords, stream names, and so on. Implementations <span class="bcp14">SHOULD</span>
 remove any <code>userinfo</code> and <code>fragment</code> components of a URI before
-sending it as the <code>tcUrl</code> member of the <code>connect</code> command's
+sending it as the <code>tcUrl</code> property of the <code>connect</code> command's
 Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminator
 (<span><a href="https://rfc-editor.org/rfc/rfc7425#section-4.4.2.2" class="relref">Section 4.4.2.2</a> of [<a href="#RFC7425" class="cite xref">RFC7425</a>]</span>).<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>

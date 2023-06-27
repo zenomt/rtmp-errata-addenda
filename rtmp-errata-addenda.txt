@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                            24 June 2023
+                                                            26 June 2023
 
 
                         RTMP Errata and Addenda
@@ -427,9 +427,9 @@ Thornburgh                    Informational                     [Page 7]
    transported in RTMFP according to Section 5.1 of [RFC7425], RTMP
    message headers are encoded into flow metadata and the leading bytes
    of flow user messages.  Therefore, the Message Header of the RTMP
-   Message Format SHOULD be construed as a _virtual_ or _semantic_
-   header that is mapped to the facilities of a lower-layer transport
-   protocol such as RTMP Chunk Stream or RTMFP.
+   Message Format SHOULD be construed as a _virtual_ header that is
+   mapped to the facilities of a lower-layer transport protocol such as
+   RTMP Chunk Stream or RTMFP.
 
    The semantics of the RTMP Message Virtual Header and the encodings
    used in the common transport protocols constrain the possible values
@@ -584,8 +584,8 @@ Thornburgh                    Informational                    [Page 10]
 
 7.1.1.  objectEncoding Negotiation
 
-   The objectEncoding member of the connect command's Command Object is
-   OPTIONAL with a default value of 0.  If given, the possible values
+   The objectEncoding property of the connect command's Command Object
+   is OPTIONAL with a default value of 0.  If given, the possible values
    are 0 and 3 (Numbers).  This value indicates the Object Encoding
    methods supported by the client.  A value of 0 indicates support only
    for AMF 0 and the Type 20 Command and Type 18 Data message types.  A
@@ -596,8 +596,8 @@ Thornburgh                    Informational                    [Page 10]
 
    The server responds with the highest legal value that both it and the
    client support (that is, the server MUST NOT send 3 if the client
-   didn't send 3).  Some clients require this member in the _result, so
-   the server SHOULD send it.  If Object Encoding 0 is negotiated,
+   didn't send 3).  Some clients require this property in the _result,
+   so the server SHOULD send it.  If Object Encoding 0 is negotiated,
    client and server MUST NOT send Command Extended or Data Extended
    messages to each other.  If Object Encoding 3 is negotiated, client
    and server can use either the normal (Type 20 and Type 18) or
@@ -620,51 +620,51 @@ Thornburgh                    Informational                    [Page 11]
 
 7.1.2.  tcUrl
 
-   The tcUrl member of the connect command's Command Object is REQUIRED.
-   Its value is a string representing the URI to which the client is
-   connecting.  Contrary to Section 7.2.1.1 of [RTMP], RTMP family URIs
-   follow the generic syntax for URIs [RFC3986].  The interpretation of
-   any path or query components of the URI is reserved for the server.
-   Note that per Security Considerations (Section 9), the client SHOULD
-   strip any userinfo and fragment components from the URI before
-   sending it.
+   The tcUrl property of the connect command's Command Object is
+   REQUIRED.  Its value is a string representing the URI to which the
+   client is connecting.  Contrary to Section 7.2.1.1 of [RTMP], RTMP
+   family URIs follow the generic syntax for URIs [RFC3986].  The
+   hierarchical path component and optional query component identify the
+   _target resource_ within the server's namespace.
 
-   Interoperability Note: Some clients interpret and rewrite the path
-   component of the URI, using one or more segments of the path for a
-   non-connection purpose such as the name of a stream to play or
-   publish.  This behavior is not interoperable and is NOT RECOMMENDED.
-   A recommendation of an alternative is beyond the purview of this
-   memo; however, the community might consider more semantically
-   appropriate alternatives, for example using the fragment component to
-   indicate client-side parameters and behaviors such as the name of a
-   stream to play or publish.
+   The meaning of "target resource" is implementation specific and is
+   reserved for the server.
+
+   Per Security Considerations (Section 9), the client SHOULD strip any
+   userinfo and fragment components from the URI before sending it.
+
+   Interoperability Note: Some clients improperly presume the server's
+   interpretation of the path component of the URI, rewriting it and
+   using one or more segments of the original path for a non-connection
+   purpose such as the name of a stream to play or publish.  This
+   behavior is not interoperable and is NOT RECOMMENDED.  A
+   recommendation of an alternative is beyond the purview of this memo;
+   however, the community might consider more semantically appropriate
+   alternatives, for example using the fragment component to indicate
+   client-side parameters and behaviors such as the name of a stream to
+   play or publish.
 
 7.1.3.  app
 
-   The app member of the connect command's Command Object is REQUIRED.
-   Its value is a string indicating the _application instance_ to which
-   the client is connecting.  Its value is usually the path component of
-   the URI to which the client is connecting, not including the leading
-   slash (if any).  However, this is not required; clients MAY set app
-   to a different value if appropriate.  The interpretation of app and
-   the meaning of "application instance" is reserved for the server.
+   The app property of the connect command's Command Object is REQUIRED.
+   Its value is a string indicating the _target application resource_ to
+   which the client is connecting.  Unless the client has prior
+   knowledge to the contrary of the server's specific implementation,
+   app SHOULD be set to the path component of the URI to which the
+   client is connecting, not including the leading slash (if any).
+
+   The meaning of "target application resource" is implementation
+   specific and is reserved for the server.
 
 7.1.4.  Codec Negotiation
 
-   The videoCodecs and audioCodecs members of the connect command's
+   The videoCodecs and audioCodecs properties of the connect command's
    Command Object are bit fields representing the video and audio
    codecs, respectively, that the client is capable and willing to
-   receive.  These members are OPTIONAL and each defaults to 0 (that is,
-   no bits set, so no codecs indicated).  The values for these fields
-   are enumerated in Section 7.2.1.1 of [RTMP]; multiple codecs are
-   combined with bitwise-or.
-
-
-
-
-
-
-
+   receive.  These properties are OPTIONAL and each defaults to 0 (that
+   is, no bits set, so no codecs indicated).  The values for these
+   fields are enumerated in Section 7.2.1.1 of [RTMP]; multiple codecs
+   are combined with bitwise-or.
 
 
 
@@ -678,27 +678,29 @@ Thornburgh                    Informational                    [Page 12]
    Media Server, use this information to selectively filter out Video
    and Audio messages having codecs not indicated in the respective bit
    fields.  In other words, some servers might not send the video and/or
-   audio messages of certain streams unless these members are sent with
-   appropriate values.  Therefore, clients SHOULD send videoCodecs and
-   audioCodecs in the connect command indicating at least their
+   audio messages of certain streams unless these properties are sent
+   with appropriate values.  Therefore, clients SHOULD send videoCodecs
+   and audioCodecs in the connect command indicating at least their
    supported playback codecs.
 
 7.2.  call
 
    Section 7.2.1.2 of [RTMP], in context, conflates the call method on a
    NetConnection ActionScript object (specific to Flash Player and Adobe
-   Integrated Runtime) with the encoding of a Remote Procedure Call into
-   an RTMP Command message.  This is misleading.  However, the command
-   structure illustrated in that section is correct.  The name of the
-   remote procedure to invoke on the peer is given as the first field,
-   and the string "call" does not appear in the command message sent to
-   the peer.
+   Integrated Runtime) with the encoding of a general Remote Procedure
+   Call into an RTMP Command message.  This conflation has caused
+   confusion for some implementers.  The command structure illustrated
+   in that section is correct.  In particular, the name of the remote
+   procedure to invoke on the peer is given as the first field (as
+   illustrated), and the string "call" does not appear in the command
+   message sent to the peer.
 
 7.3.  deleteStream
 
    Section 7.2.2.3 of [RTMP] erroneously states that the deleteStream
-   command is a _stream_ command.  The deleteStream command is actually
-   a _connection_ command and is to be sent on Message Stream ID 0.  The
+   command is a _"NetStream"_ command.  The deleteStream command is
+   actually a _"NetConnection"_ command (like connect and createStream)
+   and is to be sent on Message Stream ID 0 (the "control stream").  The
    Message Stream ID being deleted is sent as the fourth field of the
    command message, as indicated.
 
@@ -712,15 +714,13 @@ Thornburgh                    Informational                    [Page 12]
    can encode sensitive or private information such as user names,
    passwords, stream names, and so on.  Implementations SHOULD remove
    any userinfo and fragment components of a URI before sending it as
-   the tcUrl member of the connect command's Command Object or in the
+   the tcUrl property of the connect command's Command Object or in the
    Ancillary Data option of an RTMFP Endpoint Discriminator
    (Section 4.4.2.2 of [RFC7425]).
 
 10.  References
 
 10.1.  Normative References
-
-
 
 
 

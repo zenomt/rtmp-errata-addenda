@@ -391,9 +391,9 @@ Chunk Message Headers; and when RTMP messages are transported in RTMFP according
 to <xref target="RFC7425" section="5.1" sectionFormat="of"/>, RTMP message
 headers are encoded into flow metadata and the leading bytes of flow user
 messages.  Therefore, the Message Header of the RTMP Message Format
-<bcp14>SHOULD</bcp14> be construed as a <em>virtual</em> or <em>semantic</em>
-header that is mapped to the facilities of a lower-layer transport protocol
-such as RTMP Chunk Stream or RTMFP.</t>
+<bcp14>SHOULD</bcp14> be construed as a <em>virtual</em> header that is mapped
+to the facilities of a lower-layer transport protocol such as RTMP Chunk
+Stream or RTMFP.</t>
 
 <t>The semantics of the RTMP Message Virtual Header and the encodings used in
 the common transport protocols constrain the possible values of RTMP Message
@@ -532,7 +532,7 @@ particularly in capability negotiation.</t>
 
 <section title="objectEncoding Negotiation" anchor="object-encoding-negotiation">
 
-<t>The <tt>objectEncoding</tt> member of the <tt>connect</tt> command's Command Object
+<t>The <tt>objectEncoding</tt> property of the <tt>connect</tt> command's Command Object
 is <bcp14>OPTIONAL</bcp14> with a default value of 0. If given, the possible
 values are 0 and 3 (Numbers). This value indicates the Object Encoding methods
 supported by the client. A value of 0 indicates support only for AMF 0 and
@@ -545,7 +545,7 @@ message types.</t>
 
 <t>The server responds with the highest legal value that both it and the
 client support (that is, the server <bcp14>MUST NOT</bcp14> send <tt>3</tt>
-if the client didn't send <tt>3</tt>). Some clients require this member in
+if the client didn't send <tt>3</tt>). Some clients require this property in
 the <tt>_result</tt>, so the server <bcp14>SHOULD</bcp14> send it. If Object
 Encoding 0 is negotiated, client and server <bcp14>MUST NOT</bcp14> send
 Command Extended or Data Extended messages to each other. If Object Encoding
@@ -562,47 +562,55 @@ knowledge that the server to which it is connecting supports Object Encoding
 
 <section title="tcUrl">
 
-<t>The <tt>tcUrl</tt> member of the <tt>connect</tt> command's Command Object
+<t>The <tt>tcUrl</tt> property of the <tt>connect</tt> command's Command Object
 is <bcp14>REQUIRED</bcp14>. Its value is a string representing the URI
 to which the client is connecting. Contrary to
 <xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>,
 RTMP family URIs follow the
-<xref target="RFC3986">generic syntax for URIs</xref>. The interpretation
-of any path or query components of the URI is reserved for the server.
-Note that per <xref target="security-considerations">Security Considerations</xref>,
-the client <bcp14>SHOULD</bcp14> strip any <tt>userinfo</tt> and <tt>fragment</tt>
+<xref target="RFC3986">generic syntax for URIs</xref>. The hierarchical path
+component and optional query component identify the <em>target resource</em>
+within the server's namespace.</t>
+
+<t>The meaning of "target resource" is implementation specific and is reserved
+for the server.</t>
+
+<t>Per <xref target="security-considerations">Security Considerations</xref>, the
+client <bcp14>SHOULD</bcp14> strip any <tt>userinfo</tt> and <tt>fragment</tt>
 components from the URI before sending it.</t>
 
-<t>Interoperability Note: Some clients interpret and rewrite the <tt>path</tt>
-component of the URI, using one or more <tt>segment</tt>s of the path for a
-non-connection purpose such as the name of a stream to play or publish. This
-behavior is not interoperable and is <bcp14>NOT RECOMMENDED</bcp14>. A
-recommendation of an alternative is beyond the purview of this memo; however,
-the community might consider more semantically appropriate alternatives, for
-example using the <tt>fragment</tt> component to indicate client-side parameters
-and behaviors such as the name of a stream to play or publish.</t>
+<t>Interoperability Note: Some clients improperly presume the server's
+interpretation of the <tt>path</tt> component of the URI, rewriting it and
+using one or more <tt>segment</tt>s of the original path for a non-connection
+purpose such as the name of a stream to play or publish. This behavior is not
+interoperable and is <bcp14>NOT RECOMMENDED</bcp14>. A recommendation of an
+alternative is beyond the purview of this memo; however, the community might
+consider more semantically appropriate alternatives, for example using the
+<tt>fragment</tt> component to indicate client-side parameters and behaviors
+such as the name of a stream to play or publish.</t>
 
 </section> <!-- tcUrl -->
 
 <section title="app">
 
-<t>The <tt>app</tt> member of the <tt>connect</tt> command's Command Object
+<t>The <tt>app</tt> property of the <tt>connect</tt> command's Command Object
 is <bcp14>REQUIRED</bcp14>. Its value is a string indicating the
-<em>application instance</em> to which the client is connecting. Its value
-is usually the path component of the URI to which the client is connecting,
-not including the leading slash (if any). However, this is not required;
-clients <bcp14>MAY</bcp14> set <tt>app</tt> to a different value if appropriate.
-The interpretation of <tt>app</tt> and the meaning of "application instance"
-is reserved for the server.</t>
+<em>target application resource</em> to which the client is connecting. Unless
+the client has prior knowledge to the contrary of the server's specific
+implementation, <tt>app</tt> <bcp14>SHOULD</bcp14> be set to the <tt>path</tt>
+component of the URI to which the client is connecting, not including the
+leading slash (if any).</t>
+
+<t>The  meaning of "target application resource" is implementation specific
+and is reserved for the server.</t>
 
 </section> <!-- app -->
 
 <section title="Codec Negotiation">
 
-<t>The <tt>videoCodecs</tt> and <tt>audioCodecs</tt> members of the
+<t>The <tt>videoCodecs</tt> and <tt>audioCodecs</tt> properties of the
 <tt>connect</tt> command's Command Object are bit fields representing the video and
 audio codecs, respectively, that the client is capable and willing to receive.
-These members are <bcp14>OPTIONAL</bcp14> and each defaults to 0 (that is,
+These properties are <bcp14>OPTIONAL</bcp14> and each defaults to 0 (that is,
 no bits set, so no codecs indicated). The values for these fields are
 enumerated in
 <xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>;
@@ -612,7 +620,7 @@ multiple codecs are combined with bitwise-or.</t>
 Server, use this information to selectively filter out <tt>Video</tt> and
 <tt>Audio</tt> messages having codecs not indicated in the respective bit
 fields. In other words, some servers might not send the video and/or audio
-messages of certain streams unless these members are sent with appropriate
+messages of certain streams unless these properties are sent with appropriate
 values. Therefore, clients <bcp14>SHOULD</bcp14> send <tt>videoCodecs</tt>
 and <tt>audioCodecs</tt> in the <tt>connect</tt> command indicating at least
 their supported playback codecs.</t>
@@ -626,20 +634,22 @@ their supported playback codecs.</t>
 <t><xref target="RTMP" section="7.2.1.2" relative="#7212call" sectionFormat="of"/>,
 in context, conflates the <tt>call</tt> method on a <tt>NetConnection</tt>
 ActionScript object (specific to Flash Player and Adobe Integrated Runtime)
-with the encoding of a Remote Procedure Call into an RTMP Command message.
-This is misleading.  However, the command structure illustrated in that section
-is correct. The name of the remote procedure to invoke on the peer is given
-as the first field, and the string "<tt>call</tt>" does not appear in the
-command message sent to the peer.</t>
+with the encoding of a general Remote Procedure Call into an RTMP Command
+message.  This conflation has caused confusion for some implementers.  The
+command structure illustrated in that section is correct. In particular, the
+name of the remote procedure to invoke on the peer is given as the first field
+(as illustrated), and the string "<tt>call</tt>" does not appear in the command
+message sent to the peer.</t>
 
 </section> <!-- call -->
 
 <section title="deleteStream">
 
 <t><xref target="RTMP" section="7.2.2.3" relative="#7223deletestream" sectionFormat="of"/>
-erroneously states that the <tt>deleteStream</tt> command is a <em>stream</em>
-command. The <tt>deleteStream</tt> command is actually a <em>connection</em>
-command and is to be sent on Message Stream ID 0. The Message Stream ID being
+erroneously states that the <tt>deleteStream</tt> command is a <em>"NetStream"</em>
+command. The <tt>deleteStream</tt> command is actually a <em>"NetConnection"</em>
+command (like <tt>connect</tt> and <tt>createStream</tt>) and is to be sent
+on Message Stream ID 0 (the "control stream"). The Message Stream ID being
 deleted is sent as the fourth field of the command message, as indicated.</t>
 
 </section> <!-- deleteStream -->
@@ -656,7 +666,7 @@ deleted is sent as the fourth field of the command message, as indicated.</t>
 URIs</xref>.  URIs can encode sensitive or private information such as user
 names, passwords, stream names, and so on. Implementations <bcp14>SHOULD</bcp14>
 remove any <tt>userinfo</tt> and <tt>fragment</tt> components of a URI before
-sending it as the <tt>tcUrl</tt> member of the <tt>connect</tt> command's
+sending it as the <tt>tcUrl</tt> property of the <tt>connect</tt> command's
 Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminator
 (<xref target="RFC7425" section="4.4.2.2" sectionFormat="of"/>).</t>
 
