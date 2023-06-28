@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                            26 June 2023
+                                                            27 June 2023
 
 
                         RTMP Errata and Addenda
@@ -405,10 +405,10 @@ Thornburgh                    Informational                     [Page 7]
    Senders can apply real-time treatments to messages, including
    transmission deadlines.  A message's transmission deadline might be
    exceeded after transmission has started but before transmission is
-   complete.  Therefore, receivers SHOULD be operable to process the
-   Abort Message Protocol Control Message by discarding the partially-
-   received message and being prepared to receive a new message on the
-   indicated Chunk Stream ID.
+   complete.  Therefore, receivers MUST be operable to process the Abort
+   Message Protocol Control Message by discarding the partially-received
+   message and being prepared to receive a new message on the indicated
+   Chunk Stream ID.
 
    If at least one chunk for a new message is transmitted, then a
    timestamp is established for that message against which a timestamp

@@ -369,9 +369,9 @@ same Chunk Stream ID.</t>
 <t>Senders can apply real-time treatments to messages, including transmission
 deadlines. A message's transmission deadline might be exceeded after transmission
 has started but before transmission is complete. Therefore, receivers
-<bcp14>SHOULD</bcp14> be operable to process the <tt>Abort Message</tt>
-Protocol Control Message by discarding the partially-received message and
-being prepared to receive a new message on the indicated Chunk Stream ID.</t>
+<bcp14>MUST</bcp14> be operable to process the <tt>Abort Message</tt> Protocol
+Control Message by discarding the partially-received message and being prepared
+to receive a new message on the indicated Chunk Stream ID.</t>
 
 <t>If at least one chunk for a new message is transmitted, then a timestamp
 is established for that message against which a timestamp delta in a subsequent
