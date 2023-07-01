@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                            27 June 2023
+                                                             1 July 2023
 
 
                         RTMP Errata and Addenda
@@ -55,7 +55,7 @@ Table of Contents
 
 Thornburgh                    Informational                     [Page 1]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
      4.2.  Timestamp Order of Messages . . . . . . . . . . . . . . .   7
@@ -111,7 +111,7 @@ Thornburgh                    Informational                     [Page 1]
 
 Thornburgh                    Informational                     [Page 2]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
 1.1.  Terminology
@@ -167,7 +167,7 @@ Thornburgh                    Informational                     [Page 2]
 
 Thornburgh                    Informational                     [Page 3]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    uint16le_t var;
@@ -223,7 +223,7 @@ Thornburgh                    Informational                     [Page 3]
 
 Thornburgh                    Informational                     [Page 4]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
     0 1 2 3 4 5 6 7|
@@ -279,7 +279,7 @@ Thornburgh                    Informational                     [Page 4]
 
 Thornburgh                    Informational                     [Page 5]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
     0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
@@ -335,7 +335,7 @@ Thornburgh                    Informational                     [Page 5]
 
 Thornburgh                    Informational                     [Page 6]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    same Chunk Stream ID.  To clarify: while the Extended Timestamp field
@@ -391,7 +391,7 @@ Thornburgh                    Informational                     [Page 6]
 
 Thornburgh                    Informational                     [Page 7]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    This description is misleading, and suggests that receipt of this
@@ -447,7 +447,7 @@ Thornburgh                    Informational                     [Page 7]
 
 Thornburgh                    Informational                     [Page 8]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    Note that in some cases these constraints are more restrictive than
@@ -503,7 +503,7 @@ Thornburgh                    Informational                     [Page 8]
 
 Thornburgh                    Informational                     [Page 9]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
 6.2.  Object Encoding 3
@@ -559,7 +559,7 @@ Thornburgh                    Informational                     [Page 9]
 
 Thornburgh                    Informational                    [Page 10]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    A Type 17 Command Extended or Type 15 Data Extended message payload
@@ -615,7 +615,7 @@ Thornburgh                    Informational                    [Page 10]
 
 Thornburgh                    Informational                    [Page 11]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
 7.1.2.  tcUrl
@@ -623,9 +623,9 @@ Thornburgh                    Informational                    [Page 11]
    The tcUrl property of the connect command's Command Object is
    REQUIRED.  Its value is a string representing the URI to which the
    client is connecting.  Contrary to Section 7.2.1.1 of [RTMP], RTMP
-   family URIs follow the generic syntax for URIs [RFC3986].  The
-   hierarchical path component and optional query component identify the
-   _target resource_ within the server's namespace.
+   family URIs follow the generic syntax for URIs [RFC3986].  The path
+   and optional query components identify the _target resource_ within
+   the server's namespace.
 
    The meaning of "target resource" is implementation specific and is
    reserved for the server.
@@ -635,7 +635,7 @@ Thornburgh                    Informational                    [Page 11]
 
    Interoperability Note: Some clients improperly presume the server's
    interpretation of the path component of the URI, rewriting it and
-   using one or more segments of the original path for a non-connection
+   using one or more segments of the original path for a secondary
    purpose such as the name of a stream to play or publish.  This
    behavior is not interoperable and is NOT RECOMMENDED.  A
    recommendation of an alternative is beyond the purview of this memo;
@@ -671,7 +671,7 @@ Thornburgh                    Informational                    [Page 11]
 
 Thornburgh                    Informational                    [Page 12]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    Interoperability Note: Some server implementations, including Adobe
@@ -727,7 +727,7 @@ Thornburgh                    Informational                    [Page 12]
 
 Thornburgh                    Informational                    [Page 13]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    [AMF0]     Adobe Inc., "Action Message Format -- AMF 0", December
@@ -783,7 +783,7 @@ Author's Address
 
 Thornburgh                    Informational                    [Page 14]
 
-                         RTMP Errata and Addenda               June 2023
+                         RTMP Errata and Addenda               July 2023
 
 
    Michael C. Thornburgh

@@ -1209,7 +1209,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">RTMP Errata and Addenda</td>
-<td class="right">June 2023</td>
+<td class="right">July 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Thornburgh</td>
@@ -1222,7 +1222,7 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-27" class="published">27 June 2023</time>
+<time datetime="2023-07-01" class="published">1 July 2023</time>
     </dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
@@ -1854,9 +1854,9 @@ is <span class="bcp14">REQUIRED</span>. Its value is a string representing the U
 to which the client is connecting. Contrary to
 <span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
 RTMP family URIs follow the
-<span><a href="#RFC3986" class="internal xref">generic syntax for URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>. The hierarchical path
-component and optional query component identify the <em>target resource</em>
-within the server's namespace.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
+<span><a href="#RFC3986" class="internal xref">generic syntax for URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>. The path and optional
+query components identify the <em>target resource</em> within the server's
+namespace.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.2-2">The meaning of "target resource" is implementation specific and is reserved
 for the server.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
 <p id="section-7.1.2-3">Per <span><a href="#security-considerations" class="internal xref">Security Considerations</a> (<a href="#security-considerations" class="auto internal xref">Section 9</a>)</span>, the
@@ -1864,7 +1864,7 @@ client <span class="bcp14">SHOULD</span> strip any <code>userinfo</code> and <co
 components from the URI before sending it.<a href="#section-7.1.2-3" class="pilcrow">¶</a></p>
 <p id="section-7.1.2-4">Interoperability Note: Some clients improperly presume the server's
 interpretation of the <code>path</code> component of the URI, rewriting it and
-using one or more <code>segment</code>s of the original path for a non-connection
+using one or more <code>segment</code>s of the original path for a secondary
 purpose such as the name of a stream to play or publish. This behavior is not
 interoperable and is <span class="bcp14">NOT RECOMMENDED</span>. A recommendation of an
 alternative is beyond the purview of this memo; however, the community might
