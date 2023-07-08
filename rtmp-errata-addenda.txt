@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                             1 July 2023
+                                                             8 July 2023
 
 
                         RTMP Errata and Addenda
@@ -241,7 +241,8 @@ Thornburgh                    Informational                     [Page 4]
    |fmt|     1     |       cs id - 64 (LE)         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   struct chunkBasicHeader_t {
+   struct chunkBasicHeader_t
+   {
        uintn_t fmt                      :2; // format
        uintn_t provisionalChunkStreamID :6;
        if (provisionalChunkStreamID >= 2)
@@ -276,7 +277,6 @@ Thornburgh                    Informational                     [Page 4]
 
 
 
-
 Thornburgh                    Informational                     [Page 5]
 
                          RTMP Errata and Addenda               July 2023
@@ -294,7 +294,8 @@ Thornburgh                    Informational                     [Page 5]
    |    if(0xFFFFFF == provisionalTimestamp)  extendedTimestamp    |
    +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
 
-   struct chunkMessageHeaderType0_t {
+   struct chunkMessageHeaderType0_t
+   {
        uint24_t   provisionalTimestamp;
        uint24_t   messageLength;
        uint8_t    messageTypeID;
@@ -329,7 +330,6 @@ Thornburgh                    Informational                     [Page 5]
    2 chunk on the same Chunk Stream ID indicated the presence of an
    extended timestamp, this has caused confusion for some implementors
    for the Type 3 chunks that are the subsequent portions of the same
-   message, or that are the first chunk of subsequent messages on the
 
 
 
@@ -338,6 +338,7 @@ Thornburgh                    Informational                     [Page 6]
                          RTMP Errata and Addenda               July 2023
 
 
+   message, or that are the first chunk of subsequent messages on the
    same Chunk Stream ID.  To clarify: while the Extended Timestamp field
    is indicated, it MUST be present in _every_ Type 3 Chunk Message
    Header for a message, including the first as well as subsequent
@@ -385,7 +386,6 @@ Thornburgh                    Informational                     [Page 6]
 
    |  An application may send this message when closing in order to
    |  indicate that further processing of the messages is not required.
-
 
 
 
@@ -530,7 +530,8 @@ Thornburgh                    Informational                     [Page 9]
    +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
 
    // Message Type 17 "Command Extended" and Type 15 "Data Extended"
-   struct extendedActionMessagePayload_t {
+   struct extendedActionMessagePayload_t
+   {
        uint8_t formatSelector;
 
        if (0 == formatSelector)
@@ -547,7 +548,6 @@ Thornburgh                    Informational                     [Page 9]
        }
        // else unknown format
    } :rtmpMessagePayloadLength*8;
-
 
 
 

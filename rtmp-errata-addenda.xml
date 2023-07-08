@@ -208,7 +208,8 @@ Header encodings.</t>
 |fmt|     1     |       cs id - 64 (LE)         |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-struct chunkBasicHeader_t {
+struct chunkBasicHeader_t
+{
     uintn_t fmt                      :2; // format
     uintn_t provisionalChunkStreamID :6;
     if (provisionalChunkStreamID >= 2)
@@ -256,7 +257,8 @@ diagram doesn't show this and it is easily missed. This section clarifies the
 |    if(0xFFFFFF == provisionalTimestamp)  extendedTimestamp    |
 +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
 
-struct chunkMessageHeaderType0_t {
+struct chunkMessageHeaderType0_t
+{
     uint24_t   provisionalTimestamp;
     uint24_t   messageLength;
     uint8_t    messageTypeID;
@@ -487,7 +489,8 @@ coded values. These implications are incorrect.</t>
 +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
 
 // Message Type 17 "Command Extended" and Type 15 "Data Extended"
-struct extendedActionMessagePayload_t {
+struct extendedActionMessagePayload_t
+{
     uint8_t formatSelector;
 
     if (0 == formatSelector)
