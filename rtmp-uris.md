@@ -47,7 +47,7 @@ Syntax
 ------
 RTMP family URIs follow the [Generic Syntax of RFC 3986][URI], with constraints.
 The syntax is described using the
-[Augmented Backus-Naur Form (ABNF) [RFC5234]][RFC5234] rules from RFC 3986,
+[Augmented Backus-Naur Form (ABNF) \[RFC5234\]][RFC5234] rules from RFC 3986,
 which are incorported by reference as though fully set forth here.  The `host`
 rule is also reproduced here for clarity in the following sections.  Note
 that the `rtmp-authority` rule defined here is compatible with the `authority`
@@ -186,9 +186,9 @@ This section will request an update to the `rtmp` provisional scheme registratio
        according to Section 2.5 of RFC 3986.
 
     Applications/protocols that use this URI scheme name:  The Flash
-       runtime (including Flash Player) from Adobe Systems Incorporated,
-       communication servers such as Adobe Media Server, and
-       interoperable clients and servers provided by other parties.
+       runtime (including Flash Player) from Adobe, communication servers
+       such as Adobe Media Server, and interoperable clients and servers
+       provided by other parties.
 
     Interoperability considerations:  This scheme requires use of RTMP
        and the RTMP Chunk Stream as defined by the RTMP Specification (as
@@ -241,9 +241,9 @@ This section will request provisional registration of the `rtmps` scheme.
        according to Section 2.5 of RFC 3986.
 
     Applications/protocols that use this URI scheme name:  The Flash
-       runtime (including Flash Player) from Adobe Systems Incorporated,
-       communication servers such as Adobe Media Server, and
-       interoperable clients and servers provided by other parties.
+       runtime (including Flash Player) from Adobe, communication servers
+       such as Adobe Media Server, and interoperable clients and servers
+       provided by other parties.
 
     Interoperability considerations:  This scheme requires use of RTMP
        and the RTMP Chunk Stream as defined by the RTMP Specification (as
@@ -302,10 +302,9 @@ This section will request an update to the `rtmfp` provisional scheme registrati
        according to Section 2.5 of RFC 3986.
 
     Applications/protocols that use this URI scheme name:  The Flash
-       runtime (including Flash Player) from Adobe Systems Incorporated,
-       communication servers such as Adobe Media Server, and
-       interoperable clients and servers provided by other parties, using
-       RTMFP according to RFC 7425.
+       runtime (including Flash Player) from Adobe, communication servers
+       such as Adobe Media Server, and interoperable clients and servers
+       provided by other parties, using RTMFP according to RFC 7425.
 
     Interoperability considerations:  This scheme requires use of RTMFP
        as defined by RFC 7016 in the manner described by RFC 7425.
