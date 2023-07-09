@@ -156,6 +156,7 @@ it as the `tcUrl` property of the Command Object or in the
 Examples
 --------
 
+    rtmp://server.example/three/segment/path
     rtmp://server.example/three/segment/path#BigBuckBunny
     rtmp://[2001:db8:1::2]:19350/something?else
     rtmps://server.example/something?else#CosmosLaundromat?aFlag
