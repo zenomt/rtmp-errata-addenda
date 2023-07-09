@@ -207,7 +207,7 @@ This section will request an update to the `rtmp` provisional scheme registratio
        <https://rtmp.veriskope.com/docs/spec/>.
 
        Thornburgh, M., "RTMP Errata and Addenda", July 2023,
-       <https://zenomt.github.io/rtmp-errata-addenda/rtmp-errata-addenda.html>.
+       <https://zenomt.github.io/rtmp-errata-addenda/>.
 
        Thornburgh, M., "RTMP Family URI Schemes", July 2023,
        <TBD>.
@@ -262,7 +262,7 @@ This section will request provisional registration of the `rtmps` scheme.
        <https://rtmp.veriskope.com/docs/spec/>.
 
        Thornburgh, M., "RTMP Errata and Addenda", July 2023,
-       <https://zenomt.github.io/rtmp-errata-addenda/rtmp-errata-addenda.html>.
+       <https://zenomt.github.io/rtmp-errata-addenda/>.
 
        Thornburgh, M., "RTMP Family URI Schemes", July 2023,
        <TBD>.
@@ -324,7 +324,7 @@ This section will request an update to the `rtmfp` provisional scheme registrati
        RFC 7425, December 2014.
 
        Thornburgh, M., "RTMP Errata and Addenda", July 2023,
-       <https://zenomt.github.io/rtmp-errata-addenda/rtmp-errata-addenda.html>.
+       <https://zenomt.github.io/rtmp-errata-addenda/>.
 
        Thornburgh, M., "RTMP Family URI Schemes", July 2023,
        <TBD>.
