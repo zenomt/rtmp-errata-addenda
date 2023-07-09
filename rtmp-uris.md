@@ -97,7 +97,7 @@ means a connection that is authenticated, confidential, and integrity-protected
 in a manner acceptable to both the client and server.  If the `port` is empty
 or not given, TCP port 443 is the default.
 
-For an `rtmfp-URI` where the `authority` is present, the `host` and optional
+For an `rtmfp-URI` where the `rtmp-authority` is present, the `host` and optional
 `port` identify one or more initial candidate addresses with which to initiate
 an [RTMFP][RFC 7016] connection according to [RFC 7425][].  The UDP port for
 the initial candidate addresses, if empty or not specified, is 1935.  If
@@ -152,6 +152,16 @@ resource.
 Clients **SHOULD** remove the `fragment` component from the URI when sending
 it as the `tcUrl` property of the Command Object or in the
 [Ancillary Data option of an RTMFP Endpoint Discriminator](https://rfc-editor.org/rfc/rfc7425#section-4.4.2.2).
+
+Examples
+--------
+
+    rtmp://server.example/three/segment/path#BigBuckBunny
+    rtmp://server.example/something?else
+    rtmps://server.example/something?else#BigBuckBunny?aFlag
+    rtmps://arg1:arg2::arg4@server.example:1943
+    rtmfp://:arg2@[2001:db8:1::2]:19350/two/segments?key=value&flag
+    rtmfp:
 
 IANA Considerations
 -------------------
@@ -331,7 +341,7 @@ This section will request an update to the `rtmfp` provisional scheme registrati
 
 Security Considerations
 -----------------------
-Several. See the Security Considerations sections of the [RFC 7016][],
+Several. See the Security Considerations sections of [RFC 7016][],
 [RFC 7425][], and [RTMP Errata and Addenda][RTMP-Errata].
 
 Many of the
