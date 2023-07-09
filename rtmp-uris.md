@@ -112,8 +112,8 @@ number and types of the additional arguments, their interpretation, and whether
 they are expected is implementation-specific and is reserved for the server.
 
 Often the server expects one or more string arguments to the `connect` command
-following the Command Object, for example a developer key, an authentication
-token, or a user name and password.
+following the Command Object, for example a developer key, a user name and
+password, or implementation-specific connection properties.
 
 If the `rtmp-authority` contains an `rtmp-userinfo` component, and in the
 absence of other arrangements between the client and server, the `rtmp-userinfo`
@@ -157,10 +157,11 @@ Examples
 --------
 
     rtmp://server.example/three/segment/path#BigBuckBunny
-    rtmp://server.example/something?else
-    rtmps://server.example/something?else#BigBuckBunny?aFlag
+    rtmp://[2001:db8:1::2]:19350/something?else
+    rtmps://server.example/something?else#CosmosLaundromat?aFlag
     rtmps://arg1:arg2::arg4@server.example:1943
-    rtmfp://:arg2@[2001:db8:1::2]:19350/two/segments?key=value&flag
+    rtmps://name=Mike;pri=5;exi=3600:7c412a7b6e5892f9c@server.example/path#Caves
+    rtmfp://:arg2@redirectors.example/two/segments?key=value&flag
     rtmfp:
 
 IANA Considerations
