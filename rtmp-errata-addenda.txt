@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                             8 July 2023
+                                                             9 July 2023
 
 
                         RTMP Errata and Addenda
@@ -640,9 +640,8 @@ Thornburgh                    Informational                    [Page 11]
    behavior is not interoperable and is NOT RECOMMENDED.  A
    recommendation of an alternative is beyond the purview of this memo;
    however, the community might consider more semantically appropriate
-   alternatives, for example using the fragment component to indicate
-   client-side parameters and behaviors such as the name of a stream to
-   play or publish.
+   alternatives, for example using the fragment component to identify a
+   secondary resource such as a stream to play or publish.
 
 7.1.3.  app
 
@@ -665,6 +664,7 @@ Thornburgh                    Informational                    [Page 11]
    is, no bits set, so no codecs indicated).  The values for these
    fields are enumerated in Section 7.2.1.1 of [RTMP]; multiple codecs
    are combined with bitwise-or.
+
 
 
 

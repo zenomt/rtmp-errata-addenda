@@ -588,8 +588,8 @@ purpose such as the name of a stream to play or publish. This behavior is not
 interoperable and is <bcp14>NOT RECOMMENDED</bcp14>. A recommendation of an
 alternative is beyond the purview of this memo; however, the community might
 consider more semantically appropriate alternatives, for example using the
-<tt>fragment</tt> component to indicate client-side parameters and behaviors
-such as the name of a stream to play or publish.</t>
+<tt>fragment</tt> component to identify a secondary resource such as a stream
+to play or publish.</t>
 
 </section> <!-- tcUrl -->
 
