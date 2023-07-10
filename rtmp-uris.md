@@ -134,9 +134,9 @@ resource" is implementation-specific and is reserved for the origin server.
 Fragment Identifier
 -------------------
 [Section 3.5 of RFC 3986](https://www.rfc-editor.org/rfc/rfc3986.html#section-3.5)
-describes the `fragment` identifier component of a generic URI as allowing
-"indirect identification of a secondary resource by reference to a primary
-resource and additional identifying information".
+describes the `fragment` component of a generic URI as allowing "indirect
+identification of a secondary resource by reference to a primary resource and
+additional identifying information".
 
 Since an RTMP connection to a target resource has neither a "representation"
 nor a "media type", the semantics of the `fragment` component are unconstrained
