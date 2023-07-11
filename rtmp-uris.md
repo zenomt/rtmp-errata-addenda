@@ -37,11 +37,15 @@ Copyright © 2023 Michael Thornburgh. All rights reserved.
 
 Terminology
 -----------
-The key words "**MUST**", "**MUST NOT**", "**REQUIRED**", "**SHALL**", "**SHALL
-NOT**", "**SHOULD**", "**SHOULD NOT**", "**RECOMMENDED**", "**NOT RECOMMENDED**",
-"**MAY**", and "**OPTIONAL**" in this document are to be interpreted as
-described in BCP 14 \[[RFC2119][]\] \[[RFC8174][]\] when, and only when, they
-appear in all capitals, as shown here.
+The key words "**MUST**", "**MUST NOT**", "**REQUIRED**", "**SHALL**",
+"**SHALL NOT**", "**SHOULD**", "**SHOULD NOT**", "**RECOMMENDED**",
+"**NOT RECOMMENDED**", "**MAY**", and "**OPTIONAL**" in this document are to
+be interpreted as described in BCP 14 \[[RFC2119][]\] \[[RFC8174][]\] when,
+and only when, they appear in all capitals, as shown here.
+
+The terms "client", "server", "origin server", "resource", "secondary resource",
+"dereference", "representation", and "media type" in this document are to be
+interpreted as used or described in [RFC 3986][URI].
 
 Syntax
 ------
@@ -167,8 +171,8 @@ Examples
 
 IANA Considerations
 -------------------
-The IANA will be requested to update the [URI Scheme Registry][SCHEMES] for
-the following schemes.
+A future version of this memo will request the IANA to update the
+[URI Scheme Registry][SCHEMES] for the following schemes.
 
 ### `rtmp`
 This section will request an update to the `rtmp` provisional scheme registration.
