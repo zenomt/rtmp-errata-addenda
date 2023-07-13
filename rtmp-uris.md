@@ -7,6 +7,14 @@ streaming resources in the RTMP family follow the [URI Generic Syntax of RFC 398
 with constraints.  This memo describes the syntax constraints and the access
 semantics for RTMP family URIs.
 
+Copyright Notice
+----------------
+Copyright © 2023 Michael Thornburgh. All rights reserved.
+
+    SPDX-License-Identifier: MIT
+
+Background
+----------
 RTMP and its TCP-based transport (the RTMP Chunk Stream) are described in the
 [RTMP Specification of December 2012][RTMP]. Errors, omissions, and
 ambiguities in that specification are addressed in [RTMP Errata and Addenda][RTMP-Errata].
@@ -28,12 +36,6 @@ The target resource can have secondary resources, such as streams, shared
 objects, and remote procedures, that can be accessed according their kinds
 via the connection. For example, streams may be published or played, shared
 objects updated or observed, and remote procedures called.
-
-Copyright Notice
-----------------
-Copyright © 2023 Michael Thornburgh. All rights reserved.
-
-    SPDX-License-Identifier: MIT
 
 Terminology
 -----------
@@ -123,7 +125,8 @@ If the `rtmp-authority` contains an `rtmp-userinfo` component, and in the
 absence of other arrangements between the client and server, the `rtmp-userinfo`
 **SHOULD** be interpreted as a "`:`" (`COLON`) separated sequence of potentially
 empty `rtmp-connect-arg` strings (as illustrated in the ABNF) to be sent as
-string arguments to the `connect` command following the Command Object.
+string arguments to the `connect` command following the Command Object. Each
+`rtmp-connect-arg` **SHOULD** be percent-decoded before being sent.
 
 Clients **SHOULD** remove the `rtmp-userinfo` component from the URI when
 sending it as the `tcUrl` property of the Command Object or in the
@@ -151,7 +154,8 @@ a single secondary resource, such as to publish to or play from a named stream.
 In these cases where the intended operation and secondary resource are
 unambiguous, and in the absence of other arrangements between the client and
 server, the `fragment` component **MAY** be used to identify this secondary
-resource.
+resource. The `fragment` **SHOULD** be percent-decoded before being used in
+secondary resource APIs (for example in a stream `play` command).
 
 Clients **SHOULD** remove the `fragment` component from the URI when sending
 it as the `tcUrl` property of the Command Object or in the
@@ -167,6 +171,7 @@ Examples
     rtmps://arg1:arg2::arg4@server.example:1943
     rtmps://name=Mike;pri=5;exi=3600:7c412a7b6e5892f9c@server.example/path#Caves
     rtmfp://:arg2@redirectors.example/two/segments?key=value&flag
+    rtmfp://arg%3Aone:arg2@redirectors.example/something#BigBuck%42unny
     rtmfp:
 
 IANA Considerations
