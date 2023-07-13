@@ -2,10 +2,10 @@ RTMP Family URI Schemes
 =======================
 Adobe's Real-Time Messaging Protocol (RTMP) comprises a family of network
 protocols for transporting streams of time-oriented video, audio, and data
-messages over IP networks.  URI schemes used to identify, locate, and access
-streaming resources in the RTMP family follow the [URI Generic Syntax of RFC 3986][URI],
-with constraints.  This memo describes the syntax constraints and the access
-semantics for RTMP family URIs.
+messages over IP networks.  The URI schemes used to identify, locate, and
+access streaming resources in the RTMP family follow the
+[URI Generic Syntax of RFC 3986][URI], with constraints.  This memo describes
+the syntax constraints and the access semantics for RTMP family URIs.
 
 Copyright Notice
 ----------------
@@ -18,11 +18,13 @@ Background
 RTMP and its TCP-based transport (the RTMP Chunk Stream) are described in the
 [RTMP Specification of December 2012][RTMP]. Errors, omissions, and
 ambiguities in that specification are addressed in [RTMP Errata and Addenda][RTMP-Errata].
-[Adobe's RTMFP Profile for Flash Communication [RFC7425]][RFC 7425] describes how
-to transport RTMP messages over the
-[Secure Real-Time Media Flow Protocol (RTMFP) [RFC7016]][RFC 7016].
 Coordinated interoperable enhancements to RTMP are described in
 [Enhancing RTMP, FLV With Additional Video Codecs and HDR Support][E-RTMP].
+Transporting RTMP messages over the
+[Secure Real-Time Media Flow Protocol (RTMFP) [RFC7016]][RFC 7016]
+is described in
+[Adobe's RTMFP Profile for Flash Communication [RFC7425]][RFC 7425].
+
 This memo does not address private or undocumented extensions to the RTMP
 family for which interoperation is not desired by the extending parties.
 
