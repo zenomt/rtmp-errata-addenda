@@ -2,8 +2,8 @@ RTMP Family URI Schemes
 =======================
 Adobe's Real-Time Messaging Protocol (RTMP) comprises a family of network
 protocols for transporting streams of time-oriented video, audio, and data
-messages over IP networks.  The URI schemes used to identify, locate, and
-access streaming resources in the RTMP family follow the
+messages over IP networks.  The URI schemes that are used to identify, locate,
+and access streaming resources in the RTMP family follow the
 [URI Generic Syntax of RFC 3986][URI], with constraints.  This memo describes
 the syntax constraints and the access semantics for RTMP family URIs.
 
@@ -54,7 +54,7 @@ interpreted as used or described in [RFC 3986][URI].
 Syntax
 ------
 RTMP family URIs follow the [Generic Syntax of RFC 3986][URI], with constraints.
-The syntax is described using the
+Their syntax is described here using the
 [Augmented Backus-Naur Form (ABNF) \[RFC5234\]][RFC5234] rules from RFC 3986,
 which are incorported by reference as though fully set forth here.  The `host`
 rule is also reproduced here for clarity in the following sections.  Note
@@ -131,7 +131,8 @@ string arguments to the `connect` command following the Command Object. Each
 `rtmp-connect-arg` **SHOULD** be percent-decoded before being sent.
 
 Clients **SHOULD** remove the `rtmp-userinfo` component from the URI when
-sending it as the `tcUrl` property of the Command Object or in the
+sending it as the `tcUrl` property of the `connect` command’s Command Object
+or in the
 [Ancillary Data option of an RTMFP Endpoint Discriminator](https://rfc-editor.org/rfc/rfc7425#section-4.4.2.2).
 
 Path and Query
@@ -152,7 +153,7 @@ nor a "media type", the semantics of the `fragment` component are unconstrained
 according to that section.
 
 Often an RTMP client connects to a server to perform a specific operation on
-a single secondary resource, such as to publish to or play from a named stream.
+a specific secondary resource, such as to publish to or play from a named stream.
 In these cases where the intended operation and secondary resource are
 unambiguous, and in the absence of other arrangements between the client and
 server, the `fragment` component **MAY** be used to identify this secondary
@@ -160,7 +161,7 @@ resource. The `fragment` **SHOULD** be percent-decoded before being used in
 secondary resource APIs (for example in a stream `play` command).
 
 Clients **SHOULD** remove the `fragment` component from the URI when sending
-it as the `tcUrl` property of the Command Object or in the
+it as the `tcUrl` property of the `connect` command’s Command Object or in the
 [Ancillary Data option of an RTMFP Endpoint Discriminator](https://rfc-editor.org/rfc/rfc7425#section-4.4.2.2).
 
 Examples
