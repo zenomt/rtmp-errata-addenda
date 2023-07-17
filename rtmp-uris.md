@@ -1,6 +1,6 @@
 RTMP Family URI Schemes
 =======================
-Adobe's Real-Time Messaging Protocol (RTMP) comprises a family of network
+Adobe’s Real-Time Messaging Protocol (RTMP) comprises a family of network
 protocols for transporting streams of time-oriented video, audio, and data
 messages over IP networks.  The URI schemes that are used to identify, locate,
 and access streaming resources in the RTMP family follow the
@@ -138,8 +138,20 @@ or in the
 Path and Query
 --------------
 The `path-abempty` and `query` components identify the abstract
-_target resource_ within the origin server's namespace. The meaning of "target
+_target resource_ within the origin server’s namespace. The meaning of "target
 resource" is implementation-specific and is reserved for the origin server.
+
+Interoperability Note: Some legacy client implementations improperly presume
+the server’s interpretation of the `path-abempty` component of the URI,
+specifically by presuming the number of path segments that identify the target
+resource. They then improperly interpret the remaining path segments of the
+original URI as identifying a secondary resource (such the name of a stream
+to play or publish via the connection to the target resource).  This behavior
+is not in keeping with the spirit of generic URIs (particularly that the
+`authority` governs its namespace), is not interoperable, and is
+**NOT RECOMMENDED**. Such secondary resources, when encoded in a URI, should
+instead be identified by the fragment identifier as described in the next
+section.
 
 Fragment Identifier
 -------------------
@@ -153,11 +165,11 @@ nor a "media type", the semantics of the `fragment` component are unconstrained
 according to that section.
 
 Often an RTMP client connects to a server to perform a specific operation on
-a specific secondary resource, such as to publish to or play from a named stream.
-In these cases where the intended operation and secondary resource are
-unambiguous, and in the absence of other arrangements between the client and
-server, the `fragment` component **MAY** be used to identify this secondary
-resource. The `fragment` **SHOULD** be percent-decoded before being used in
+a specific secondary resource, such as to publish to or play from a named
+stream.  In these cases where the intended operation and secondary resource
+are unambiguous, and in the absence of other arrangements between the client
+and server, the secondary resource **MAY** be identified by the `fragment`
+component. The `fragment` **SHOULD** be percent-decoded before being used in
 secondary resource APIs (for example in a stream `play` command).
 
 Clients **SHOULD** remove the `fragment` component from the URI when sending
@@ -362,7 +374,7 @@ Many of the
 [security considerations of RFC 9110](https://www.rfc-editor.org/rfc/rfc9110#section-17)
 also apply to RTMP.
 
-Author's Address
+Author’s Address
 ----------------
 **Michael C. Thornburgh**<br/>
 Santa Cruz, CA 95060-1950<br/>

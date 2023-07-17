@@ -1222,7 +1222,7 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-07-09" class="published">9 July 2023</time>
+<time datetime="2023-07-16" class="published">16 July 2023</time>
     </dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
@@ -1862,18 +1862,22 @@ query components identify the <em>target resource</em> within the server's
 namespace.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.2-2">The meaning of "target resource" is implementation specific and is reserved
 for the server.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.1.2-3">Per <span><a href="#security-considerations" class="internal xref">Security Considerations</a> (<a href="#security-considerations" class="auto internal xref">Section 9</a>)</span>, the
+<p id="section-7.1.2-3">Interoperability Note: Some legacy client implementations improperly presume
+the server's interpretation of the <code>path</code> component of the URI,
+specifically by presuming the number of path segments that identify the target
+resource and setting <code>tcUrl</code> accordingly.  They then improperly interpret
+the remaining path segments of the original URI as identifying a secondary
+resource (such the name of a stream to play or publish via the connection to
+the target resource).  This behavior is not in keeping with the spirit of
+generic URIs (particularly that the <code>authority</code> governs its namespace),
+is not interoperable, and is <span class="bcp14">NOT RECOMMENDED</span>.  Such secondary
+resources, when encoded in a URI, should instead be identified by the fragment
+component as described in <span>[<a href="#RTMP-URIS" class="cite xref">RTMP-URIS</a>]</span>. The full path and
+optional query components from the original URI <span class="bcp14">SHOULD</span> be
+preserved in <code>tcUrl</code>.<a href="#section-7.1.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.1.2-4">Per <span><a href="#security-considerations" class="internal xref">Security Considerations</a> (<a href="#security-considerations" class="auto internal xref">Section 9</a>)</span>, the
 client <span class="bcp14">SHOULD</span> strip any <code>userinfo</code> and <code>fragment</code>
-components from the URI before sending it.<a href="#section-7.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-7.1.2-4">Interoperability Note: Some clients improperly presume the server's
-interpretation of the <code>path</code> component of the URI, rewriting it and
-using one or more <code>segment</code>s of the original path for a secondary
-purpose such as the name of a stream to play or publish. This behavior is not
-interoperable and is <span class="bcp14">NOT RECOMMENDED</span>. A recommendation of an
-alternative is beyond the purview of this memo; however, the community might
-consider more semantically appropriate alternatives, for example using the
-<code>fragment</code> component to identify a secondary resource such as a stream
-to play or publish.<a href="#section-7.1.2-4" class="pilcrow">¶</a></p>
+components from the URI before sending it in <code>tcUrl</code>.<a href="#section-7.1.2-4" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7.1.3">
           <h4 id="name-app-2">
@@ -2008,7 +2012,11 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 <dt id="RFC0793">[RFC0793]</dt>
         <dd>
 <span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Transmission Control Protocol"</span>, <span class="seriesInfo">RFC 793</span>, <span class="seriesInfo">DOI 10.17487/RFC0793</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc793">https://www.rfc-editor.org/info/rfc793</a>&gt;</span>. </dd>
-<dd class="break"></dd></dl>
+<dd class="break"></dd><dt id="RTMP-URIS">[RTMP-URIS]</dt>
+      <dd>
+<span class="refAuthor">Thornburgh, M.</span>, <span class="refTitle">"RTMP Family URI Schemes"</span>, <time datetime="2023-07" class="refDate">July 2023</time>, <span>&lt;<a href="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
 </section>
 </section>
 <div id="authors-addresses">

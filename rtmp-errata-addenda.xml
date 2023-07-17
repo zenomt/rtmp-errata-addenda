@@ -577,19 +577,23 @@ namespace.</t>
 <t>The meaning of "target resource" is implementation specific and is reserved
 for the server.</t>
 
+<t>Interoperability Note: Some legacy client implementations improperly presume
+the server's interpretation of the <tt>path</tt> component of the URI,
+specifically by presuming the number of path segments that identify the target
+resource and setting <tt>tcUrl</tt> accordingly.  They then improperly interpret
+the remaining path segments of the original URI as identifying a secondary
+resource (such the name of a stream to play or publish via the connection to
+the target resource).  This behavior is not in keeping with the spirit of
+generic URIs (particularly that the <tt>authority</tt> governs its namespace),
+is not interoperable, and is <bcp14>NOT RECOMMENDED</bcp14>.  Such secondary
+resources, when encoded in a URI, should instead be identified by the fragment
+component as described in <xref target="RTMP-URIS"/>. The full path and
+optional query components from the original URI <bcp14>SHOULD</bcp14> be
+preserved in <tt>tcUrl</tt>.</t>
+
 <t>Per <xref target="security-considerations">Security Considerations</xref>, the
 client <bcp14>SHOULD</bcp14> strip any <tt>userinfo</tt> and <tt>fragment</tt>
-components from the URI before sending it.</t>
-
-<t>Interoperability Note: Some clients improperly presume the server's
-interpretation of the <tt>path</tt> component of the URI, rewriting it and
-using one or more <tt>segment</tt>s of the original path for a secondary
-purpose such as the name of a stream to play or publish. This behavior is not
-interoperable and is <bcp14>NOT RECOMMENDED</bcp14>. A recommendation of an
-alternative is beyond the purview of this memo; however, the community might
-consider more semantically appropriate alternatives, for example using the
-<tt>fragment</tt> component to identify a secondary resource such as a stream
-to play or publish.</t>
+components from the URI before sending it in <tt>tcUrl</tt>.</t>
 
 </section> <!-- tcUrl -->
 
@@ -727,6 +731,14 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 		</reference>
 
 		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.0793.xml"/> <!-- TCP -->
+
+		<reference anchor="RTMP-URIS" target="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">
+			<front>
+				<title>RTMP Family URI Schemes</title>
+				<author initials="M." surname="Thornburgh"/>
+				<date month="July" year="2023"/>
+			</front>
+		</reference>
 
 	</references>
 

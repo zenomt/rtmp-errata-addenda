@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                             9 July 2023
+                                                            16 July 2023
 
 
                         RTMP Errata and Addenda
@@ -68,15 +68,15 @@ Thornburgh                    Informational                     [Page 1]
        7.1.1.  objectEncoding Negotiation  . . . . . . . . . . . . .  11
        7.1.2.  tcUrl . . . . . . . . . . . . . . . . . . . . . . . .  12
        7.1.3.  app . . . . . . . . . . . . . . . . . . . . . . . . .  12
-       7.1.4.  Codec Negotiation . . . . . . . . . . . . . . . . . .  12
+       7.1.4.  Codec Negotiation . . . . . . . . . . . . . . . . . .  13
      7.2.  call  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
      7.3.  deleteStream  . . . . . . . . . . . . . . . . . . . . . .  13
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  14
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  15
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -630,18 +630,23 @@ Thornburgh                    Informational                    [Page 11]
    The meaning of "target resource" is implementation specific and is
    reserved for the server.
 
-   Per Security Considerations (Section 9), the client SHOULD strip any
-   userinfo and fragment components from the URI before sending it.
+   Interoperability Note: Some legacy client implementations improperly
+   presume the server's interpretation of the path component of the URI,
+   specifically by presuming the number of path segments that identify
+   the target resource and setting tcUrl accordingly.  They then
+   improperly interpret the remaining path segments of the original URI
+   as identifying a secondary resource (such the name of a stream to
+   play or publish via the connection to the target resource).  This
+   behavior is not in keeping with the spirit of generic URIs
+   (particularly that the authority governs its namespace), is not
+   interoperable, and is NOT RECOMMENDED.  Such secondary resources,
+   when encoded in a URI, should instead be identified by the fragment
+   component as described in [RTMP-URIS].  The full path and optional
+   query components from the original URI SHOULD be preserved in tcUrl.
 
-   Interoperability Note: Some clients improperly presume the server's
-   interpretation of the path component of the URI, rewriting it and
-   using one or more segments of the original path for a secondary
-   purpose such as the name of a stream to play or publish.  This
-   behavior is not interoperable and is NOT RECOMMENDED.  A
-   recommendation of an alternative is beyond the purview of this memo;
-   however, the community might consider more semantically appropriate
-   alternatives, for example using the fragment component to identify a
-   secondary resource such as a stream to play or publish.
+   Per Security Considerations (Section 9), the client SHOULD strip any
+   userinfo and fragment components from the URI before sending it in
+   tcUrl.
 
 7.1.3.  app
 
@@ -655,15 +660,10 @@ Thornburgh                    Informational                    [Page 11]
    The meaning of "target application resource" is implementation
    specific and is reserved for the server.
 
-7.1.4.  Codec Negotiation
 
-   The videoCodecs and audioCodecs properties of the connect command's
-   Command Object are bit fields representing the video and audio
-   codecs, respectively, that the client is capable and willing to
-   receive.  These properties are OPTIONAL and each defaults to 0 (that
-   is, no bits set, so no codecs indicated).  The values for these
-   fields are enumerated in Section 7.2.1.1 of [RTMP]; multiple codecs
-   are combined with bitwise-or.
+
+
+
 
 
 
@@ -673,6 +673,16 @@ Thornburgh                    Informational                    [Page 12]
 
                          RTMP Errata and Addenda               July 2023
 
+
+7.1.4.  Codec Negotiation
+
+   The videoCodecs and audioCodecs properties of the connect command's
+   Command Object are bit fields representing the video and audio
+   codecs, respectively, that the client is capable and willing to
+   receive.  These properties are OPTIONAL and each defaults to 0 (that
+   is, no bits set, so no codecs indicated).  The values for these
+   fields are enumerated in Section 7.2.1.1 of [RTMP]; multiple codecs
+   are combined with bitwise-or.
 
    Interoperability Note: Some server implementations, including Adobe
    Media Server, use this information to selectively filter out Video
@@ -708,6 +718,18 @@ Thornburgh                    Informational                    [Page 12]
 
    This memo has no IANA actions.
 
+
+
+
+
+
+
+
+Thornburgh                    Informational                    [Page 13]
+
+                         RTMP Errata and Addenda               July 2023
+
+
 9.  Security Considerations
 
    RTMP and RTMFP URIs use the generic syntax for URIs [RFC3986].  URIs
@@ -721,14 +743,6 @@ Thornburgh                    Informational                    [Page 12]
 10.  References
 
 10.1.  Normative References
-
-
-
-
-Thornburgh                    Informational                    [Page 13]
-
-                         RTMP Errata and Addenda               July 2023
-
 
    [AMF0]     Adobe Inc., "Action Message Format -- AMF 0", December
               2007, <https://rtmp.veriskope.com/pdf/amf0-file-format-
@@ -764,6 +778,14 @@ Thornburgh                    Informational                    [Page 13]
               Messaging Protocol", December 2012,
               <https://rtmp.veriskope.com/docs/spec/>.
 
+
+
+
+Thornburgh                    Informational                    [Page 14]
+
+                         RTMP Errata and Addenda               July 2023
+
+
 10.2.  Informative References
 
    [E-RTMP]   Lozben, S., "Enhancing RTMP, FLV With Additional Video
@@ -775,39 +797,17 @@ Thornburgh                    Informational                    [Page 13]
               DOI 10.17487/RFC0793, September 1981,
               <https://www.rfc-editor.org/info/rfc793>.
 
+   [RTMP-URIS]
+              Thornburgh, M., "RTMP Family URI Schemes", July 2023,
+              <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris>.
+
 Author's Address
-
-
-
-
-
-Thornburgh                    Informational                    [Page 14]
-
-                         RTMP Errata and Addenda               July 2023
-
 
    Michael C. Thornburgh
    Santa Cruz, CA 95060-1950
    United States of America
    Email: zenomt@zenomt.com
    URI:   https://zenomt.zenomt.com/card.ttl#me
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
