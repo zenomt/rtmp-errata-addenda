@@ -201,6 +201,8 @@ This section will request an update to the `rtmp` provisional scheme registratio
 
     Status:  provisional
 
+    URI scheme syntax:
+
       rtmp-URI  = "rtmp://" authority path-abempty [ "?" query ] [ "#" fragment ]
 
     URI scheme semantics: This provides location information for the RTMP
@@ -254,6 +256,8 @@ This section will request provisional registration of the `rtmps` scheme.
     URI scheme name:  rtmps
 
     Status:  provisional
+
+    URI scheme syntax:
 
       rtmps-URI = "rtmps://" authority path-abempty [ "?" query ] [ "#" fragment ]
 
