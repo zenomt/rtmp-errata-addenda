@@ -141,10 +141,10 @@ The `path-abempty` and `query` components identify the abstract
 _target resource_ within the origin server’s namespace. The meaning of "target
 resource" is implementation-specific and is reserved for the origin server.
 
-Interoperability Note: Some legacy client implementations improperly presume
+Interoperability Note: Some legacy client implementations incorrectly presume
 the server’s interpretation of the `path-abempty` component of the URI,
 specifically by presuming the number of path segments that identify the target
-resource. They then improperly interpret the remaining path segments of the
+resource. They then incorrectly interpret the remaining path segments of the
 original URI as identifying a secondary resource (such the name of a stream
 to play or publish via the connection to the target resource).  This behavior
 is not in keeping with the spirit of generic URIs (particularly that the

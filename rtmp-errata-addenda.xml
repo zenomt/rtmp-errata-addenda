@@ -577,10 +577,10 @@ namespace.</t>
 <t>The meaning of "target resource" is implementation specific and is reserved
 for the server.</t>
 
-<t>Interoperability Note: Some legacy client implementations improperly presume
+<t>Interoperability Note: Some legacy client implementations incorrectly presume
 the server's interpretation of the <tt>path</tt> component of the URI,
 specifically by presuming the number of path segments that identify the target
-resource and setting <tt>tcUrl</tt> accordingly.  They then improperly interpret
+resource and setting <tt>tcUrl</tt> accordingly.  They then incorrectly interpret
 the remaining path segments of the original URI as identifying a secondary
 resource (such the name of a stream to play or publish via the connection to
 the target resource).  This behavior is not in keeping with the spirit of
