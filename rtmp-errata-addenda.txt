@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                            19 July 2023
+                                                            23 July 2023
 
 
                         RTMP Errata and Addenda
@@ -627,8 +627,8 @@ Thornburgh                    Informational                    [Page 11]
    and optional query components identify the _target resource_ within
    the server's namespace.
 
-   The meaning of "target resource" is implementation specific and is
-   reserved for the server.
+   The meaning of "target resource" is implementation-specific and is
+   the prerogative of the server.
 
    Interoperability Note: Some legacy client implementations incorrectly
    presume the server's interpretation of the path component of the URI,
@@ -657,8 +657,8 @@ Thornburgh                    Informational                    [Page 11]
    app SHOULD be set to the path component of the URI to which the
    client is connecting, not including the leading slash (if any).
 
-   The meaning of "target application resource" is implementation
-   specific and is reserved for the server.
+   The meaning of "target application resource" is implementation-
+   specific and is the prerogative of the server.
 
 
 

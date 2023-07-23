@@ -574,8 +574,8 @@ RTMP family URIs follow the
 query components identify the <em>target resource</em> within the server's
 namespace.</t>
 
-<t>The meaning of "target resource" is implementation specific and is reserved
-for the server.</t>
+<t>The meaning of "target resource" is implementation-specific and is the
+prerogative of the server.</t>
 
 <t>Interoperability Note: Some legacy client implementations incorrectly presume
 the server's interpretation of the <tt>path</tt> component of the URI,
@@ -607,8 +607,8 @@ implementation, <tt>app</tt> <bcp14>SHOULD</bcp14> be set to the <tt>path</tt>
 component of the URI to which the client is connecting, not including the
 leading slash (if any).</t>
 
-<t>The  meaning of "target application resource" is implementation specific
-and is reserved for the server.</t>
+<t>The  meaning of "target application resource" is implementation-specific
+and is the prerogative of the server.</t>
 
 </section> <!-- app -->
 

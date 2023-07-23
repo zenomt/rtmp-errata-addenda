@@ -114,10 +114,10 @@ all IPv4 and IPv6 addresses to which `reg-name` resolves.
 
 ### Userinfo
 When connecting to an RTMP server, the
-[`connect` command](https://rtmp.veriskope.com/docs/spec/#7211connect)
-can accept or expect additional arguments following the Command Object. The
-number and types of the additional arguments, their interpretation, and whether
-they are expected is implementation-specific and is reserved for the server.
+[`connect` command](https://rtmp.veriskope.com/docs/spec/#7211connect) can
+accept or expect additional arguments following the Command Object. The number
+and types of the additional arguments, their interpretation, and whether they
+are expected is implementation-specific and is the prerogative of the server.
 
 Often the server expects one or more string arguments to the `connect` command
 following the Command Object, for example a developer key, a user name and
@@ -139,7 +139,8 @@ Path and Query
 --------------
 The `path-abempty` and `query` components identify the abstract
 _target resource_ within the origin server’s namespace. The meaning of "target
-resource" is implementation-specific and is reserved for the origin server.
+resource" is implementation-specific and is the prerogative of the origin
+server.
 
 Interoperability Note: Some legacy client implementations incorrectly presume
 the server’s interpretation of the `path-abempty` component of the URI,
