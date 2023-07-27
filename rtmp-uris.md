@@ -388,7 +388,7 @@ Email: [zenomt@zenomt.com](mailto:zenomt@zenomt.com)<br/>
 URI: [https://zenomt.zenomt.com/card.ttl#me](https://zenomt.zenomt.com/card.ttl#me)<br/>
 
   [RTMP]:        https://rtmp.veriskope.com/docs/spec/
-  [E-RTMP]:      https://github.com/veovera/enhanced-rtmp/blob/main/enhanced-rtmp-v1.pdf
+  [E-RTMP]:      https://github.com/veovera/enhanced-rtmp
   [RTMP-Errata]: https://zenomt.github.io/rtmp-errata-addenda/
   [RFC2119]:     https://www.rfc-editor.org/rfc/rfc2119.html
   [RFC5234]:     https://www.rfc-editor.org/rfc/rfc5234.html

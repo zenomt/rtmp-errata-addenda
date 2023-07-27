@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                            23 July 2023
+                                                            26 July 2023
 
 
                         RTMP Errata and Addenda
@@ -789,9 +789,8 @@ Thornburgh                    Informational                    [Page 14]
 10.2.  Informative References
 
    [E-RTMP]   Lozben, S., "Enhancing RTMP, FLV With Additional Video
-              Codecs and HDR Support", March 2023,
-              <https://github.com/veovera/enhanced-rtmp/blob/main/
-              enhanced-rtmp-v1.pdf>.
+              Codecs and HDR Support", July 2023,
+              <https://github.com/veovera/enhanced-rtmp>.
 
    [RFC0793]  Postel, J., "Transmission Control Protocol", RFC 793,
               DOI 10.17487/RFC0793, September 1981,
@@ -808,6 +807,7 @@ Author's Address
    United States of America
    Email: zenomt@zenomt.com
    URI:   https://zenomt.zenomt.com/card.ttl#me
+
 
 
 

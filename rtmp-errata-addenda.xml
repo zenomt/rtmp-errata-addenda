@@ -722,11 +722,11 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 
 	<references title="Informative References">
 
-		<reference anchor="E-RTMP" target="https://github.com/veovera/enhanced-rtmp/blob/main/enhanced-rtmp-v1.pdf">
+		<reference anchor="E-RTMP" target="https://github.com/veovera/enhanced-rtmp">
 			<front>
 				<title>Enhancing RTMP, FLV With Additional Video Codecs and HDR Support</title>
 				<author initials="S." surname="Lozben"/>
-				<date month="March" year="2023"/>
+				<date month="July" year="2023"/>
 			</front>
 		</reference>
 
