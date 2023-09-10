@@ -1209,7 +1209,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">RTMP Errata and Addenda</td>
-<td class="right">July 2023</td>
+<td class="right">September 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Thornburgh</td>
@@ -1222,7 +1222,7 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-07-26" class="published">26 July 2023</time>
+<time datetime="2023-09-10" class="published">10 September 2023</time>
     </dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
@@ -1372,7 +1372,10 @@ li > p:last-of-type:only-child {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address-2" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgements-2" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address-2" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1858,16 +1861,17 @@ to which the client is connecting. Contrary to
 <span><a href="https://rtmp.veriskope.com/docs/spec/#7211connect" class="relref">Section 7.2.1.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
 RTMP family URIs follow the
 <span><a href="#RFC3986" class="internal xref">generic syntax for URIs</a> [<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>. The path and optional
-query components identify the <em>target resource</em> within the server's
-namespace.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
+query components identify the abstract <em>target resource</em> within the server's
+namespace. See <span>[<a href="#RTMP-URIS" class="cite xref">RTMP-URIS</a>]</span> for more information about the
+syntax constraints and access semantics of RTMP family URIs.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.2-2">The meaning of "target resource" is implementation-specific and is the
 prerogative of the server.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.1.2-3">Interoperability Note: Some legacy client implementations incorrectly presume
+<p id="section-7.1.2-3">Interoperability Note: Some client implementations incorrectly presume
 the server's interpretation of the <code>path</code> component of the URI,
 specifically by presuming the number of path segments that identify the target
-resource and setting <code>tcUrl</code> accordingly.  They then incorrectly interpret
-the remaining path segments of the original URI as identifying a secondary
-resource (such the name of a stream to play or publish via the connection to
+resource and setting <code>tcUrl</code> accordingly.  These clients then incorrectly
+interpret the remaining path segments of the original URI as identifying a secondary
+resource (such as the name of a stream to play or publish via the connection to
 the target resource).  This behavior is not in keeping with the spirit of
 generic URIs (particularly that the <code>authority</code> governs its namespace),
 is not interoperable, and is <span class="bcp14">NOT RECOMMENDED</span>.  Such secondary
@@ -1884,13 +1888,13 @@ components from the URI before sending it in <code>tcUrl</code>.<a href="#sectio
 <a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-app-2" class="section-name selfRef">app</a>
           </h4>
 <p id="section-7.1.3-1">The <code>app</code> property of the <code>connect</code> command's Command Object
-is <span class="bcp14">REQUIRED</span>. Its value is a string indicating the
+is <span class="bcp14">REQUIRED</span>. Its value is a string indicating the abstract
 <em>target application resource</em> to which the client is connecting. Unless
 the client has prior knowledge to the contrary of the server's specific
 implementation, <code>app</code> <span class="bcp14">SHOULD</span> be set to the <code>path</code>
 component of the URI to which the client is connecting, not including the
 leading slash (if any).<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.3-2">The  meaning of "target application resource" is implementation-specific
+<p id="section-7.1.3-2">The meaning of "target application resource" is implementation-specific
 and is the prerogative of the server.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7.1.4">
@@ -1899,7 +1903,7 @@ and is the prerogative of the server.<a href="#section-7.1.3-2" class="pilcrow">
           </h4>
 <p id="section-7.1.4-1">The <code>videoCodecs</code> and <code>audioCodecs</code> properties of the
 <code>connect</code> command's Command Object are bit fields representing the video and
-audio codecs, respectively, that the client is capable and willing to receive.
+audio codecs, respectively, that the client is able and willing to receive.
 These properties are <span class="bcp14">OPTIONAL</span> and each defaults to 0 (that is,
 no bits set, so no codecs indicated). The values for these fields are
 enumerated in
@@ -1995,8 +1999,12 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd><dt id="RTMP">[RTMP]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Parmar, H., Ed.</span> and <span class="refAuthor">M. Thornburgh, Ed.</span>, <span class="refTitle">"Adobe’s Real Time Messaging Protocol"</span>, <time datetime="2012-12" class="refDate">December 2012</time>, <span>&lt;<a href="https://rtmp.veriskope.com/docs/spec/">https://rtmp.veriskope.com/docs/spec/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RTMP-URIS">[RTMP-URIS]</dt>
+      <dd>
+<span class="refAuthor">Thornburgh, M.</span>, <span class="refTitle">"RTMP Family URI Schemes"</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2012,15 +2020,17 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 <dt id="RFC0793">[RFC0793]</dt>
         <dd>
 <span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Transmission Control Protocol"</span>, <span class="seriesInfo">RFC 793</span>, <span class="seriesInfo">DOI 10.17487/RFC0793</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc793">https://www.rfc-editor.org/info/rfc793</a>&gt;</span>. </dd>
-<dd class="break"></dd><dt id="RTMP-URIS">[RTMP-URIS]</dt>
-      <dd>
-<span class="refAuthor">Thornburgh, M.</span>, <span class="refTitle">"RTMP Family URI Schemes"</span>, <time datetime="2023-07" class="refDate">July 2023</time>, <span>&lt;<a href="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-</dl>
+<dd class="break"></dd></dl>
 </section>
+</section>
+<section id="appendix-A">
+      <h2 id="name-acknowledgements-2">
+<a href="#name-acknowledgements-2" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<p id="appendix-A-1">Thanks to Slavik Lozben for his detailed review of this memo.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 <div id="authors-addresses">
-<section id="appendix-A">
+<section id="appendix-B">
       <h2 id="name-authors-address-2">
 <a href="#name-authors-address-2" class="section-name selfRef">Author's Address</a>
       </h2>

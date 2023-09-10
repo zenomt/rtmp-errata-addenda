@@ -142,10 +142,10 @@ _target resource_ within the origin server’s namespace. The meaning of "target
 resource" is implementation-specific and is the prerogative of the origin
 server.
 
-Interoperability Note: Some legacy client implementations incorrectly presume
+Interoperability Note: Some client implementations incorrectly presume
 the server’s interpretation of the `path-abempty` component of the URI,
 specifically by presuming the number of path segments that identify the target
-resource. They then incorrectly interpret the remaining path segments of the
+resource. These clients then incorrectly interpret the remaining path segments of the
 original URI as identifying a secondary resource (such the name of a stream
 to play or publish via the connection to the target resource).  This behavior
 is not in keeping with the spirit of generic URIs (particularly that the
@@ -167,7 +167,7 @@ according to that section.
 
 Often an RTMP client connects to a server to perform a specific operation on
 a specific secondary resource, such as to publish to or play from a named
-stream.  In these cases where the intended operation and secondary resource
+stream.  In cases where the kind of secondary resource and the intended operation
 are unambiguous, and in the absence of other arrangements between the client
 and server, the secondary resource **MAY** be identified by the `fragment`
 component. The `fragment` **SHOULD** be percent-decoded before being used in
@@ -245,10 +245,10 @@ This section will request an update to the `rtmp` provisional scheme registratio
        Protocol" ("RTMP Specification"), December 2012,
        <https://rtmp.veriskope.com/docs/spec/>.
 
-       Thornburgh, M., "RTMP Errata and Addenda", July 2023,
+       Thornburgh, M., "RTMP Errata and Addenda", September 2023,
        <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-       Thornburgh, M., "RTMP Family URI Schemes", July 2023,
+       Thornburgh, M., "RTMP Family URI Schemes", September 2023,
        <TBD>.
 
 ### `rtmps`
@@ -302,10 +302,10 @@ This section will request provisional registration of the `rtmps` scheme.
        Protocol" ("RTMP Specification"), December 2012,
        <https://rtmp.veriskope.com/docs/spec/>.
 
-       Thornburgh, M., "RTMP Errata and Addenda", July 2023,
+       Thornburgh, M., "RTMP Errata and Addenda", September 2023,
        <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-       Thornburgh, M., "RTMP Family URI Schemes", July 2023,
+       Thornburgh, M., "RTMP Family URI Schemes", September 2023,
        <TBD>.
 
 ### `rtmfp`
@@ -364,10 +364,10 @@ This section will request an update to the `rtmfp` provisional scheme registrati
        Thornburgh, M., "Adobe's RTMFP Profile for Flash Communication", 
        RFC 7425, December 2014.
 
-       Thornburgh, M., "RTMP Errata and Addenda", July 2023,
+       Thornburgh, M., "RTMP Errata and Addenda", September 2023,
        <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-       Thornburgh, M., "RTMP Family URI Schemes", July 2023,
+       Thornburgh, M., "RTMP Family URI Schemes", September 2023,
        <TBD>.
 
 Security Considerations

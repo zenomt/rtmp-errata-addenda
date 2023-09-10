@@ -571,18 +571,19 @@ to which the client is connecting. Contrary to
 <xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>,
 RTMP family URIs follow the
 <xref target="RFC3986">generic syntax for URIs</xref>. The path and optional
-query components identify the <em>target resource</em> within the server's
-namespace.</t>
+query components identify the abstract <em>target resource</em> within the server's
+namespace. See <xref target="RTMP-URIS"/> for more information about the
+syntax constraints and access semantics of RTMP family URIs.</t>
 
 <t>The meaning of "target resource" is implementation-specific and is the
 prerogative of the server.</t>
 
-<t>Interoperability Note: Some legacy client implementations incorrectly presume
+<t>Interoperability Note: Some client implementations incorrectly presume
 the server's interpretation of the <tt>path</tt> component of the URI,
 specifically by presuming the number of path segments that identify the target
-resource and setting <tt>tcUrl</tt> accordingly.  They then incorrectly interpret
-the remaining path segments of the original URI as identifying a secondary
-resource (such the name of a stream to play or publish via the connection to
+resource and setting <tt>tcUrl</tt> accordingly.  These clients then incorrectly
+interpret the remaining path segments of the original URI as identifying a secondary
+resource (such as the name of a stream to play or publish via the connection to
 the target resource).  This behavior is not in keeping with the spirit of
 generic URIs (particularly that the <tt>authority</tt> governs its namespace),
 is not interoperable, and is <bcp14>NOT RECOMMENDED</bcp14>.  Such secondary
@@ -600,14 +601,14 @@ components from the URI before sending it in <tt>tcUrl</tt>.</t>
 <section title="app">
 
 <t>The <tt>app</tt> property of the <tt>connect</tt> command's Command Object
-is <bcp14>REQUIRED</bcp14>. Its value is a string indicating the
+is <bcp14>REQUIRED</bcp14>. Its value is a string indicating the abstract
 <em>target application resource</em> to which the client is connecting. Unless
 the client has prior knowledge to the contrary of the server's specific
 implementation, <tt>app</tt> <bcp14>SHOULD</bcp14> be set to the <tt>path</tt>
 component of the URI to which the client is connecting, not including the
 leading slash (if any).</t>
 
-<t>The  meaning of "target application resource" is implementation-specific
+<t>The meaning of "target application resource" is implementation-specific
 and is the prerogative of the server.</t>
 
 </section> <!-- app -->
@@ -616,7 +617,7 @@ and is the prerogative of the server.</t>
 
 <t>The <tt>videoCodecs</tt> and <tt>audioCodecs</tt> properties of the
 <tt>connect</tt> command's Command Object are bit fields representing the video and
-audio codecs, respectively, that the client is capable and willing to receive.
+audio codecs, respectively, that the client is able and willing to receive.
 These properties are <bcp14>OPTIONAL</bcp14> and each defaults to 0 (that is,
 no bits set, so no codecs indicated). The values for these fields are
 enumerated in
@@ -718,6 +719,14 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 			</front>
 		</reference>
 
+		<reference anchor="RTMP-URIS" target="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">
+			<front>
+				<title>RTMP Family URI Schemes</title>
+				<author initials="M." surname="Thornburgh"/>
+				<date month="September" year="2023"/>
+			</front>
+		</reference>
+
 	</references>
 
 	<references title="Informative References">
@@ -732,17 +741,13 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 
 		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.0793.xml"/> <!-- TCP -->
 
-		<reference anchor="RTMP-URIS" target="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">
-			<front>
-				<title>RTMP Family URI Schemes</title>
-				<author initials="M." surname="Thornburgh"/>
-				<date month="July" year="2023"/>
-			</front>
-		</reference>
-
 	</references>
 
 	</references>
+
+	<section numbered="false" title="Acknowledgements">
+		<t>Thanks to Slavik Lozben for his detailed review of this memo.</t>
+	</section> <!-- Acknowledgements -->
 </back>
 
 </rfc>
