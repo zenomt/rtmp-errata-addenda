@@ -1222,7 +1222,7 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-10" class="published">10 September 2023</time>
+<time datetime="2023-09-17" class="published">17 September 2023</time>
     </dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
@@ -1766,13 +1766,13 @@ coded values. These implications are incorrect.<a href="#section-6.2-2" class="p
 +-+-+-+-+-+-+-+-+
 |format selector|
 +-+-+-+-+-+-+-+-+
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 |                          coded value                          |
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
                                 :
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 |                          coded value                          |
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 // Message Type 17 "Command Extended" and Type 15 "Data Extended"
 struct extendedActionMessagePayload_t
@@ -1924,15 +1924,25 @@ their supported playback codecs.<a href="#section-7.1.4-2" class="pilcrow">¶</a
         <h3 id="name-call-2">
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-call-2" class="section-name selfRef">call</a>
         </h3>
-<p id="section-7.2-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#7212call" class="relref">Section 7.2.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
-in context, conflates the <code>call</code> method on a <code>NetConnection</code>
-ActionScript object (specific to Flash Player and Adobe Integrated Runtime)
-with the encoding of a general Remote Procedure Call into an RTMP Command
-message.  This conflation has caused confusion for some implementers.  The
-command structure illustrated in that section is correct. In particular, the
-name of the remote procedure to invoke on the peer is given as the first field
-(as illustrated), and the string "<code>call</code>" does not appear in the command
-message sent to the peer.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-1"><span><a href="https://rtmp.veriskope.com/docs/spec/#721netconnection-commands" class="relref">Section 7.2.1</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>,
+in context, implies that "<code>call</code>" is the name of a standard remote
+command to be invoked on the server (similar to <code>connect</code> and
+<code>createStream</code>). This implication is incorrect. Instead, "<code>call</code>"
+is an <strong>implementation-specific client-side method</strong> of a
+<code>NetConnection</code> ActionScript object (specific to the APIs of Flash
+Player and Adobe Integrated Runtime), the effect of which in those clients
+is to send an arbitrary command to the server as a normally-encoded Command
+Message
+(<span><a href="https://rtmp.veriskope.com/docs/spec/#72-command-messages" class="relref">Section 7.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>).<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">This incorrect implication has caused confusion for some implementers.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">Note that
+<span><a href="https://rtmp.veriskope.com/docs/spec/#7212call" class="relref">Section 7.2.1.2</a> of [<a href="#RTMP" class="cite xref">RTMP</a>]</span>
+correctly describes the encoding of a generic remote procedure call into a
+Command Message. However, the "Optional Arguments" portion following the
+Command Object in that section’s illustration implies that the optional
+arguments are composed into a single AMF Object; instead, additional arguments
+can be a concatenation of any kinds of AMF coded values, as clarified and
+described in <a href="#object-encoding-3" class="auto internal xref">Section 6.2</a>.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7.3">
         <h3 id="name-deletestream-2">

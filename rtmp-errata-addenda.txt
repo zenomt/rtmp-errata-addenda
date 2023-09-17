@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                       10 September 2023
+                                                       17 September 2023
 
 
                         RTMP Errata and Addenda
@@ -70,8 +70,8 @@ Thornburgh                    Informational                     [Page 1]
        7.1.3.  app . . . . . . . . . . . . . . . . . . . . . . . . .  12
        7.1.4.  Codec Negotiation . . . . . . . . . . . . . . . . . .  13
      7.2.  call  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     7.3.  deleteStream  . . . . . . . . . . . . . . . . . . . . . .  13
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
+     7.3.  deleteStream  . . . . . . . . . . . . . . . . . . . . . .  14
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  14
@@ -521,13 +521,13 @@ Thornburgh                    Informational                     [Page 9]
    +-+-+-+-+-+-+-+-+
    |format selector|
    +-+-+-+-+-+-+-+-+
-   +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+   +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
    |                          coded value                          |
-   +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+   +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
                                    :
-   +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+   +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
    |                          coded value                          |
-   +~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
+   +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
    // Message Type 17 "Command Extended" and Type 15 "Data Extended"
    struct extendedActionMessagePayload_t
@@ -695,15 +695,40 @@ Thornburgh                    Informational                    [Page 12]
 
 7.2.  call
 
-   Section 7.2.1.2 of [RTMP], in context, conflates the call method on a
-   NetConnection ActionScript object (specific to Flash Player and Adobe
-   Integrated Runtime) with the encoding of a general Remote Procedure
-   Call into an RTMP Command message.  This conflation has caused
-   confusion for some implementers.  The command structure illustrated
-   in that section is correct.  In particular, the name of the remote
-   procedure to invoke on the peer is given as the first field (as
-   illustrated), and the string "call" does not appear in the command
-   message sent to the peer.
+   Section 7.2.1 of [RTMP], in context, implies that "call" is the name
+   of a standard remote command to be invoked on the server (similar to
+   connect and createStream).  This implication is incorrect.  Instead,
+   "call" is an *implementation-specific client-side method* of a
+   NetConnection ActionScript object (specific to the APIs of Flash
+   Player and Adobe Integrated Runtime), the effect of which in those
+   clients is to send an arbitrary command to the server as a normally-
+   encoded Command Message (Section 7.2 of [RTMP]).
+
+   This incorrect implication has caused confusion for some
+   implementers.
+
+   Note that Section 7.2.1.2 of [RTMP] correctly describes the encoding
+   of a generic remote procedure call into a Command Message.  However,
+   the "Optional Arguments" portion following the Command Object in that
+   section’s illustration implies that the optional arguments are
+   composed into a single AMF Object; instead, additional arguments can
+   be a concatenation of any kinds of AMF coded values, as clarified and
+   described in Section 6.2.
+
+
+
+
+
+
+
+
+
+
+
+Thornburgh                    Informational                    [Page 13]
+
+                         RTMP Errata and Addenda          September 2023
+
 
 7.3.  deleteStream
 
@@ -717,18 +742,6 @@ Thornburgh                    Informational                    [Page 12]
 8.  IANA Considerations
 
    This memo has no IANA actions.
-
-
-
-
-
-
-
-
-Thornburgh                    Informational                    [Page 13]
-
-                         RTMP Errata and Addenda          September 2023
-
 
 9.  Security Considerations
 
@@ -766,6 +779,13 @@ Thornburgh                    Informational                    [Page 13]
               Protocol", RFC 7016, DOI 10.17487/RFC7016, November 2013,
               <https://www.rfc-editor.org/info/rfc7016>.
 
+
+
+Thornburgh                    Informational                    [Page 14]
+
+                         RTMP Errata and Addenda          September 2023
+
+
    [RFC7425]  Thornburgh, M., "Adobe's RTMFP Profile for Flash
               Communication", RFC 7425, DOI 10.17487/RFC7425, December
               2014, <https://www.rfc-editor.org/info/rfc7425>.
@@ -777,14 +797,6 @@ Thornburgh                    Informational                    [Page 13]
    [RTMP]     Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
               Messaging Protocol", December 2012,
               <https://rtmp.veriskope.com/docs/spec/>.
-
-
-
-
-Thornburgh                    Informational                    [Page 14]
-
-                         RTMP Errata and Addenda          September 2023
-
 
    [RTMP-URIS]
               Thornburgh, M., "RTMP Family URI Schemes", September 2023,
@@ -811,18 +823,6 @@ Author's Address
    United States of America
    Email: zenomt@zenomt.com
    URI:   https://zenomt.zenomt.com/card.ttl#me
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -480,13 +480,13 @@ coded values. These implications are incorrect.</t>
 +-+-+-+-+-+-+-+-+
 |format selector|
 +-+-+-+-+-+-+-+-+
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 |                          coded value                          |
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
                                 :
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 |                          coded value                          |
-+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 // Message Type 17 "Command Extended" and Type 15 "Data Extended"
 struct extendedActionMessagePayload_t
@@ -639,15 +639,28 @@ their supported playback codecs.</t>
 
 <section title="call">
 
-<t><xref target="RTMP" section="7.2.1.2" relative="#7212call" sectionFormat="of"/>,
-in context, conflates the <tt>call</tt> method on a <tt>NetConnection</tt>
-ActionScript object (specific to Flash Player and Adobe Integrated Runtime)
-with the encoding of a general Remote Procedure Call into an RTMP Command
-message.  This conflation has caused confusion for some implementers.  The
-command structure illustrated in that section is correct. In particular, the
-name of the remote procedure to invoke on the peer is given as the first field
-(as illustrated), and the string "<tt>call</tt>" does not appear in the command
-message sent to the peer.</t>
+<t><xref target="RTMP" section="7.2.1" relative="#721netconnection-commands" sectionFormat="of"/>,
+in context, implies that "<tt>call</tt>" is the name of a standard remote
+command to be invoked on the server (similar to <tt>connect</tt> and
+<tt>createStream</tt>). This implication is incorrect. Instead, "<tt>call</tt>"
+is an <strong>implementation-specific client-side method</strong> of a
+<tt>NetConnection</tt> ActionScript object (specific to the APIs of Flash
+Player and Adobe Integrated Runtime), the effect of which in those clients
+is to send an arbitrary command to the server as a normally-encoded Command
+Message
+(<xref target="RTMP" section="7.2" relative="#72-command-messages" sectionFormat="of"/>).
+</t>
+
+<t>This incorrect implication has caused confusion for some implementers.</t>
+
+<t>Note that
+<xref target="RTMP" section="7.2.1.2" relative="#7212call" sectionFormat="of"/>
+correctly describes the encoding of a generic remote procedure call into a
+Command Message. However, the "Optional Arguments" portion following the
+Command Object in that section’s illustration implies that the optional
+arguments are composed into a single AMF Object; instead, additional arguments
+can be a concatenation of any kinds of AMF coded values, as clarified and
+described in <xref target="object-encoding-3"/>.</t>
 
 </section> <!-- call -->
 
