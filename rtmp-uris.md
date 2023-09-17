@@ -56,7 +56,7 @@ Syntax
 RTMP family URIs follow the [Generic Syntax of RFC 3986][URI], with constraints.
 Their syntax is described here using the
 [Augmented Backus-Naur Form (ABNF) \[RFC5234\]][RFC5234] rules from RFC 3986,
-which are incorported by reference as though fully set forth here.  The `host`
+which are incorporated by reference as though fully set forth here.  The `host`
 rule is also reproduced here for clarity in the following sections.  Note
 that the `rtmp-authority` rule defined here is compatible with the `authority`
 rule, and `rtmp-userinfo` is compatible with the `userinfo` rule.
