@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                       17 September 2023
+                                                           16 March 2024
 
 
                         RTMP Errata and Addenda
@@ -55,7 +55,7 @@ Table of Contents
 
 Thornburgh                    Informational                     [Page 1]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
      4.2.  Timestamp Order of Messages . . . . . . . . . . . . . . .   7
@@ -111,7 +111,7 @@ Thornburgh                    Informational                     [Page 1]
 
 Thornburgh                    Informational                     [Page 2]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
 1.1.  Terminology
@@ -167,7 +167,7 @@ Thornburgh                    Informational                     [Page 2]
 
 Thornburgh                    Informational                     [Page 3]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
    uint16le_t var;
@@ -223,7 +223,7 @@ Thornburgh                    Informational                     [Page 3]
 
 Thornburgh                    Informational                     [Page 4]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
     0 1 2 3 4 5 6 7|
@@ -279,7 +279,7 @@ Thornburgh                    Informational                     [Page 4]
 
 Thornburgh                    Informational                     [Page 5]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
     0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7|0 1 2 3 4 5 6 7
@@ -335,7 +335,7 @@ Thornburgh                    Informational                     [Page 5]
 
 Thornburgh                    Informational                     [Page 6]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
    message, or that are the first chunk of subsequent messages on the
@@ -391,7 +391,7 @@ Thornburgh                    Informational                     [Page 6]
 
 Thornburgh                    Informational                     [Page 7]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
    This description is misleading, and suggests that receipt of this
@@ -447,7 +447,7 @@ Thornburgh                    Informational                     [Page 7]
 
 Thornburgh                    Informational                     [Page 8]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
    Note that in some cases these constraints are more restrictive than
@@ -503,7 +503,7 @@ Thornburgh                    Informational                     [Page 8]
 
 Thornburgh                    Informational                     [Page 9]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
 6.2.  Object Encoding 3
@@ -559,7 +559,7 @@ Thornburgh                    Informational                     [Page 9]
 
 Thornburgh                    Informational                    [Page 10]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
    A Type 17 Command Extended or Type 15 Data Extended message payload
@@ -615,7 +615,7 @@ Thornburgh                    Informational                    [Page 10]
 
 Thornburgh                    Informational                    [Page 11]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
 7.1.2.  tcUrl
@@ -671,7 +671,7 @@ Thornburgh                    Informational                    [Page 11]
 
 Thornburgh                    Informational                    [Page 12]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
 7.1.4.  Codec Negotiation
@@ -727,7 +727,7 @@ Thornburgh                    Informational                    [Page 12]
 
 Thornburgh                    Informational                    [Page 13]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
 7.3.  deleteStream
@@ -783,7 +783,7 @@ Thornburgh                    Informational                    [Page 13]
 
 Thornburgh                    Informational                    [Page 14]
 
-                         RTMP Errata and Addenda          September 2023
+                         RTMP Errata and Addenda              March 2024
 
 
    [RFC7425]  Thornburgh, M., "Adobe's RTMFP Profile for Flash
@@ -822,7 +822,7 @@ Author's Address
    Santa Cruz, CA 95060-1950
    United States of America
    Email: zenomt@zenomt.com
-   URI:   https://zenomt.zenomt.com/card.ttl#me
+   URI:   https://zenomt.zenomt.com/card#me
 
 
 

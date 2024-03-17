@@ -385,7 +385,7 @@ Author’s Address
 Santa Cruz, CA 95060-1950<br/>
 United States of America<br/>
 Email: [zenomt@zenomt.com](mailto:zenomt@zenomt.com)<br/>
-URI: [https://zenomt.zenomt.com/card.ttl#me](https://zenomt.zenomt.com/card.ttl#me)<br/>
+URI: [https://zenomt.zenomt.com/card#me](https://zenomt.zenomt.com/card#me)<br/>
 
   [RTMP]:        https://rtmp.veriskope.com/docs/spec/
   [E-RTMP]:      https://github.com/veovera/enhanced-rtmp

@@ -28,7 +28,7 @@
 				<country>US</country>
 			</postal>
 			<email>zenomt@zenomt.com</email>
-			<uri>https://zenomt.zenomt.com/card.ttl#me</uri>
+			<uri>https://zenomt.zenomt.com/card#me</uri>
 		</address>
 	</author>
 
