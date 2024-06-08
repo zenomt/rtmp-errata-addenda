@@ -7,6 +7,8 @@ and access streaming resources in the RTMP family follow the
 [URI Generic Syntax of RFC 3986][URI], with constraints.  This memo describes
 the syntax constraints and the access semantics for RTMP family URIs.
 
+Published: 8 June 2024
+
 Copyright Notice
 ----------------
 Copyright © 2023 Michael Thornburgh. All rights reserved.
@@ -18,8 +20,7 @@ Background
 RTMP and its TCP-based transport (the RTMP Chunk Stream) are described in the
 [RTMP Specification of December 2012][RTMP]. Errors, omissions, and
 ambiguities in that specification are addressed in [RTMP Errata and Addenda][RTMP-Errata].
-Coordinated interoperable enhancements to RTMP are described in
-[Enhancing RTMP, FLV With Additional Video Codecs and HDR Support][E-RTMP].
+Coordinated interoperable enhancements to RTMP are described in [Enhanced RTMP][E-RTMP].
 Transporting RTMP messages over the
 [Secure Real-Time Media Flow Protocol (RTMFP) [RFC7016]][RFC 7016]
 is described in
@@ -245,10 +246,10 @@ This section will request an update to the `rtmp` provisional scheme registratio
        Protocol" ("RTMP Specification"), December 2012,
        <https://rtmp.veriskope.com/docs/spec/>.
 
-       Thornburgh, M., "RTMP Errata and Addenda", September 2023,
+       Thornburgh, M., "RTMP Errata and Addenda", June 2024,
        <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-       Thornburgh, M., "RTMP Family URI Schemes", September 2023,
+       Thornburgh, M., "RTMP Family URI Schemes", June 2024,
        <TBD>.
 
 ### `rtmps`
@@ -302,10 +303,10 @@ This section will request provisional registration of the `rtmps` scheme.
        Protocol" ("RTMP Specification"), December 2012,
        <https://rtmp.veriskope.com/docs/spec/>.
 
-       Thornburgh, M., "RTMP Errata and Addenda", September 2023,
+       Thornburgh, M., "RTMP Errata and Addenda", June 2024,
        <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-       Thornburgh, M., "RTMP Family URI Schemes", September 2023,
+       Thornburgh, M., "RTMP Family URI Schemes", June 2024,
        <TBD>.
 
 ### `rtmfp`
@@ -364,10 +365,10 @@ This section will request an update to the `rtmfp` provisional scheme registrati
        Thornburgh, M., "Adobe's RTMFP Profile for Flash Communication", 
        RFC 7425, December 2014.
 
-       Thornburgh, M., "RTMP Errata and Addenda", September 2023,
+       Thornburgh, M., "RTMP Errata and Addenda", June 2024,
        <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-       Thornburgh, M., "RTMP Family URI Schemes", September 2023,
+       Thornburgh, M., "RTMP Family URI Schemes", June 2024,
        <TBD>.
 
 Security Considerations
@@ -388,7 +389,7 @@ Email: [zenomt@zenomt.com](mailto:zenomt@zenomt.com)<br/>
 URI: [https://zenomt.zenomt.com/card#me](https://zenomt.zenomt.com/card#me)<br/>
 
   [RTMP]:        https://rtmp.veriskope.com/docs/spec/
-  [E-RTMP]:      https://github.com/veovera/enhanced-rtmp
+  [E-RTMP]:      https://veovera.org/
   [RTMP-Errata]: https://zenomt.github.io/rtmp-errata-addenda/
   [RFC2119]:     https://www.rfc-editor.org/rfc/rfc2119.html
   [RFC5234]:     https://www.rfc-editor.org/rfc/rfc5234.html

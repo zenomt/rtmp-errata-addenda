@@ -165,6 +165,28 @@ sections.</t>
 </section> <!-- Additional Elementary Types -->
 </section> <!-- Common Syntax Elements -->
 
+<section title="Chunk Stream Handshake">
+
+<t><xref target="RTMP" section="5.2" relative="#52handshake" sectionFormat="of"/>
+describes the initial handshake of an RTMP Chunk Stream connection. In that
+section and its subsections, the <tt>C1</tt> and <tt>S1</tt> packets are
+described as containing fields of 1528 random bytes, and the <tt>C2</tt> and
+<tt>S2</tt> packets as containing identical echoes of the same 1528 random
+bytes from <tt>S1</tt> and <tt>C1</tt> respectively.</t>
+
+<t>Some proprietary extensions to RTMP use these data fields for further
+handshaking purposes (such as cryptographic key exchange or feature enablement),
+and in these cases the <tt>C2</tt> and <tt>S2</tt> packets might not contain
+identical echoes of the random bytes from the respective <tt>S1</tt> and
+<tt>C1</tt> packets.</t>
+
+<t>Clients or servers that are not implementing or enforcing proprietary
+extensions to the handshake <bcp14>SHOULD NOT</bcp14> fail the connection or
+limit functionality on account of a non-identical echo of the corresponding
+random bytes received in an <tt>S2</tt> or <tt>C2</tt> packet.</t>
+
+</section> <!-- Chunk Stream Handshake -->
+
 <section title="Byte Order">
 
 <t><xref target="RTMP" section="4" relative="#4-byte-order-alignment-and-time-format" sectionFormat="of"/>
@@ -605,8 +627,8 @@ is <bcp14>REQUIRED</bcp14>. Its value is a string indicating the abstract
 <em>target application resource</em> to which the client is connecting. Unless
 the client has prior knowledge to the contrary of the server's specific
 implementation, <tt>app</tt> <bcp14>SHOULD</bcp14> be set to the <tt>path</tt>
-component of the URI to which the client is connecting, not including the
-leading slash (if any).</t>
+and optional <tt>query</tt> components of the URI to which the client is
+connecting, not including the leading slash of the path (if any).</t>
 
 <t>The meaning of "target application resource" is implementation-specific
 and is the prerogative of the server.</t>
@@ -633,7 +655,26 @@ values. Therefore, clients <bcp14>SHOULD</bcp14> send <tt>videoCodecs</tt>
 and <tt>audioCodecs</tt> in the <tt>connect</tt> command indicating at least
 their supported playback codecs.</t>
 
+<t>Codec and capability negotiation are extended in <xref target="E-RTMP"/>.</t>
+
 </section> <!-- Codec Negotiation -->
+
+<section title="Optional User Arguments">
+
+<t><xref target="RTMP" section="7.2.1.1" relative="#7211connect" sectionFormat="of"/>
+shows that optional user arguments to the <tt>connect</tt> command are allowed.
+However, that section shows and implies that “any optional information” would
+be in a single optional AMF Object following the Command Object. This is
+misleading. The <tt>connect</tt> command can accept, expect, or require zero
+or more additional arguments of any AMF types following the Command Object.
+The number and types of the additional arguments, their interpretation, and
+whether they are expected or required is implementation-specific and is the
+prerogative of the server. Often a server will expect one or more string
+arguments to the <tt>connect</tt> command following the Command Object; for
+example a developer key, a user name and password, or implementation-specific
+connection properties.</t>
+
+</section> <!-- Optional User Arguments -->
 
 </section> <!-- connect -->
 
@@ -736,7 +777,7 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 			<front>
 				<title>RTMP Family URI Schemes</title>
 				<author initials="M." surname="Thornburgh"/>
-				<date month="September" year="2023"/>
+				<date month="June" year="2024"/>
 			</front>
 		</reference>
 
@@ -744,11 +785,11 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 
 	<references title="Informative References">
 
-		<reference anchor="E-RTMP" target="https://github.com/veovera/enhanced-rtmp">
+		<reference anchor="E-RTMP" target="https://veovera.org/">
 			<front>
-				<title>Enhancing RTMP, FLV With Additional Video Codecs and HDR Support</title>
+				<title>Enhanced RTMP</title>
 				<author initials="S." surname="Lozben"/>
-				<date month="July" year="2023"/>
+				<date month="May" year="2024"/>
 			</front>
 		</reference>
 
