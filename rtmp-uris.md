@@ -62,13 +62,13 @@ rule is also reproduced here for clarity in the following sections.  Note
 that the `rtmp-authority` rule defined here is compatible with the `authority`
 rule, and `rtmp-userinfo` is compatible with the `userinfo` rule.
 
-    rtmp-URI  = "rtmp://" rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
+    rtmp-URI  = "rtmp://" rtmp-common
 
-    rtmps-URI = "rtmps://" rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
+    rtmps-URI = "rtmps://" rtmp-common
 
-    rtmfp-URI = "rtmfp:"
-              / "rtmfp://" rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
+    rtmfp-URI = "rtmfp:" [ "//" rtmp-common ]
 
+    rtmp-common = rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
 
     rtmp-authority   = [ rtmp-userinfo "@" ] host [ ":" port ]
 
@@ -205,7 +205,15 @@ This section will request an update to the `rtmp` provisional scheme registratio
 
     URI scheme syntax:
 
-      rtmp-URI  = "rtmp://" authority path-abempty [ "?" query ] [ "#" fragment ]
+      rtmp-URI = "rtmp://" rtmp-common
+
+      rtmp-common = rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
+
+      rtmp-authority   = [ rtmp-userinfo "@" ] host [ ":" port ]
+
+      rtmp-userinfo    = rtmp-connect-arg *( ":" rtmp-connect-arg )
+
+      rtmp-connect-arg = *( unreserved / pct-encoded / sub-delims )
 
     URI scheme semantics: This provides location information for the RTMP
        server to which to connect, and identifies a target resource and
@@ -220,9 +228,9 @@ This section will request an update to the `rtmp` provisional scheme registratio
        See the RTMP Family URI Schemes memo for more specific information
        regarding the semantics of this URI scheme.
 
-    Encoding considerations:  The userinfo, path-abempty, query, and fragment
-       components represent textual data consisting of characters from
-       the Universal Character Set. These components SHOULD be encoded
+    Encoding considerations:  The rtmp-userinfo, path-abempty, query, and
+       fragment components represent textual data consisting of characters
+       from the Universal Character Set. These components SHOULD be encoded
        according to Section 2.5 of RFC 3986.
 
     Applications/protocols that use this URI scheme name:  The Flash
@@ -261,7 +269,15 @@ This section will request provisional registration of the `rtmps` scheme.
 
     URI scheme syntax:
 
-      rtmps-URI = "rtmps://" authority path-abempty [ "?" query ] [ "#" fragment ]
+      rtmps-URI = "rtmps://" rtmp-common
+
+      rtmp-common = rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
+
+      rtmp-authority   = [ rtmp-userinfo "@" ] host [ ":" port ]
+
+      rtmp-userinfo    = rtmp-connect-arg *( ":" rtmp-connect-arg )
+
+      rtmp-connect-arg = *( unreserved / pct-encoded / sub-delims )
 
     URI scheme semantics: This provides location information for the secure
        RTMP server to which to connect, and identifies a target resource
@@ -277,9 +293,9 @@ This section will request provisional registration of the `rtmps` scheme.
        See the RTMP Family URI Schemes memo for more specific information
        regarding the semantics of this URI scheme.
 
-    Encoding considerations:  The userinfo, path-abempty, query, and fragment
-       components represent textual data consisting of characters from
-       the Universal Character Set. These components SHOULD be encoded
+    Encoding considerations:  The rtmp-userinfo, path-abempty, query, and
+       fragment components represent textual data consisting of characters
+       from the Universal Character Set. These components SHOULD be encoded
        according to Section 2.5 of RFC 3986.
 
     Applications/protocols that use this URI scheme name:  The Flash
@@ -318,15 +334,22 @@ This section will request an update to the `rtmfp` provisional scheme registrati
 
     URI scheme syntax:
 
-      rtmfp-URI = "rtmfp:"
-                / "rtmfp://" authority path-abempty [ "?" query ] [ "#" fragment ]
+      rtmfp-URI = "rtmfp:" [ "//" rtmp-common ]
 
-    URI scheme semantics:  The first form is used in the APIs of some
-       implementations to indicate instantiation of an RTMFP client
+      rtmp-common = rtmp-authority path-abempty [ "?" query ] [ "#" fragment ]
+
+      rtmp-authority   = [ rtmp-userinfo "@" ] host [ ":" port ]
+
+      rtmp-userinfo    = rtmp-connect-arg *( ":" rtmp-connect-arg )
+
+      rtmp-connect-arg = *( unreserved / pct-encoded / sub-delims )
+
+    URI scheme semantics:  The scheme-only form is used in the APIs of
+       some implementations to indicate instantiation of an RTMFP client
        according to RFC 7425, but without connecting to a server.  Such
        an instantiation might be used for pure peer-to-peer communication.
    
-       The second form provides location information for the server to
+       The full form provides location information for the server to
        which to connect, and identifies a target resource and an optional
        secondary resource in the namespace of the server.  Connections are
        made using RTMFP (RFC 7016) as described by RFC 7425.  The host
@@ -338,9 +361,9 @@ This section will request an update to the `rtmfp` provisional scheme registrati
        See the RTMP Family URI Schemes memo for more specific information
        regarding the semantics of this URI scheme.
 
-    Encoding considerations:  The userinfo, path-abempty, query, and fragment
-       components represent textual data consisting of characters from
-       the Universal Character Set. These components SHOULD be encoded
+    Encoding considerations:  The rtmp-userinfo, path-abempty, query, and
+       fragment components represent textual data consisting of characters
+       from the Universal Character Set. These components SHOULD be encoded
        according to Section 2.5 of RFC 3986.
 
     Applications/protocols that use this URI scheme name:  The Flash
