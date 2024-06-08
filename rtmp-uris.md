@@ -374,8 +374,8 @@ This section will request an update to the `rtmfp` provisional scheme registrati
     Interoperability considerations:  This scheme requires use of RTMFP
        as defined by RFC 7016 in the manner described by RFC 7425.
 
-    Security considerations:  See Security Considerations (Section 7) in
-       RFC 7425, and Section 9 of RTMP Errata and Addenda.
+    Security considerations:  See the Security Considerations sections of
+       RFC 7425 and RTMP Errata and Addenda.
 
     Contact:  Michael Thornburgh, <zenomt@zenomt.com>.
 
