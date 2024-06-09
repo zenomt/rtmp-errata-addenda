@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                             8 June 2024
+                                                             9 June 2024
 
 
                         RTMP Errata and Addenda
@@ -104,8 +104,8 @@ Thornburgh                    Informational                     [Page 1]
    interoperation is not desired by the extending parties.
 
    For coordinated interoperable extensions and enhancements to RTMP,
-   see Enhancing RTMP, FLV With Additional Video Codecs and HDR Support
-   [E-RTMP].
+   see Enhanced RTMP [E-RTMP].
+
 
 
 
