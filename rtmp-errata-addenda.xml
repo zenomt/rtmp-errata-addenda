@@ -126,7 +126,7 @@ fields and does not necessarily imply field alignment on a multiple of the
 ruler width.</t>
 
 <t>Unless specified otherwise, reserved fields <bcp14>SHOULD</bcp14> be set
-to 0 by a sender and MUST be ignored by a receiver.</t>
+to 0 by a sender and <bcp14>MUST</bcp14> be ignored by a receiver.</t>
 
 <t>The procedural syntax of this specification defines correct and error-free
 encoded inputs to a parser.  The procedural syntax does not describe a fully
