@@ -71,15 +71,16 @@ Thornburgh                    Informational                     [Page 1]
        8.1.3.  app . . . . . . . . . . . . . . . . . . . . . . . . .  13
        8.1.4.  Codec Negotiation . . . . . . . . . . . . . . . . . .  13
        8.1.5.  Optional User Arguments . . . . . . . . . . . . . . .  14
-     8.2.  call  . . . . . . . . . . . . . . . . . . . . . . . . . .  14
+       8.1.6.  Authentication  . . . . . . . . . . . . . . . . . . .  14
+     8.2.  call  . . . . . . . . . . . . . . . . . . . . . . . . . .  15
      8.3.  deleteStream  . . . . . . . . . . . . . . . . . . . . . .  15
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  15
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  16
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  16
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  16
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
@@ -105,7 +106,6 @@ Thornburgh                    Informational                     [Page 1]
 
    For coordinated interoperable extensions and enhancements to RTMP,
    see Enhanced RTMP [E-RTMP].
-
 
 
 
@@ -757,6 +757,50 @@ Thornburgh                    Informational                    [Page 13]
    user name and password, or implementation-specific connection
    properties.
 
+8.1.6.  Authentication
+
+   RTMP doesn’t define an explicit connection authentication mechanism,
+   handshake, or protocol.  However, RTMP does provide multiple generic
+   facilities that an application could use to authenticate and
+   authorize a connection.  Some common examples:
+
+   *  A user name and password, a developer key, or an authorization
+      token could be given as additional user arguments to the connect
+      command;
+
+   *  Authentication parameters could be encoded into the query
+      component of the RTMP URI (thereby appearing in the tcUrl and app
+      properties of the connect command's Command Object);
+
+   *  The name used for publishing or playing a stream, if known only to
+      authorized users, could itself authenticate and authorize the
+      publish or play;
+
+
+
+
+
+
+Thornburgh                    Informational                    [Page 14]
+
+                         RTMP Errata and Addenda               June 2024
+
+
+   *  Call of a custom server-side command could be required immediately
+      after the connect command, potentially incorporating
+      authentication credentials and a challenge or other information
+      from the connect command's _result.
+
+   This list of examples is not exhaustive; other authentication schemes
+   are possible both within the facilities of RTMP and external (such as
+   the server requiring an authorized TLS [RFC8446] client certificate
+   for an rtmps: connection).
+
+   A concrete multi-phase challenge/response authentication protocol,
+   using URI query parameters and challenges returned from connect
+   _error responses, is described in the _Authentication between RTMP
+   Publisher and Primetime Live Packager_ section of [PRIMETIME].
+
 8.2.  call
 
    Section 7.2.1 of [RTMP], in context, implies that "call" is the name
@@ -779,13 +823,6 @@ Thornburgh                    Informational                    [Page 13]
    be a concatenation of any kinds of AMF coded values, as clarified and
    described in Section 7.2.
 
-
-
-Thornburgh                    Informational                    [Page 14]
-
-                         RTMP Errata and Addenda               June 2024
-
-
 8.3.  deleteStream
 
    Section 7.2.2.3 of [RTMP] erroneously states that the deleteStream
@@ -794,6 +831,16 @@ Thornburgh                    Informational                    [Page 14]
    and is to be sent on Message Stream ID 0 (the "control stream").  The
    Message Stream ID being deleted is sent as the fourth field of the
    command message, as indicated.
+
+
+
+
+
+
+Thornburgh                    Informational                    [Page 15]
+
+                         RTMP Errata and Addenda               June 2024
+
 
 9.  IANA Considerations
 
@@ -835,13 +882,6 @@ Thornburgh                    Informational                    [Page 14]
               Protocol", RFC 7016, DOI 10.17487/RFC7016, November 2013,
               <https://www.rfc-editor.org/info/rfc7016>.
 
-
-
-Thornburgh                    Informational                    [Page 15]
-
-                         RTMP Errata and Addenda               June 2024
-
-
    [RFC7425]  Thornburgh, M., "Adobe's RTMFP Profile for Flash
               Communication", RFC 7425, DOI 10.17487/RFC7425, December
               2014, <https://www.rfc-editor.org/info/rfc7425>.
@@ -849,6 +889,14 @@ Thornburgh                    Informational                    [Page 15]
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+Thornburgh                    Informational                    [Page 16]
+
+                         RTMP Errata and Addenda               June 2024
+
 
    [RTMP]     Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
               Messaging Protocol", December 2012,
@@ -863,9 +911,19 @@ Thornburgh                    Informational                    [Page 15]
    [E-RTMP]   Lozben, S., "Enhanced RTMP", May 2024,
               <https://veovera.org/>.
 
+   [PRIMETIME]
+              Adobe Inc., "Adobe Primetime Live Packager Getting
+              Started", July 2014,
+              <https://helpx.adobe.com/primetime/packagers/
+              live_packager_getting_started.pdf>.
+
    [RFC0793]  Postel, J., "Transmission Control Protocol", RFC 793,
               DOI 10.17487/RFC0793, September 1981,
               <https://www.rfc-editor.org/info/rfc793>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
 
 Acknowledgements
 
@@ -891,6 +949,4 @@ Author's Address
 
 
 
-
-
-Thornburgh                    Informational                    [Page 16]
+Thornburgh                    Informational                    [Page 17]
