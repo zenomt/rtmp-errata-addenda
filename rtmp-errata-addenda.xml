@@ -607,7 +607,7 @@ resource and setting <tt>tcUrl</tt> accordingly.  These clients then incorrectly
 interpret the remaining path segments of the original URI as identifying a secondary
 resource (such as the name of a stream to play or publish via the connection to
 the target resource).  This behavior is not in keeping with the spirit of
-generic URIs (particularly that the <tt>authority</tt> governs its namespace),
+URIs (particularly that the <tt>authority</tt> governs its namespace),
 is not interoperable, and is <bcp14>NOT RECOMMENDED</bcp14>.  Such secondary
 resources, when encoded in a URI, should instead be identified by the fragment
 component as described in <xref target="RTMP-URIS"/>. The full path and

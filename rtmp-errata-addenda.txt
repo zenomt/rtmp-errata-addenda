@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                             9 June 2024
+                                                            25 June 2024
 
 
                         RTMP Errata and Addenda
@@ -681,13 +681,12 @@ Thornburgh                    Informational                    [Page 12]
    then incorrectly interpret the remaining path segments of the
    original URI as identifying a secondary resource (such as the name of
    a stream to play or publish via the connection to the target
-   resource).  This behavior is not in keeping with the spirit of
-   generic URIs (particularly that the authority governs its namespace),
-   is not interoperable, and is NOT RECOMMENDED.  Such secondary
-   resources, when encoded in a URI, should instead be identified by the
-   fragment component as described in [RTMP-URIS].  The full path and
-   optional query components from the original URI SHOULD be preserved
-   in tcUrl.
+   resource).  This behavior is not in keeping with the spirit of URIs
+   (particularly that the authority governs its namespace), is not
+   interoperable, and is NOT RECOMMENDED.  Such secondary resources,
+   when encoded in a URI, should instead be identified by the fragment
+   component as described in [RTMP-URIS].  The full path and optional
+   query components from the original URI SHOULD be preserved in tcUrl.
 
    Per Security Considerations (Section 10), the client SHOULD strip any
    userinfo and fragment components from the URI before sending it in
@@ -715,6 +714,7 @@ Thornburgh                    Informational                    [Page 12]
    bits set, so no codecs indicated).  The values for these fields are
    enumerated in Section 7.2.1.1 of [RTMP]; multiple codecs are combined
    with bitwise-or.
+
 
 
 

@@ -7,7 +7,7 @@ and access streaming resources in the RTMP family follow the
 [URI Generic Syntax of RFC 3986][URI], with constraints.  This memo describes
 the syntax constraints and the access semantics for RTMP family URIs.
 
-Published: 8 June 2024
+Published: 25 June 2024
 
 Copyright Notice
 ----------------
@@ -147,9 +147,9 @@ Interoperability Note: Some client implementations incorrectly presume
 the server’s interpretation of the `path-abempty` component of the URI,
 specifically by presuming the number of path segments that identify the target
 resource. These clients then incorrectly interpret the remaining path segments of the
-original URI as identifying a secondary resource (such the name of a stream
+original URI as identifying a secondary resource (such as the name of a stream
 to play or publish via the connection to the target resource).  This behavior
-is not in keeping with the spirit of generic URIs (particularly that the
+is not in keeping with the spirit of URIs (particularly that the
 `authority` governs its namespace), is not interoperable, and is
 **NOT RECOMMENDED**. Such secondary resources, when encoded in a URI, should
 instead be identified by the fragment identifier as described in the next
