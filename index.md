@@ -16,6 +16,10 @@ notice an error in the _Errata and Addenda_ document, or if there is an
 unaddressed error, omission, or ambiguity in [RTMP][], please
 [open an issue on GitHub][issues].
 
+See [RTMP Family URI Schemes](rtmp-uris/) for a formal definition of the
+syntax and semantics of the URIs used to identify and locate RTMP streaming
+resources.
+
   [RTMP]: https://rtmp.veriskope.com/docs/spec/
   [repo]: https://github.com/zenomt/rtmp-errata-addenda
   [issues]: https://github.com/zenomt/rtmp-errata-addenda/issues

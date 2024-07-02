@@ -813,11 +813,11 @@ Command Object or in the Ancillary Data option of an RTMFP Endpoint Discriminato
 			</front>
 		</reference>
 
-		<reference anchor="RTMP-URIS" target="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris">
+		<reference anchor="RTMP-URIS" target="https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/">
 			<front>
 				<title>RTMP Family URI Schemes</title>
 				<author initials="M." surname="Thornburgh"/>
-				<date month="June" year="2024"/>
+				<date month="July" year="2024"/>
 			</front>
 		</reference>
 

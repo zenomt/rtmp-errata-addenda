@@ -3,7 +3,7 @@
 
 
                                                            M. Thornburgh
-                                                            25 June 2024
+                                                             2 July 2024
 
 
                         RTMP Errata and Addenda
@@ -55,7 +55,7 @@ Table of Contents
 
 Thornburgh                    Informational                     [Page 1]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
      5.1.  Chunk Message Header Extended Timestamp . . . . . . . . .   7
@@ -111,7 +111,7 @@ Thornburgh                    Informational                     [Page 1]
 
 Thornburgh                    Informational                     [Page 2]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 1.1.  Terminology
@@ -167,7 +167,7 @@ Thornburgh                    Informational                     [Page 2]
 
 Thornburgh                    Informational                     [Page 3]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    uint16le_t var;
@@ -223,7 +223,7 @@ Thornburgh                    Informational                     [Page 3]
 
 Thornburgh                    Informational                     [Page 4]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 4.1.  Chunk Basic Header
@@ -279,7 +279,7 @@ Thornburgh                    Informational                     [Page 4]
 
 Thornburgh                    Informational                     [Page 5]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 4.2.  Chunk Message Header
@@ -335,7 +335,7 @@ Thornburgh                    Informational                     [Page 5]
 
 Thornburgh                    Informational                     [Page 6]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 5.  Timestamps
@@ -391,7 +391,7 @@ Thornburgh                    Informational                     [Page 6]
 
 Thornburgh                    Informational                     [Page 7]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    Senders have full control over scheduling, interleaving, and
@@ -447,7 +447,7 @@ Thornburgh                    Informational                     [Page 7]
 
 Thornburgh                    Informational                     [Page 8]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 7.  RTMP Message Format
@@ -503,7 +503,7 @@ Thornburgh                    Informational                     [Page 8]
 
 Thornburgh                    Informational                     [Page 9]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    |  The [sic] section specifies the format of RTMP messages that are
@@ -559,7 +559,7 @@ Thornburgh                    Informational                     [Page 9]
 
 Thornburgh                    Informational                    [Page 10]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
     0 1 2 3 4 5 6 7
@@ -615,7 +615,7 @@ Thornburgh                    Informational                    [Page 10]
 
 Thornburgh                    Informational                    [Page 11]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 8.1.  connect
@@ -671,7 +671,7 @@ Thornburgh                    Informational                    [Page 11]
 
 Thornburgh                    Informational                    [Page 12]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    Interoperability Note: Some client implementations incorrectly
@@ -727,7 +727,7 @@ Thornburgh                    Informational                    [Page 12]
 
 Thornburgh                    Informational                    [Page 13]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    Interoperability Note: Some server implementations, including Adobe
@@ -783,7 +783,7 @@ Thornburgh                    Informational                    [Page 13]
 
 Thornburgh                    Informational                    [Page 14]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    *  Call of a custom server-side command could be required immediately
@@ -839,7 +839,7 @@ Thornburgh                    Informational                    [Page 14]
 
 Thornburgh                    Informational                    [Page 15]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
 9.  IANA Considerations
@@ -895,7 +895,7 @@ Thornburgh                    Informational                    [Page 15]
 
 Thornburgh                    Informational                    [Page 16]
 
-                         RTMP Errata and Addenda               June 2024
+                         RTMP Errata and Addenda               July 2024
 
 
    [RTMP]     Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
@@ -903,8 +903,8 @@ Thornburgh                    Informational                    [Page 16]
               <https://rtmp.veriskope.com/docs/spec/>.
 
    [RTMP-URIS]
-              Thornburgh, M., "RTMP Family URI Schemes", June 2024,
-              <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris>.
+              Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+              <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
 
 11.2.  Informative References
 

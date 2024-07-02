@@ -1,0 +1,648 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE rfc [
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc7991.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="none" submissionType="independent" category="info" version="3">
+
+<front>
+	<title abbrev="RTMP URIs">RTMP Family URI Schemes</title>
+
+	<author initials="M." surname="Thornburgh" fullname="Michael C. Thornburgh">
+		<address>
+			<postal>
+				<city>Santa Cruz</city>
+				<region>CA</region>
+				<code>95060-1950</code>
+				<country>US</country>
+			</postal>
+			<email>zenomt@zenomt.com</email>
+			<uri>https://zenomt.zenomt.com/card#me</uri>
+		</address>
+	</author>
+
+	<abstract><t>
+
+		Adobe’s Real-Time Messaging Protocol (RTMP) comprises a family
+		of network protocols for transporting streams of time-oriented
+		video, audio, and data messages over IP networks.  The URI
+		schemes that are used to identify, locate, and access streaming
+		resources in the RTMP family follow the URI Generic Syntax
+		of RFC 3986, with constraints.  This memo describes the syntax
+		constraints and the access semantics for RTMP family URIs.
+
+	</t></abstract>
+
+	<note>
+		<name>Copyright Notice</name>
+
+		<t>Copyright © 2023 Michael Thornburgh. All rights reserved.</t>
+
+		<t>Permission is hereby granted, free of charge, to any person
+		obtaining a copy of this software and associated documentation
+		files (the "Software"), to deal in the Software without
+		restriction, including without limitation the rights to use,
+		copy, modify, merge, publish, distribute, sublicense, and/or
+		sell copies of the Software, and to permit persons to whom
+		the Software is furnished to do so, subject to the following
+		conditions:</t>
+
+		<t>The above copyright notice and this permission notice shall
+		be included in all copies or substantial portions of the
+		Software.</t>
+
+		<t>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+		KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+		WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+		AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+		HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+		WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+		FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+		OR OTHER DEALINGS IN THE SOFTWARE.</t>
+
+	</note>
+
+</front>
+
+<middle>
+
+<section title="Introduction">
+
+<t>Adobe’s Real-Time Messaging Protocol (RTMP) comprises a family of network
+protocols for transporting streams of time-oriented video, audio, and data
+messages over IP networks.</t>
+
+<t>The URI schemes that are used to identify, locate, and access streaming
+resources in the RTMP family follow the URI Generic Syntax of
+<xref target="RFC3986"/>, with constraints.</t>
+
+<t>
+RTMP and its TCP-based transport (the RTMP Chunk Stream) are described in the
+<xref target="RTMP">RTMP Specification of December 2012</xref>. Errors,
+omissions, and ambiguities in that specification are addressed in
+<xref target="RTMP-Errata">RTMP Errata and Addenda</xref>.  Coordinated interoperable
+enhancements to RTMP are described in
+<xref target="E-RTMP">Enhanced RTMP</xref>. Transporting RTMP messages over the
+<xref target="RFC7016">Secure Real-Time Media Flow Protocol (RTMFP)</xref>
+is described in
+<xref target="RFC7425">Adobe's RTMFP Profile for Flash Communication</xref>.
+</t>
+
+<t>This memo describes the syntax constraints and the access semantics for
+RTMP family URIs.</t>
+
+<t>This memo does not address private or undocumented extensions to the RTMP
+family for which interoperation is not desired by the extending parties.</t>
+
+<t>The primary operation for dereferencing an RTMP family URI is to connect
+to the indicated origin server and its abstract <em>target resource</em>.
+Neither the connection itself nor the target resource have a "representation"
+or a "media type" in the senses described in RFC 3986, nor is a "retrieval"
+performed by connecting.</t>
+
+<t>The target resource can have secondary resources, such as streams, shared
+objects, and remote procedures, that can be accessed according their kinds
+via the connection. For example, streams may be published or played, shared
+objects updated or observed, and remote procedures called.</t>
+
+</section> <!-- Introduction -->
+
+<section title="Terminology">
+
+<t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>",
+"<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>",
+"<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14>RECOMMENDED</bcp14>",
+"<bcp14>NOT RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>"
+in this document are to be interpreted as described in BCP 14
+<xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they
+appear in all capitals, as shown here.</t>
+
+<t>The terms "client", "server", "origin server", "resource", "secondary
+resource", "dereference", "representation", and "media type" in this document
+are to be interpreted as used or described in <xref target="RFC3986"/>.</t>
+
+</section> <!-- Terminology -->
+
+<section title="Syntax">
+
+<t>RTMP family URIs follow the Generic Syntax of <xref target="RFC3986"/>,
+with constraints.  Their syntax is described here using the
+<xref target="RFC5234">Augmented Backus-Naur Form (ABNF)</xref> rules from
+RFC 3986, which are incorporated by reference as though fully set forth here.
+The <tt>host</tt> rule is also reproduced here for clarity in the following
+sections.  Note that the <tt>rtmp-authority</tt> rule defined here is compatible
+with the <tt>authority</tt> rule, and <tt>rtmp-userinfo</tt> is compatible
+with the <tt>userinfo</tt> rule.</t>
+
+<sourcecode><![CDATA[
+rtmp-URI  = "rtmp://" common
+
+rtmps-URI = "rtmps://" common
+
+rtmfp-URI = "rtmfp:" ["//" common]
+
+common = rtmp-authority path-abempty ["?" query] ["#" fragment]
+
+rtmp-authority   = [rtmp-userinfo "@"] host [":" port]
+
+rtmp-userinfo    = rtmp-connect-arg *(":" rtmp-connect-arg)
+
+rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
+
+host = IP-literal / IPv4address / reg-name
+]]></sourcecode>
+
+</section> <!-- Syntax -->
+
+<section title="Authority">
+
+<t>The <tt>rtmp-authority</tt> component, when present, identifies the location
+of an RTMP origin server which governs a namespace of target and secondary
+resources.</t>
+
+<t>Note: The bare RTMFP URI form "<tt>rtmfp:</tt>" does not have an
+<tt>rtmp-authority</tt> component (or any other components).  All of the other
+URI forms do. The bare "<tt>rtmfp:</tt>" URI is used in the APIs of some
+implementations to indicate instantiation of an RTMFP client according to
+<xref target="RFC7425"/>, but without connecting to a server.  Such an
+instantiation might be used for pure peer-to-peer communication.</t>
+
+<section title="Host and Port">
+
+<t> The <tt>host</tt> and optional <tt>port</tt> components locate the origin
+server in the network. The <tt>host</tt> component of the <tt>rtmp-authority</tt>
+<bcp14>MUST NOT</bcp14> be empty.</t>
+
+<t>For an <tt>rtmp-URI</tt>, the <tt>host</tt> and optional <tt>port</tt>
+identify a potential origin server listening for <xref target="RFC0793">TCP</xref>
+connections, over which RTMP messages are to be sent using the RTMP Chunk
+Stream as described in the <xref target="RTMP">RTMP Specification</xref>.  If
+the <tt>port</tt> is empty or not given, TCP port <tt>1935</tt> is the
+default.</t>
+
+<t>For an <tt>rtmps-URI</tt>, the <tt>host</tt> and optional <tt>port</tt>
+identify a potential origin server listening for TCP connections and capable
+of establishing a <xref target="RFC8446">TLS</xref> connection secured for
+<xref target="RTMP">RTMP Chunk Stream communication</xref>. "Secured" means
+a connection that is authenticated, confidential, and integrity-protected in
+a manner acceptable to both the client and server.  If the <tt>port</tt> is
+empty or not given, TCP port <tt>443</tt> is the default.</t>
+
+<t>For an <tt>rtmfp-URI</tt> where the <tt>rtmp-authority</tt> is present,
+the <tt>host</tt> and optional <tt>port</tt> identify one or more initial
+candidate addresses with which to initiate an <xref target="RFC7016">RTMFP</xref>
+connection according to <xref target="RFC7425"/>.  The
+<xref target="RFC0768">UDP</xref> port for the initial candidate addresses,
+if empty or not specified, is <tt>1935</tt>.  If <tt>host</tt> is a
+<tt>reg-name</tt>, the initial candidate address set <bcp14>SHOULD</bcp14>
+comprise all IPv4 and IPv6 addresses to which <tt>reg-name</tt> resolves.</t>
+
+</section> <!-- Host and Port -->
+
+<section title="Userinfo">
+
+<t>When connecting to an RTMP server, the <tt>connect</tt> command
+(Section 7.2.1.1 of <xref target="RTMP"/>) can accept or expect additional
+arguments following the <em>Command Object</em>. The number and types of the
+additional arguments, their interpretation, and whether they are expected is
+implementation-specific and is the prerogative of the server.</t>
+
+<t>Often the server expects one or more string arguments to the <tt>connect</tt>
+command following the <em>Command Object</em>, for example a developer key,
+a user name and password, or implementation-specific connection properties.</t>
+
+<t>If the <tt>rtmp-authority</tt> contains an <tt>rtmp-userinfo</tt> component,
+and in the absence of other arrangements between the client and server, the
+<tt>rtmp-userinfo</tt> <bcp14>SHOULD</bcp14> be interpreted as a "<tt>:</tt>"
+(<tt>COLON</tt>) separated sequence of potentially empty <tt>rtmp-connect-arg</tt>
+strings (as illustrated in the ABNF) to be sent as string arguments to the
+<tt>connect</tt> command following the <em>Command Object</em>. Each
+<tt>rtmp-connect-arg</tt> <bcp14>SHOULD</bcp14> be percent-decoded before
+being sent.</t>
+
+<t>Clients <bcp14>SHOULD</bcp14> remove the <tt>rtmp-userinfo</tt> component
+from the URI when sending it as the <tt>tcUrl</tt> property of the <tt>connect</tt>
+command’s <em>Command Object</em> or in the Ancillary Data option of an RTMFP Endpoint Discriminator
+(<xref target="RFC7425" section="4.4.2.2" sectionFormat="of"/>).</t>
+
+</section> <!-- Userinfo -->
+</section> <!-- Authority -->
+
+<section title="Path and Query">
+
+<t>The <tt>path-abempty</tt> and <tt>query</tt> components identify the
+abstract <em>target resource</em> within the origin server’s namespace. The
+meaning of "target resource" is implementation-specific and is the prerogative
+of the origin server.</t>
+
+<t>Interoperability Note: Some client implementations incorrectly presume the
+server’s interpretation of the <tt>path-abempty</tt> component of the URI,
+specifically by presuming the number of path segments that identify the target
+resource. These clients then incorrectly interpret the remaining path segments
+of the original URI as identifying a secondary resource (such as the name of
+a stream to play or publish via the connection to the target resource).  This
+behavior is not in keeping with the spirit of URIs (particularly that the
+<tt>authority</tt> governs its namespace), is not interoperable, and is
+<bcp14>NOT RECOMMENDED</bcp14>. Such secondary resources, when encoded in a
+URI, should instead be identified by the fragment identifier as described in
+the next section.</t>
+
+</section> <!-- Path and Query -->
+
+<section title="Fragment Identifier">
+
+<t><xref target="RFC3986" section="3.5" sectionFormat="of"/> describes the
+<tt>fragment</tt> component of a generic URI as allowing "indirect identification
+of a secondary resource by reference to a primary resource and additional
+identifying information".</t>
+
+<t>Since an RTMP connection to a target resource has neither a "representation"
+nor a "media type", the semantics of the <tt>fragment</tt> component are
+unconstrained according to that section.</t>
+
+<t>Often an RTMP client connects to a server to perform a specific operation
+on a specific secondary resource, such as to publish to or play from a named
+stream.  In cases where the kind of secondary resource and the intended
+operation are unambiguous, and in the absence of other arrangements between
+the client and server, the secondary resource <bcp14>MAY</bcp14> be identified
+by the <tt>fragment</tt> component. The <tt>fragment</tt> <bcp14>SHOULD</bcp14>
+be percent-decoded before being used in secondary resource APIs (for example
+in a stream <tt>play</tt> command).</t>
+
+<t>Clients <bcp14>SHOULD</bcp14> remove the <tt>fragment</tt> component from
+the URI when sending it as the <tt>tcUrl</tt> property of the <tt>connect</tt>
+command’s <em>Command Object</em> or in the Ancillary Data option of an RTMFP
+Endpoint Discriminator
+(<xref target="RFC7425" section="4.4.2.2" sectionFormat="of"/>).</t>
+
+</section> <!-- Fragment Identifier -->
+
+<section title="Examples">
+
+<sourcecode><![CDATA[
+rtmp://server.example/three/segment/path
+rtmp://server.example/three/segment/path#BigBuckBunny
+rtmp://[2001:db8:1::2]:19350/something?else
+
+rtmps://server.example/something?else#CosmosLaundromat?aFlag
+rtmps://arg1:arg2::arg4@server.example:1943
+rtmps://name=Mike;pri=5;exi=3600:7c412a7b6e@server.example/path#Caves
+
+rtmfp://:arg2@redirectors.example/two/segments?key=value&flag
+rtmfp://arg%3Aone:arg2@redirectors.example/something#BigBuck%42unny
+rtmfp:
+]]></sourcecode>
+
+</section> <!-- Examples -->
+
+<section title="IANA Considerations">
+
+<t>A future version of this memo will request of the IANA to update the
+<xref target="SCHEMES">URI Scheme Registry</xref> for the following schemes.</t>
+
+<section title="RTMP Registration">
+
+<t>This section will request an update to the <tt>rtmp</tt> provisional scheme
+registration.</t>
+
+<dl>
+	<dt>Scheme Name:</dt>
+	<dd><tt>rtmp</tt></dd>
+
+	<dt>Status:</dt>
+	<dd>provisional</dd>
+
+	<dt>URI scheme syntax:</dt>
+	<dd><sourcecode><![CDATA[
+rtmp-URI = "rtmp://" common
+
+common = rtmp-authority path-abempty ["?" query] ["#" fragment]
+
+rtmp-authority   = [rtmp-userinfo "@"] host [":" port]
+
+rtmp-userinfo    = rtmp-connect-arg *(":" rtmp-connect-arg)
+
+rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
+	]]></sourcecode></dd>
+
+	<dt>URI scheme semantics:</dt>
+	<dd>
+		<t>This provides location information for the RTMP server to
+		which to connect, and identifies a target resource and an
+		optional secondary resource in the namespace of the server.
+		The host component of the authority <bcp14>MUST NOT</bcp14>
+		be empty.  The host and optional port components of the
+		authority identify a potential origin server listening for
+		TCP connections, over which RTMP messages are to be sent using
+		the RTMP Chunk Stream as described in the RTMP Specification
+		(as amended).  If port is empty or not given, TCP port 1935
+		is the default.</t>
+
+		<t>See the RTMP Family URI Schemes memo for more specific
+		information regarding the semantics of this URI scheme.</t>
+	</dd>
+
+	<dt>Encoding considerations:</dt>
+	<dd>The <tt>rtmp-userinfo</tt>, <tt>path-abempty</tt>, <tt>query</tt>,
+	and <tt>fragment</tt> components represent textual data consisting
+	of characters from the Universal Character Set. These components
+	<bcp14>SHOULD</bcp14> be encoded according to Section 2.5 of RFC
+	3986.</dd>
+
+	<dt>Applications/protocols that use this URI scheme name:</dt>
+	<dd>Computer program products that use Adobe's Real-Time Messaging
+	Protocol (RTMP) to transport streams of time-oriented video, audio,
+	and data messages over IP networks.</dd>
+
+	<dt>Interoperability considerations:</dt>
+	<dd>This scheme requires use of RTMP and the RTMP Chunk Stream as
+	defined by the RTMP Specification (as amended).</dd>
+
+	<dt>Security considerations:</dt>
+	<dd>See the Security Considerations sections in RTMP Errata and Addenda
+	and in RTMP Family URI Schemes.</dd>
+
+	<dt>Contact:</dt>
+	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
+
+	<dt>Author/Change controller:</dt>
+	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
+
+	<dt>References:</dt>
+	<dd>
+		<t>Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
+		Messaging Protocol" ("RTMP Specification"), December 2012,
+		<tt>&lt;https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf&gt;</tt>.</t>
+
+		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
+
+		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024, <tt>&lt;TBD&gt;</tt>.</t>
+
+		<t>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</t>
+	</dd>
+
+</dl>
+
+</section> <!-- RTMP Registration-->
+
+<section title="RTMPS Registration">
+
+<t>This section will request provisional registration of the <tt>rtmps</tt> scheme.</t>
+
+<dl>
+	<dt>Scheme Name:</dt>
+	<dd><tt>rtmps</tt></dd>
+
+	<dt>Status:</dt>
+	<dd>provisional</dd>
+
+	<dt>URI scheme syntax:</dt>
+	<dd><sourcecode><![CDATA[
+rtmps-URI = "rtmps://" common
+
+common = rtmp-authority path-abempty ["?" query] ["#" fragment]
+
+rtmp-authority   = [rtmp-userinfo "@"] host [":" port]
+
+rtmp-userinfo    = rtmp-connect-arg *(":" rtmp-connect-arg)
+
+rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
+	]]></sourcecode></dd>
+
+	<dt>URI scheme semantics:</dt>
+	<dd>
+		<t>This provides location information for the secure RTMP
+		server to which to connect, and identifies a target resource
+		and an optional secondary resource in the namespace of the
+		server.  The host component of the authority <bcp14>MUST
+		NOT</bcp14> be empty.  The host and optional port components
+		of the authority identify a potential origin server listening
+		for TCP connections and capable of establishing a TLS connection
+		secured for RTMP Chunk Stream communication, over which RTMP
+		messages are to be sent using the RTMP Chunk Stream as described
+		in the RTMP Specification (as amended).  If port is empty or
+		not given, TCP port 443 is the default.</t>
+
+		<t>See the RTMP Family URI Schemes memo for more specific
+		information regarding the semantics of this URI scheme.</t>
+	</dd>
+
+	<dt>Encoding considerations:</dt>
+	<dd>The <tt>rtmp-userinfo</tt>, <tt>path-abempty</tt>, <tt>query</tt>,
+	and <tt>fragment</tt> components represent textual data consisting
+	of characters from the Universal Character Set. These components
+	<bcp14>SHOULD</bcp14> be encoded according to Section 2.5 of RFC
+	3986.</dd>
+
+	<dt>Applications/protocols that use this URI scheme name:</dt>
+	<dd>Computer program products that use Adobe's Real-Time Messaging
+	Protocol (RTMP) to securely transport streams of time-oriented video,
+	audio, and data messages over IP networks.</dd>
+
+	<dt>Interoperability considerations:</dt>
+	<dd>This scheme requires use of RTMP and the RTMP Chunk Stream as
+	defined by the RTMP Specification (as amended) over TLS.</dd>
+
+	<dt>Security considerations:</dt>
+	<dd>See the Security Considerations sections in RTMP Errata and Addenda
+	and in RTMP Family URI Schemes.</dd>
+
+	<dt>Contact:</dt>
+	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
+
+	<dt>Author/Change controller:</dt>
+	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
+
+	<dt>References:</dt>
+	<dd>
+		<t>Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
+		Messaging Protocol" ("RTMP Specification"), December 2012,
+		<tt>&lt;https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf&gt;</tt>.</t>
+
+		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
+
+		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024, <tt>&lt;TBD&gt;</tt>.</t>
+
+		<t>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</t>
+	</dd>
+
+</dl>
+
+</section> <!-- RTMPS Registration-->
+
+<section title="RTMFP Registration">
+
+<t>This section will request an update to the <tt>rtmfp</tt> provisional scheme registration.</t>
+
+<dl>
+	<dt>Scheme Name:</dt>
+	<dd><tt>rtmfp</tt></dd>
+
+	<dt>Status:</dt>
+	<dd>provisional</dd>
+
+	<dt>URI scheme syntax:</dt>
+	<dd><sourcecode><![CDATA[
+rtmfp-URI = "rtmfp:" ["//" common]
+
+common = rtmp-authority path-abempty ["?" query] ["#" fragment]
+
+rtmp-authority   = [rtmp-userinfo "@"] host [":" port]
+
+rtmp-userinfo    = rtmp-connect-arg *(":" rtmp-connect-arg)
+
+rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
+	]]></sourcecode></dd>
+
+	<dt>URI scheme semantics:</dt>
+	<dd>
+		<t>The scheme-only form is used in the APIs of some implementations
+		to indicate instantiation of an RTMFP client according to RFC
+		7425, but without connecting to a server.  Such an instantiation
+		might be used for pure peer-to-peer communication.</t>
+
+		<t>The full form provides location information for the RTMFP
+		server to which to connect, and identifies a target resource
+		and an optional secondary resource in the namespace of the
+		server.  Connections are made using RTMFP (RFC 7016) as
+		described by RFC 7425.  The host component of the authority
+		<bcp14>MUST NOT</bcp14> be empty. If host is a <tt>reg-name</tt>,
+		the initial candidate address set <bcp14>SHOULD</bcp14>
+		comprise all IPv4 and IPv6 addresses to which <tt>reg-name</tt>
+		resolves.  The UDP port for the initial candidate addresses
+		for the server, if not specified, is 1935.</t>
+
+		<t>See the RTMP Family URI Schemes memo for more specific
+		information regarding the semantics of this URI scheme.</t>
+	</dd>
+
+	<dt>Encoding considerations:</dt>
+	<dd>The <tt>rtmp-userinfo</tt>, <tt>path-abempty</tt>, <tt>query</tt>,
+	and <tt>fragment</tt> components represent textual data consisting
+	of characters from the Universal Character Set. These components
+	<bcp14>SHOULD</bcp14> be encoded according to Section 2.5 of RFC
+	3986.</dd>
+
+	<dt>Applications/protocols that use this URI scheme name:</dt>
+	<dd>Computer program products that use Adobe's Secure Real-Time Media
+	Flow Protocol (RTMFP) according to RFC 7425 to transport streams of
+	time-oriented video, audio, and data messages over IP networks.</dd>
+
+	<dt>Interoperability considerations:</dt>
+	<dd>This scheme requires use of RTMFP as defined by RFC 7016 in the
+	manner described by RFC 7425.</dd>
+
+	<dt>Security considerations:</dt>
+	<dd>See the Security Considerations sections of RFC 7016, RFC 7425,
+	and RTMP Errata and Addenda.</dd>
+
+	<dt>Contact:</dt>
+	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
+
+	<dt>Author/Change controller:</dt>
+	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
+
+	<dt>References:</dt>
+	<dd>
+		<t>Thornburgh, M., "Adobe's Secure Real-Time Media Flow
+		Protocol", RFC 7016, November 2013.</t>
+
+		<t>Thornburgh, M., "Adobe's RTMFP Profile for Flash Communication",
+		RFC 7425, December 2014.</t>
+
+		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
+
+		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024, <tt>&lt;TBD&gt;</tt>.</t>
+	</dd>
+
+</dl>
+</section> <!-- RTMFP Registration-->
+
+</section> <!-- IANA Considerations -->
+
+<section title="Security Considerations">
+
+<t>Several. See the Security Considerations sections of <xref target="RFC7016"/>,
+<xref target="RFC7425"/>, and <xref target="RTMP-Errata"/>.</t>
+
+<t>Many of the security considerations of <xref target="RFC9110"/> also apply
+to RTMP.</t>
+
+</section> <!-- Security Considerations -->
+
+</middle>
+
+<back>
+	<references>
+	<name>References</name>
+
+	<references title="Normative References">
+
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.0768.xml"/> <!-- UDP -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.0793.xml"/> <!-- TCP -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"/> <!-- BCP14 -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml"/> <!-- URI syntax -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5234.xml"/> <!-- ABNF -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.7016.xml"/> <!-- RTMFP -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.7425.xml"/> <!-- RTMP in RTMFP -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml"/> <!-- BCP14 -->
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml"/> <!-- TLS -->
+
+		<reference anchor="RTMP" target="https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf">
+			<front>
+				<title>Adobe’s Real Time Messaging Protocol</title>
+				<author initials="H." surname="Parmar" role="editor"/>
+				<author initials="M." surname="Thornburgh" role="editor"/>
+				<date month="December" year="2012"/>
+			</front>
+		</reference>
+
+	</references>
+
+	<references title="Informative References">
+
+		<reference anchor="E-RTMP" target="https://veovera.org/">
+			<front>
+				<title>Enhanced RTMP</title>
+				<author initials="S." surname="Lozben"/>
+				<date month="June" year="2024"/>
+			</front>
+		</reference>
+
+		<xi:include href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.9110.xml"/> <!-- HTTP -->
+
+		<reference anchor="RTMP-Errata" target="https://zenomt.github.io/rtmp-errata-addenda/">
+			<front>
+				<title>RTMP Errata and Addenda</title>
+				<author initials="M." surname="Thornburgh"/>
+				<date month="July" year="2024"/>
+			</front>
+		</reference>
+
+		<reference anchor="SCHEMES" target="https://www.iana.org/assignments/uri-schemes/">
+			<front>
+				<title>Uniform Resource Identifier (URI) Schemes</title>
+				<author><organization>Internet Assigned Numbers Authority</organization></author>
+			</front>
+		</reference>
+
+	</references>
+
+	</references>
+</back>
+
+</rfc>
