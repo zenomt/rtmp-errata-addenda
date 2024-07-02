@@ -388,7 +388,8 @@ rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
 		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
 		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
 
-		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024, <tt>&lt;TBD&gt;</tt>.</t>
+		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</t>
 
 		<t>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</t>
 	</dd>
@@ -474,7 +475,8 @@ rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
 		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
 		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
 
-		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024, <tt>&lt;TBD&gt;</tt>.</t>
+		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</t>
 
 		<t>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</t>
 	</dd>
@@ -566,7 +568,8 @@ rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
 		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
 		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
 
-		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024, <tt>&lt;TBD&gt;</tt>.</t>
+		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</t>
 	</dd>
 
 </dl>
