@@ -380,19 +380,19 @@ rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
 	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
 
 	<dt>References:</dt>
-	<dd>
-		<t>Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
+	<dd><ul empty="true">
+		<li>Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
 		Messaging Protocol" ("RTMP Specification"), December 2012,
-		<tt>&lt;https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf&gt;</tt>.</t>
+		<tt>&lt;https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf&gt;</tt>.</li>
 
-		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
-		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
+		<li>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</li>
 
-		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
-		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</t>
+		<li>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</li>
 
-		<t>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</t>
-	</dd>
+		<li>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</li>
+	</ul></dd>
 
 </dl>
 
@@ -467,19 +467,19 @@ rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
 	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
 
 	<dt>References:</dt>
-	<dd>
-		<t>Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
+	<dd><ul empty="true">
+		<li>Parmar, H., Ed. and M. Thornburgh, Ed., "Adobe’s Real Time
 		Messaging Protocol" ("RTMP Specification"), December 2012,
-		<tt>&lt;https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf&gt;</tt>.</t>
+		<tt>&lt;https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf&gt;</tt>.</li>
 
-		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
-		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
+		<li>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</li>
 
-		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
-		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</t>
+		<li>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</li>
 
-		<t>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</t>
-	</dd>
+		<li>Lozben, S., "Enhanced RTMP", June 2024, <tt>&lt;https://veovera.org/&gt;</tt>.</li>
+	</ul></dd>
 
 </dl>
 
@@ -558,19 +558,19 @@ rtmp-connect-arg = *(unreserved / pct-encoded / sub-delims)
 	<dd>Michael Thornburgh, <tt>&lt;zenomt@zenomt.com&gt;</tt>.</dd>
 
 	<dt>References:</dt>
-	<dd>
-		<t>Thornburgh, M., "Adobe's Secure Real-Time Media Flow
-		Protocol", RFC 7016, November 2013.</t>
+	<dd><ul empty="true">
+		<li>Thornburgh, M., "Adobe's Secure Real-Time Media Flow
+		Protocol", RFC 7016, November 2013.</li>
 
-		<t>Thornburgh, M., "Adobe's RTMFP Profile for Flash Communication",
-		RFC 7425, December 2014.</t>
+		<li>Thornburgh, M., "Adobe's RTMFP Profile for Flash Communication",
+		RFC 7425, December 2014.</li>
 
-		<t>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
-		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</t>
+		<li>Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/&gt;</tt>.</li>
 
-		<t>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
-		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</t>
-	</dd>
+		<li>Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+		<tt>&lt;https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/&gt;</tt>.</li>
+	</ul></dd>
 
 </dl>
 </section> <!-- RTMFP Registration-->

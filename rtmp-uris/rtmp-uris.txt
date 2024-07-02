@@ -376,16 +376,16 @@ Thornburgh                    Informational                     [Page 6]
 
    Author/Change controller:  Michael Thornburgh, <zenomt@zenomt.com>.
 
-   References:  Parmar, H., Ed. and M.  Thornburgh, Ed., "Adobe’s Real
-      Time Messaging Protocol" ("RTMP Specification"), December 2012,
-      <https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf>.
+   References:
+         Parmar, H., Ed. and M.  Thornburgh, Ed., "Adobe's Real Time
+         Messaging Protocol" ("RTMP Specification"), December 2012,
+         <https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf>.
 
-      Thornburgh, M., "RTMP Errata and Addenda", July 2024,
-      <https://zenomt.github.io/rtmp-errata-addenda/>.
+         Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+         <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-      Thornburgh, M., "RTMP Family URI Schemes", July 2024,
-      <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
-
+         Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+         <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
 
 
 
@@ -394,7 +394,7 @@ Thornburgh                    Informational                     [Page 7]
                                 RTMP URIs                      July 2024
 
 
-      Lozben, S., "Enhanced RTMP", June 2024, <https://veovera.org/>.
+         Lozben, S., "Enhanced RTMP", June 2024, <https://veovera.org/>.
 
 8.2.  RTMPS Registration
 
@@ -460,17 +460,18 @@ Thornburgh                    Informational                     [Page 8]
 
    Author/Change controller:  Michael Thornburgh, <zenomt@zenomt.com>.
 
-   References:  Parmar, H., Ed. and M.  Thornburgh, Ed., "Adobe’s Real
-      Time Messaging Protocol" ("RTMP Specification"), December 2012,
-      <https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf>.
+   References:
+         Parmar, H., Ed. and M.  Thornburgh, Ed., "Adobe's Real Time
+         Messaging Protocol" ("RTMP Specification"), December 2012,
+         <https://veovera.org/docs/legacy/rtmp-v1-0-spec.pdf>.
 
-      Thornburgh, M., "RTMP Errata and Addenda", July 2024,
-      <https://zenomt.github.io/rtmp-errata-addenda/>.
+         Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+         <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-      Thornburgh, M., "RTMP Family URI Schemes", July 2024,
-      <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
+         Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+         <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
 
-      Lozben, S., "Enhanced RTMP", June 2024, <https://veovera.org/>.
+         Lozben, S., "Enhanced RTMP", June 2024, <https://veovera.org/>.
 
 8.3.  RTMFP Registration
 
@@ -497,7 +498,6 @@ Thornburgh                    Informational                     [Page 8]
       according to RFC 7425, but without connecting to a server.  Such
       an instantiation might be used for pure peer-to-peer
       communication.
-
 
 
 
@@ -539,18 +539,18 @@ Thornburgh                    Informational                     [Page 9]
 
    Author/Change controller:  Michael Thornburgh, <zenomt@zenomt.com>.
 
-   References:  Thornburgh, M., "Adobe's Secure Real-Time Media Flow
-      Protocol", RFC 7016, November 2013.
+   References:
+         Thornburgh, M., "Adobe's Secure Real-Time Media Flow Protocol",
+         RFC 7016, November 2013.
 
-      Thornburgh, M., "Adobe's RTMFP Profile for Flash Communication",
-      RFC 7425, December 2014.
+         Thornburgh, M., "Adobe's RTMFP Profile for Flash
+         Communication", RFC 7425, December 2014.
 
-      Thornburgh, M., "RTMP Errata and Addenda", July 2024,
-      <https://zenomt.github.io/rtmp-errata-addenda/>.
+         Thornburgh, M., "RTMP Errata and Addenda", July 2024,
+         <https://zenomt.github.io/rtmp-errata-addenda/>.
 
-      Thornburgh, M., "RTMP Family URI Schemes", July 2024,
-      <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
-
+         Thornburgh, M., "RTMP Family URI Schemes", July 2024,
+         <https://zenomt.github.io/rtmp-errata-addenda/rtmp-uris/>.
 
 
 
